@@ -1,0 +1,109 @@
+.benefitsSection {
+    width: 100%;
+    padding: 100px 0;
+    background: #eef2fa;
+}
+
+.benefitsContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 in a row on desktop */
+    gap: 1.5rem;
+    align-items: start;
+    justify-items: center;
+    /* Center grid items horizontally */
+}
+
+.benefitCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    /* Center content */
+    text-align: center;
+    /* Center text */
+    width: 100%;
+}
+
+.titleWrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /* Ensure inner text reveal centers */
+    text-align: center;
+}
+
+/* Force standard div inside TextReveal to center */
+.titleWrapper>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.benefitTitle {
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 2.5rem;
+    /* Reduced slightly */
+    font-weight: 500;
+    line-height: 1.1;
+    color: #1a1a1a;
+    margin: 0;
+    letter-spacing: -0.02em;
+    text-align: center;
+    width: 100%;
+}
+
+.benefitText {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+    font-weight: 500;
+    /* Medium weight */
+    max-width: 220px;
+}
+
+@media (max-width: 1024px) {
+    .benefitsContainer {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2x2 on tablet */
+        gap: 4rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .benefitsSection {
+        padding: 40px 0;
+    }
+
+    .benefitsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+        padding: 0 1rem;
+    }
+
+    .benefitCard {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .benefitTitle {
+        font-size: 1.8rem;
+        /* Smaller, more elegant on mobile */
+        margin-bottom: 0.25rem;
+    }
+
+    .benefitText {
+        font-size: 0.85rem;
+        /* ~13-14px */
+        max-width: 200px;
+        /* Limit width slightly for readability */
+        margin: 0 auto;
+    }
+}

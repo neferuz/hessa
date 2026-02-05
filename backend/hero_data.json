@@ -1,0 +1,97 @@
+{
+    "slides": [
+        {
+            "id": 1,
+            "headline": "HEALTHCARE. REAL RESULTS2",
+            "headline_uz": "\u0442\u0435\u0441\u0442",
+            "headline_en": "",
+            "descriptionLeft": "Take the step towards a healthier, more vibrant life \u2013 shop now and fuel your body with the best!",
+            "descriptionLeft_uz": "\u0442\u0435\u0441\u0442",
+            "descriptionLeft_en": "",
+            "descriptionRight": "Our products are carefully formulated with science-backed ingredients, free from artificial additives.",
+            "descriptionRight_uz": "\u0442\u0435\u0441\u0442",
+            "descriptionRight_en": "",
+            "tags": [
+                {
+                    "label": "Premium Ingredients",
+                    "x": -45.0,
+                    "y": 70.0
+                },
+                {
+                    "label": "Non-GMO",
+                    "x": 45.0,
+                    "y": 70.0
+                },
+                {
+                    "label": "Allergen-Free",
+                    "x": 45.0,
+                    "y": 30.0
+                }
+            ],
+            "image": "http://localhost:8000/static/uploads/0bfa4445-ab98-4813-96e9-285a7e8373a8.png",
+            "color": "#FFFFFF"
+        },
+        {
+            "id": 2,
+            "headline": "MUSCLE. PURE POWER",
+            "headline_uz": "",
+            "headline_en": "",
+            "descriptionLeft": "Maximize your recovery and build strength with our premium protein formula.",
+            "descriptionLeft_uz": "",
+            "descriptionLeft_en": "",
+            "descriptionRight": "Fast-absorbing whey isolate with essential amino acids for optimal muscle growth.",
+            "descriptionRight_uz": "",
+            "descriptionRight_en": "",
+            "tags": [
+                {
+                    "label": "25g Protein",
+                    "x": -45.0,
+                    "y": 60.0
+                },
+                {
+                    "label": "BCAA Included",
+                    "x": 45.0,
+                    "y": 60.0
+                },
+                {
+                    "label": "Fast Absorb",
+                    "x": 45.0,
+                    "y": 20.0
+                }
+            ],
+            "image": "/vitamins-2.png",
+            "color": "#FFFFFF"
+        },
+        {
+            "id": 3,
+            "headline": "FOCUS. MENTAL CLARITY",
+            "headline_uz": "",
+            "headline_en": "",
+            "descriptionLeft": "Unlock your full cognitive potential with our advanced nootropic blend.",
+            "descriptionLeft_uz": "",
+            "descriptionLeft_en": "",
+            "descriptionRight": "Clinically proven ingredients to enhance memory, focus, and mental processing speed.",
+            "descriptionRight_uz": "",
+            "descriptionRight_en": "",
+            "tags": [
+                {
+                    "label": "No Caffeine",
+                    "x": -45.0,
+                    "y": 65.0
+                },
+                {
+                    "label": "100% Focus",
+                    "x": 45.0,
+                    "y": 65.0
+                },
+                {
+                    "label": "Vit B12+B6",
+                    "x": 45.0,
+                    "y": 25.0
+                }
+            ],
+            "image": "/vitamins-3.png",
+            "color": "#FFFFFF"
+        }
+    ]
+}

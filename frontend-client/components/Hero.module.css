@@ -1,0 +1,344 @@
+.heroWrapper {
+    position: relative;
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 140px 0 0;
+    overflow: hidden;
+    background: #eef2fa;
+}
+
+.topHeadline {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.2rem;
+    z-index: 10;
+}
+
+.bigHeading {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 4.5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+}
+
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr 600px 1fr;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    padding-bottom: 0;
+}
+
+.leftCol {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: flex-end;
+    text-align: right;
+    padding-right: 3rem;
+    transform: translateY(-20%);
+}
+
+.descText {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: #4a4a4a;
+    max-width: 320px;
+}
+
+.leftActions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-end;
+}
+
+.linkUnderline {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.blackPillBtn {
+    background: #8EB0D3;
+    color: white;
+    border: none;
+    padding: 0.6rem 0.6rem 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.2s;
+}
+
+.blackPillBtn:hover {
+    transform: scale(1.05);
+    background: #7ca0c3;
+}
+
+.arrowCircle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: white;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.centerCol {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    height: 100%;
+}
+
+.productContainer {
+    position: relative;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.productImg {
+    width: auto;
+    height: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    object-position: bottom center;
+    filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.12));
+}
+
+.floatingTag {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    white-space: nowrap;
+    z-index: 20;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.tagDot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.rightCol {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: flex-start;
+    text-align: left;
+    padding-left: 3rem;
+    transform: translateY(-20%);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    width: 100%;
+    z-index: 50;
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.navBtn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    color: #1a1a1a;
+}
+
+.navBtn:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+@media (max-width: 1200px) {
+    .heroWrapper {
+        min-height: auto;
+        width: 100vw;
+        padding-top: 100px;
+        padding-bottom: 3rem;
+        height: auto;
+        overflow-x: hidden;
+        /* Crucial for preventing side-scroll */
+    }
+
+    .contentGrid {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        gap: 0.5rem;
+        /* Reduced gap */
+        padding-top: 0;
+        margin: 0;
+    }
+
+    /* 1. Header first */
+    .topHeadline {
+        padding: 0 1rem;
+    }
+
+    .bigHeading {
+        font-size: 2.2rem;
+        /* Slightly smaller */
+        line-height: 1;
+        padding: 0 1rem;
+        margin-bottom: 0px;
+        /* Remove margin */
+    }
+
+    /* 2. Image second */
+    .centerCol {
+        order: 1;
+        width: 100%;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+        /* Reduced margin */
+    }
+
+    .productContainer {
+        height: 280px;
+        /* Reduced height to pull content up */
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    .productImg {
+        max-height: 100%;
+        width: auto;
+        max-width: 80%;
+        /* Safe width padding */
+        object-fit: contain;
+    }
+
+    /* Hide floating tags on mobile to clean up "blocks going right" */
+    .tagsWrapper {
+        display: none;
+    }
+
+    /* 3. Description & Actions third */
+    .leftCol {
+        order: 2;
+        width: 100%;
+        padding: 0 1.5rem;
+        align-items: center;
+        text-align: center;
+        transform: none;
+        gap: 1.5rem;
+    }
+
+    .descText {
+        max-width: 100%;
+        font-size: 1rem;
+        line-height: 1.5;
+        padding: 0 0.5rem;
+    }
+
+    .leftActions {
+        display: flex;
+        /* Show buttons */
+        flex-direction: column;
+        /* Stack buttons vertically on mobile */
+        gap: 1rem;
+        align-items: center;
+        width: 100%;
+    }
+
+    .blackPillBtn {
+        width: auto;
+        min-width: 220px;
+        max-width: 100%;
+        justify-content: center;
+        padding: 0.8rem 2rem;
+        gap: 1.5rem;
+    }
+
+    /* Hide right col text to avoid duplicate */
+    .rightCol {
+        display: none;
+    }
+
+    /* Controls at bottom */
+    .controls {
+        order: 4;
+        margin-top: 2rem;
+        padding-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .bigHeading {
+        font-size: 2rem;
+        /* Even smaller for phones */
+    }
+
+    .productContainer {
+        height: 300px;
+    }
+
+    .productImg {
+        max-width: 85%;
+    }
+
+    .heroWrapper {
+        padding-top: 90px;
+    }
+}

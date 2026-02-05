@@ -1,0 +1,84 @@
+{
+    "hero": {
+        "heading": "OUR STORY. <br /> PURE HESSA 2",
+        "heading_uz": "OUR STORY. <br /> PURE HESSA",
+        "heading_en": "OUR STORY. <br /> PURE HESSA",
+        "desc_left": "\u041c\u044b \u043d\u0430\u0447\u0430\u043b\u0438 \u0441 \u043e\u0434\u043d\u043e\u0439 \u043f\u0440\u043e\u0441\u0442\u043e\u0439 \u0446\u0435\u043b\u0438: \u0441\u043e\u0437\u0434\u0430\u0442\u044c \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u044b, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u0440\u0430\u0431\u043e\u0442\u0430\u044e\u0442, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044f \u0442\u043e\u043b\u044c\u043a\u043e \u0441\u0430\u043c\u044b\u0435 \u0447\u0438\u0441\u0442\u044b\u0435 \u0438 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u044b\u0435 \u043d\u0430\u0443\u043a\u043e\u0439 \u0438\u043d\u0433\u0440\u0435\u0434\u0438\u0435\u043d\u0442\u044b.",
+        "desc_left_uz": "Biz oddiy maqsaddan boshladik: faqat eng toza va ilmiy tasdiqlangan ingredientlardan foydalanib, haqiqatan ham ishlaydigan mahsulotlar yaratish.",
+        "desc_left_en": "We started with one simple goal: to create products that truly work, using only the cleanest and scientifically proven ingredients.",
+        "desc_right": "\u0421\u0435\u0433\u043e\u0434\u043d\u044f Hessa \u2014 \u044d\u0442\u043e \u0441\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e \u043b\u044e\u0434\u0435\u0439, \u0441\u0442\u0440\u0435\u043c\u044f\u0449\u0438\u0445\u0441\u044f \u043a \u043b\u0443\u0447\u0448\u0435\u043c\u0443 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0443 \u0436\u0438\u0437\u043d\u0438. \u041c\u044b \u0432\u0435\u0440\u0438\u043c \u0432 \u043f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u043e\u0441\u0442\u044c, \u0447\u0435\u0441\u0442\u043d\u043e\u0441\u0442\u044c \u0438 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442.",
+        "desc_right_uz": "Bugungi kunda Hessa \u2014 bu hayot sifatini yaxshilashga intilayotgan odamlar hamjamiyati. Biz shaffoflik, halollik va natijaga ishonamiz.",
+        "desc_right_en": "Today Hessa is a community of people striving for a better quality of life. We believe in transparency, honesty, and results.",
+        "image": "/about_philosophy_lifestyle.png"
+    },
+    "metrics": [
+        {
+            "id": "1",
+            "title": "3+ \u0433\u043e\u0434\u0430",
+            "title_uz": "3+ yil",
+            "title_en": "3+ years",
+            "text": "\u0421\u0432\u043e\u0451 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u043e \u0438 \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u044c \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0430",
+            "text_uz": "O'z ishlab chiqarish va sifat nazorati",
+            "text_en": "Own production and quality control"
+        },
+        {
+            "id": "2",
+            "title": "1 \u043c\u043b\u043d+",
+            "title_uz": "1 mln+",
+            "title_en": "1 mln+",
+            "text": "\u0410\u043a\u0442\u0438\u0432\u043d\u044b\u0445 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 \u043f\u043e \u0432\u0441\u0435\u043c\u0443 \u043c\u0438\u0440\u0443",
+            "text_uz": "Dunyo bo'ylab faol mijozlar",
+            "text_en": "Active clients worldwide"
+        },
+        {
+            "id": "3",
+            "title": "60+",
+            "title_uz": "60+",
+            "title_en": "60+",
+            "text": "\u0421\u0435\u0440\u0442\u0438\u0444\u0438\u0446\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0445 \u043a\u043e\u043c\u043f\u043b\u0435\u043a\u0441\u043e\u0432",
+            "text_uz": "Sertifikatlangan komplekslar",
+            "text_en": "Certified complexes"
+        },
+        {
+            "id": "4",
+            "title": "100%",
+            "title_uz": "100%",
+            "title_en": "100%",
+            "text": "\u0427\u0438\u0441\u0442\u043e\u0435 \u0441\u044b\u0440\u044c\u0451. \u041f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u044b\u0435 \u0438\u043d\u0433\u0440\u0435\u0434\u0438\u0435\u043d\u0442\u044b \u0438\u0437 \u0415\u0421 \u0438 \u0421\u0428\u0410",
+            "text_uz": "Toza xomashyo. Yevropa va AQShdan tasdiqlangan ingredientlar",
+            "text_en": "Pure raw materials. Verified ingredients from EU and USA"
+        }
+    ],
+    "values": [
+        {
+            "id": "1",
+            "title": "\u0411\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c",
+            "title_uz": "Xavfsizlik",
+            "title_en": "Safety",
+            "desc": "\u041c\u043d\u043e\u0433\u043e\u0441\u0442\u0443\u043f\u0435\u043d\u0447\u0430\u0442\u0430\u044f \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043a\u0430\u0436\u0434\u043e\u0439 \u043f\u0430\u0440\u0442\u0438\u0438 \u0432 \u043d\u0435\u0437\u0430\u0432\u0438\u0441\u0438\u043c\u044b\u0445 \u043b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u0438\u044f\u0445.",
+            "desc_uz": "Mustaqil laboratoriyalarda har bir partiyani ko'p bosqichli tekshirish.",
+            "desc_en": "Multi-stage verification of each batch in independent laboratories.",
+            "icon": "Shield"
+        },
+        {
+            "id": "2",
+            "title": "\u041d\u0430\u0443\u043a\u0430",
+            "title_uz": "Fan",
+            "title_en": "Science",
+            "desc": "\u0424\u043e\u0440\u043c\u0443\u043b\u044b, \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0430\u043d\u043d\u044b\u0435 \u043d\u0430 \u043e\u0441\u043d\u043e\u0432\u0435 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0445 \u043a\u043b\u0438\u043d\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0439.",
+            "desc_uz": "So'nggi klinik tadqiqotlar asosida ishlab chiqilgan formulalar.",
+            "desc_en": "Formulas developed based on the latest clinical studies.",
+            "icon": "Microscope"
+        },
+        {
+            "id": "3",
+            "title": "\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442",
+            "title_uz": "Natija",
+            "title_en": "Result",
+            "desc": "\u041c\u044b \u0444\u043e\u043a\u0443\u0441\u0438\u0440\u0443\u0435\u043c\u0441\u044f \u043d\u0430 \u0432\u044b\u0441\u043e\u043a\u043e\u0439 \u0431\u0438\u043e\u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e\u0441\u0442\u0438 \u0434\u043b\u044f \u0434\u043e\u0441\u0442\u0438\u0436\u0435\u043d\u0438\u044f \u0432\u0438\u0434\u0438\u043c\u043e\u0433\u043e \u044d\u0444\u0444\u0435\u043a\u0442\u0430.",
+            "desc_uz": "Biz ko'zga ko'rinadigan natijaga erishish uchun yuqori bio-moslashuvchanlikka e'tibor qaratamiz.",
+            "desc_en": "We focus on high bioavailability to achieve a visible effect.",
+            "icon": "Zap"
+        }
+    ]
+}

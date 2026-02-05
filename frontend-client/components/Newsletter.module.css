@@ -1,0 +1,229 @@
+/* CSS for Newsletter */
+.section {
+    width: 100%;
+    padding: 100px 2rem;
+    background: #eef2fa;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4rem;
+    background: #497a9b;
+    color: white;
+    padding: 4rem 5rem;
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle accent or pattern if desired, otherwise clean */
+
+.textContent {
+    flex: 1.2;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.iconTag {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+    padding: 0.6rem 1.2rem;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 3.5rem;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+}
+
+.desc {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 450px;
+    line-height: 1.6;
+}
+
+.formContainer {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    background: #EAF4FC;
+    padding: 0.8rem;
+    border-radius: 20px;
+    /* Slightly squarer than pill for modern look, or pill 100px */
+    border-radius: 100px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+}
+
+.inputWrapper {
+    position: relative;
+    flex: 1;
+}
+
+.phonePrefix {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    pointer-events: none;
+}
+
+.input {
+    width: 100%;
+    padding: 1.2rem 1.2rem 1.2rem 4.5rem;
+    border-radius: 100px;
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    font-family: var(--font-manrope), sans-serif;
+    outline: none;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.input::placeholder {
+    color: #ccc;
+    font-weight: 400;
+}
+
+.button {
+    padding: 0 3rem;
+    border-radius: 100px;
+    background: #A4C7E5;
+    color: white;
+    font-size: 1rem;
+    font-family: var(--font-manrope), sans-serif;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    white-space: nowrap;
+}
+
+.button:hover {
+    background: #5a7d96;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.agreement {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    padding-left: 2rem;
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .content {
+        gap: 3rem;
+        padding: 4rem 3rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .textContent {
+        align-items: center;
+        text-align: center;
+    }
+
+    .title {
+        font-size: 2.8rem;
+    }
+
+    .formContainer {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 600px) {
+    .section {
+        padding: 60px 1rem;
+    }
+
+    .container {
+        padding: 0;
+    }
+
+    .content {
+        padding: 3rem 1.5rem;
+        border-radius: 30px;
+    }
+
+    .title {
+        font-size: 2.2rem;
+    }
+
+    .desc {
+        font-size: 1rem;
+    }
+
+    .form {
+        flex-direction: column;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+        gap: 1rem;
+    }
+
+    .inputWrapper {
+        background: #fff;
+        border-radius: 100px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .input {
+        padding: 1.2rem 1.2rem 1.2rem 4.5rem;
+    }
+
+    .button {
+        width: 100%;
+        padding: 1.2rem;
+    }
+
+    .agreement {
+        padding-left: 0;
+        text-align: center;
+    }
+}

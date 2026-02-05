@@ -1,0 +1,283 @@
+.aboutContainer {
+    min-height: 100vh;
+    background: #ffffff;
+}
+
+/* --- REUSING PROJECT STYLES --- */
+
+/* HERO SECTION (MIMICKING HERO.TSX) */
+.heroWrapper {
+    width: 100%;
+    padding: 160px 6% 100px;
+    /* Increased side padding */
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bigHeading {
+    font-size: clamp(3rem, 8vw, 8rem);
+    /* Fluid typography */
+    font-weight: 800;
+    line-height: 0.95;
+    margin-bottom: 4rem;
+    text-align: center;
+    letter-spacing: -0.04em;
+    color: #1a1a1a;
+    font-family: var(--font-manrope);
+    text-transform: uppercase;
+}
+
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 4rem;
+    max-width: 1400px;
+    align-items: center;
+}
+
+.descText {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #444;
+    font-weight: 500;
+}
+
+.productContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 0.8;
+    background: #f7f7f7;
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.productImg {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+/* BENEFITS SECTION */
+.benefitsSection {
+    width: 100%;
+    padding: 120px 6%;
+    background: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.benefitsContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4rem;
+}
+
+.benefitCard {
+    padding: 1rem 0 1rem 1.5rem;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.benefitCard:hover {
+    border-left-color: #19482E;
+}
+
+.benefitTitle {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+
+.benefitText {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #1a1a1a;
+    font-weight: 500;
+    max-width: 250px;
+}
+
+/* VALUES SECTION */
+.valuesSection {
+    padding: 140px 6%;
+    background: #fafafa;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+}
+
+.sectionTitle {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -0.02em;
+}
+
+.valuesGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.card {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 30px;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #19482E;
+}
+
+.cardIcon {
+    width: 60px;
+    height: 60px;
+    background: #f7f7f7;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #19482E;
+}
+
+.cardTitle {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -0.01em;
+}
+
+.cardDesc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* PILL BUTTONS */
+.blackPillBtn {
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    padding: 1rem 1.8rem;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2rem;
+}
+
+.blackPillBtn:hover {
+    background: #000;
+    transform: scale(1.02);
+}
+
+.arrowCircle {
+    width: 24px;
+    height: 24px;
+    background: #ffffff;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+    .contentGrid {
+        gap: 3rem;
+    }
+
+    .benefitsContainer {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .heroWrapper {
+        padding-top: 140px;
+    }
+
+    .contentGrid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 4rem;
+    }
+
+    .leftCol,
+    .rightCol {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .productContainer {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .valuesGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .heroWrapper,
+    .benefitsSection,
+    .valuesSection {
+        padding: 80px 6% 60px;
+    }
+
+    .heroWrapper {
+        padding-top: 120px;
+    }
+
+    .benefitsContainer {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .valuesGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefitTitle {
+        font-size: 2.2rem;
+    }
+
+    .sectionTitle {
+        font-size: 2.2rem;
+    }
+}

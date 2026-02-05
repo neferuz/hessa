@@ -1,0 +1,79 @@
+.tickerContainer {
+    width: 100%;
+    background: #8EB0D3;
+    color: white;
+    padding: 1.2rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    z-index: 20;
+}
+
+@keyframes ticker {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.tickerTrack {
+    display: flex;
+    white-space: nowrap;
+    width: fit-content;
+    will-change: transform;
+    animation: ticker 40s linear infinite;
+}
+
+.tickerTrack:hover {
+    animation-play-state: paused;
+}
+
+.tickerGroup {
+    display: flex;
+    align-items: center;
+    /* No manual gap here, we handle spacing in items */
+}
+
+.tickerItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 3rem;
+    /* Spacing between items */
+    position: relative;
+    white-space: nowrap;
+}
+
+/* Star separator */
+.tickerItem::after {
+    content: "✦";
+    position: absolute;
+    right: 0;
+    transform: translateX(50%);
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.8em;
+}
+
+/* Remove icons from CSS if we handle them in JSX or keep styling if present */
+.tickerItem svg {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+    .tickerContainer {
+        padding: 1rem 0;
+    }
+
+    .tickerItem {
+        font-size: 0.85rem;
+        padding: 0 2rem;
+    }
+}

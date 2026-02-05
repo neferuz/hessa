@@ -1,0 +1,172 @@
+/* Layout */
+.section {
+    width: calc(100% - 4rem);
+    max-width: 1400px;
+    padding: 100px 2rem;
+    background: #497A9B;
+    border-radius: 48px;
+    margin: 2rem auto;
+}
+
+.container {
+    max-width: 1000px;
+    /* Slightly wider for better reading */
+    margin: 0 auto;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.title {
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 3rem;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 1.1rem;
+    color: white;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Accordion */
+.accordion {
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.item:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Button */
+.questionButton {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem 0;
+    /* More breathing room */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    outline: none;
+    transition: padding 0.3s ease;
+}
+
+/* Header inside button */
+.questionHeader {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex: 1;
+}
+
+.number {
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    /* Subtle number */
+    font-weight: 400;
+    min-width: 30px;
+}
+
+.questionText {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 1.5rem;
+    /* Larger, premium feel */
+    font-weight: 500;
+    color: white;
+    transition: padding-left 0.3s ease;
+}
+
+
+
+/* Icon */
+.iconCircle {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
+
+.active .iconCircle {
+    transform: rotate(180deg);
+    background: white;
+    color: #497A9B;
+    border-color: white;
+}
+
+/* Answer */
+.answerContent {
+    padding-bottom: 2.5rem;
+}
+
+.answerInner {
+    padding-left: calc(30px + 2rem);
+    /* Align with text (number width + gap) */
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 800px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 1rem;
+    }
+
+    .title {
+        font-size: 2.2rem;
+    }
+
+    .questionButton {
+        padding: 1.5rem 0;
+    }
+
+    .questionHeader {
+        gap: 1rem;
+    }
+
+    .number {
+        font-size: 0.8rem;
+        min-width: 20px;
+    }
+
+    .questionText {
+        font-size: 1.1rem;
+    }
+
+    .answerInner {
+        padding-left: 0;
+        /* Stack on mobile for space */
+        padding-top: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .iconCircle {
+        width: 32px;
+        height: 32px;
+    }
+}

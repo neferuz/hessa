@@ -1,0 +1,284 @@
+.footer {
+    width: 100%;
+    background: #497a9b;
+    color: #ffffff;
+    padding: 80px 0 30px;
+    font-family: var(--font-manrope), sans-serif;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    margin-top: 0;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 4rem;
+}
+
+/* Main Grid */
+.mainGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brandInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.logo {
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.brandSlogan {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 300px;
+    font-weight: 400;
+}
+
+.colTitle {
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.linkList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.navLink {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: fit-content;
+    position: relative;
+    font-weight: 400;
+}
+
+.navLink::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #ffffff;
+    transition: width 0.3s ease;
+}
+
+.navLink:hover {
+    color: #ffffff;
+}
+
+.navLink:hover::after {
+    width: 100%;
+}
+
+/* Contact Grid */
+.contactRow {
+    padding: 25px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.contactGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.contactLabel {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.contactValue {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.socialIcons {
+    display: flex;
+    gap: 1rem;
+}
+
+.socialCircle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.socialCircle:hover {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+    transform: translateY(-5px) rotate(8deg);
+}
+
+/* Bottom Bar */
+.bottomBar {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+.legalLinks {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.legalLink {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+}
+
+.legalLink:hover {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.poweredBy {
+    font-family: var(--font-manrope), sans-serif;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    cursor: default;
+}
+
+.poweredBy:hover {
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 2rem;
+    }
+
+    .mainGrid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .brandInfo {
+        grid-column: span 3;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 40px 0 20px;
+    }
+
+    .container {
+        padding: 0 1.5rem;
+        /* Отступ от краев на мобилке */
+    }
+
+    .mainGrid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding-bottom: 30px;
+    }
+
+    .brandInfo {
+        grid-column: span 1;
+        text-align: left;
+        /* Влево */
+        align-items: flex-start;
+        /* Влево */
+        gap: 1rem;
+    }
+
+    .logo {
+        font-size: 1.6rem;
+    }
+
+    .brandSlogan {
+        font-size: 1.1rem;
+        max-width: 100%;
+    }
+
+    .colTitle {
+        margin-bottom: 1rem;
+        text-align: left;
+        /* Влево */
+    }
+
+    .linkList {
+        align-items: flex-start;
+        /* Влево */
+        gap: 0.9rem;
+    }
+
+    .navLink {
+        font-size: 1rem;
+    }
+
+    .contactRow {
+        flex-direction: column;
+        align-items: flex-start;
+        /* Влево */
+        text-align: left;
+        /* Влево */
+        gap: 2rem;
+        padding: 30px 0;
+    }
+
+    .contactValue {
+        font-size: 1.1rem;
+    }
+
+    .bottomBar {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: left;
+        /* Влево */
+        align-items: flex-start;
+        /* Влево */
+        padding-top: 25px;
+    }
+
+    .legalLinks {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+        /* Влево */
+    }
+}

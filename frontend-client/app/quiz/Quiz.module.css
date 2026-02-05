@@ -1,0 +1,223 @@
+.quizWrapper {
+    min-height: 100vh;
+    background: #ffffff;
+    padding-top: 100px;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    /* Сузил контейнер для фокуса */
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Compact Header */
+.header {
+    margin-bottom: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stepIndicator {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #19482E;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+}
+
+.progressDots {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.dot {
+    width: 32px;
+    height: 2px;
+    background: #f0f0f0;
+    border-radius: 2px;
+    transition: all 0.5s ease;
+}
+
+.dotActive {
+    background: #19482E;
+}
+
+/* Refined Question Section */
+.questionBox {
+    width: 100%;
+}
+
+.question {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    /* Уменьшил размер шрифта для элегантности */
+    color: #1a1a1a;
+    line-height: 1.25;
+    margin-bottom: 3rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Elegant Small Options */
+.optionsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+}
+
+.optionCard {
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    padding: 1.2rem 1.5rem;
+    /* Сделал блоки компактнее */
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.optionCard:hover {
+    border-color: #1a1a1a;
+    background: #fafafa;
+}
+
+.optionActive {
+    border-color: #19482E;
+    background: #f9fbf9;
+}
+
+.optionText {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    line-height: 1.4;
+}
+
+.optionCircle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.optionActive .optionCircle {
+    background: #19482E;
+    border-color: #19482E;
+    color: #ffffff;
+}
+
+/* Minimal Iconic Navigation */
+.navActions {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+}
+
+.iconNavBtn {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #eeeeee;
+    background: white;
+}
+
+.backIconBtn {
+    color: #999;
+}
+
+.backIconBtn:hover {
+    color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+.nextIconBtn {
+    background: #1a1a1a;
+    color: white;
+    border-color: #1a1a1a;
+}
+
+.nextIconBtn:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+.nextIconBtn:not(:disabled):hover {
+    background: #000;
+    transform: translateY(-2px);
+}
+
+/* Results State */
+.resultsBox {
+    text-align: center;
+}
+
+.resultTitle {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.resultDesc {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+}
+
+.finishBtn {
+    background: #19482E;
+    color: #ffffff;
+    padding: 1rem 3.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.finishBtn:hover {
+    box-shadow: 0 10px 20px rgba(25, 72, 46, 0.15);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .question {
+        font-size: 1.7rem;
+    }
+
+    .optionsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .optionCard {
+        padding: 1rem 1.2rem;
+    }
+}

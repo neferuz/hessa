@@ -1,0 +1,95 @@
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ArrowRight, Check } from "lucide-react";
+import styles from "../page.module.css";
+import { ViewState, QuestionStep } from "../types";
+
+interface QuizViewProps {
+    setView: (view: ViewState) => void;
+    questions: QuestionStep[];
+    currentStepIndex: number;
+    setCurrentStepIndex: React.Dispatch<React.SetStateAction<number>>;
+    answers: Record<string, string>;
+    setAnswers: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+}
+
+export default function QuizView({ setView, questions, currentStepIndex, setCurrentStepIndex, answers, setAnswers }: QuizViewProps) {
+    // Защита от некорректного индекса
+    const safeIndex = Math.max(0, Math.min(currentStepIndex, questions.length - 1));
+    const currentQuestion = questions[safeIndex];
+    
+    // Если индекс был некорректным, исправляем его
+    if (safeIndex !== currentStepIndex && questions.length > 0) {
+        setCurrentStepIndex(safeIndex);
+    }
+    
+    // Если нет вопросов, возвращаем пустой экран
+    if (!currentQuestion || questions.length === 0) {
+        return (
+            <div className={styles.quizContainer}>
+                <div style={{ textAlign: 'center', padding: '2rem' }}>
+                    <p>Нет доступных вопросов</p>
+                </div>
+            </div>
+        );
+    }
+    
+    const progressPercentage = ((safeIndex + 1) / questions.length) * 100;
+    const isStepComplete = () => currentQuestion.type === 'input' ? (answers[currentQuestion.id] || "").trim().length > 0 : !!answers[currentQuestion.id];
+    const canGoBack = safeIndex > 0;
+
+    const handleQuizAnswer = (val: string) => {
+        setAnswers(prev => ({ ...prev, [currentQuestion.id]: val }));
+    };
+
+    const handleNext = () => {
+        if (safeIndex < questions.length - 1) {
+            setCurrentStepIndex(prev => Math.min(prev + 1, questions.length - 1));
+        } else {
+            setView('analyzing'); // Start analyzing animation
+        }
+    };
+
+    const handleBack = () => {
+        if (canGoBack) {
+            setCurrentStepIndex(prev => Math.max(0, prev - 1));
+        }
+        // Если это первый вопрос, кнопка назад неактивна, ничего не делаем
+    };
+
+    return (
+        <div className={styles.quizContainer}>
+            <div className={styles.header}>
+                <button 
+                    className={styles.backButton}
+                    onClick={() => window.history.back()}
+                >
+                    <ChevronLeft className={styles.backArrow} size={18} />
+                    <span>Назад</span>
+                </button>
+                <span className={styles.blockTitle}>Вопрос {safeIndex + 1} из {questions.length}</span>
+                <div style={{ width: '80px' }}></div>
+            </div>
+            <div className={styles.progressBarBg} style={{ marginBottom: '2rem' }}>
+                <motion.div className={styles.progressBarFill} initial={{ width: 0 }} animate={{ width: `${progressPercentage}%` }} transition={{ duration: 0.5 }} />
+            </div>
+            <AnimatePresence mode="wait">
+                <motion.div key={currentQuestion.id} className={styles.stepContent} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                    <h2 className={styles.title}>{currentQuestion.label}</h2>
+                    {currentQuestion.type === 'input' && <input type="text" placeholder={currentQuestion.placeholder} className={styles.inputField} value={answers[currentQuestion.id] || ""} onChange={(e) => handleQuizAnswer(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && isStepComplete()) handleNext(); }} autoFocus />}
+                    {currentQuestion.type === 'options' && <div className={styles.optionsGrid}>{currentQuestion.options?.map(opt => (<div key={opt.id} className={`${styles.optionCard} ${answers[currentQuestion.id] === opt.id ? styles.optionActive : ""}`} onClick={() => handleQuizAnswer(opt.id)}><span className={styles.optionText}>{opt.text}</span><div className={styles.checkCircle}>{answers[currentQuestion.id] === opt.id && <Check size={14} strokeWidth={3} />}</div></div>))}</div>}
+                </motion.div>
+            </AnimatePresence>
+            <div className={styles.navActions}>
+                <button 
+                    className={`${styles.navBtn} ${styles.backBtn}`} 
+                    onClick={handleBack}
+                    disabled={!canGoBack}
+                    style={{ opacity: canGoBack ? 1 : 0.5, cursor: canGoBack ? 'pointer' : 'not-allowed' }}
+                >
+                    <ChevronLeft size={24} />
+                </button>
+                <button className={`${styles.navBtn} ${styles.nextBtn}`} onClick={handleNext} disabled={!isStepComplete()}><ArrowRight size={24} /></button>
+            </div>
+        </div>
+    );
+}

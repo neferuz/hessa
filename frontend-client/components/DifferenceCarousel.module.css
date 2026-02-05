@@ -1,0 +1,226 @@
+.carouselSection {
+    width: 100%;
+    padding: 80px 0;
+    background: #eef2fa;
+    overflow: hidden;
+    position: relative;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+    padding: 0 2rem;
+}
+
+/* Header */
+.headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+}
+
+.titleWrapper {
+    max-width: 500px;
+}
+
+.title {
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 2.2rem;
+    /* Smaller, more compact */
+    font-weight: 500;
+    line-height: 1.2;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
+.controls {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.controlBtn {
+    width: 48px;
+    height: 48px;
+    /* Smaller buttons */
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #1a1a1a;
+}
+
+.controlBtn:hover {
+    background: #1a1a1a;
+    color: white;
+    border-color: #1a1a1a;
+}
+
+/* Track */
+.sliderWindow {
+    width: 100%;
+    overflow: visible;
+    padding: 1rem 0 3rem;
+}
+
+.sliderTrack {
+    display: flex;
+    gap: 1.5rem;
+    /* Tighter gap */
+    cursor: grab;
+}
+
+.sliderTrack:active {
+    cursor: grabbing;
+}
+
+/* Card */
+.card {
+    min-width: 300px;
+    /* Much smaller width */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    user-select: none;
+    position: relative;
+}
+
+.imageWrapper {
+    width: 100%;
+    height: 380px;
+    /* Shorter height */
+    border-radius: 20px;
+    /* Rounded corners */
+    overflow: hidden;
+    position: relative;
+    background: #f0f0f0;
+}
+
+.cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.card:hover .cardImage {
+    transform: scale(1.05);
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    width: 100%;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.cardTitle {
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 1.1rem;
+    /* Smaller title */
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+.cardIcon {
+    width: 32px;
+    height: 32px;
+    /* Smaller icon */
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a1a;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.card:hover .cardIcon {
+    background: #1a1a1a;
+    color: white;
+    border-color: #1a1a1a;
+}
+
+.cardDesc {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .card {
+        min-width: 260px;
+        /* Compact for tablet/mobile */
+    }
+
+    .imageWrapper {
+        height: 340px;
+    }
+}
+
+@media (max-width: 768px) {
+    .carouselSection {
+        padding: 50px 0;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .headerRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .title {
+        font-size: 1.6rem;
+    }
+
+    .controls {
+        display: none;
+    }
+
+    .card {
+        min-width: 240px;
+        /* Even smaller for mobile lists */
+    }
+
+    .imageWrapper {
+        height: 300px;
+        border-radius: 16px;
+    }
+
+    .cardDesc {
+        font-size: 0.85rem;
+    }
+}
