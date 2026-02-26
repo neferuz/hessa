@@ -7,7 +7,29 @@ from ...schemas.admin import AdminLogin, AdminResponse
 from ...services.auth_service import AuthService
 from ...services.admin_service import AdminService
 
+from ...schemas.qr_login import QRGenerateResponse, QRStatusResponse, QRAuthorizePayload
+from ...services.qr_service import QRService
+
 router = APIRouter(prefix="/auth", tags=["auth"])
+
+
+@router.get("/qr/generate", response_model=QRGenerateResponse)
+async def generate_qr_token(db: AsyncSession = Depends(get_db)):
+    service = QRService(db)
+    return await service.generate_token()
+
+
+@router.get("/qr/status/{token}", response_model=QRStatusResponse)
+async def get_qr_status(token: str, db: AsyncSession = Depends(get_db)):
+    service = QRService(db)
+    return await service.get_status(token)
+
+
+@router.post("/qr/authorize")
+async def authorize_qr(payload: QRAuthorizePayload, db: AsyncSession = Depends(get_db)):
+    service = QRService(db)
+    return await service.authorize(payload)
+
 
 
 @router.post("/request-code")

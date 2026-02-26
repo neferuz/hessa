@@ -88,10 +88,7 @@ export default function SearchBar() {
                     )}
                 </div>
 
-                {/* Separate Filter Button */}
-                <button className="w-13 h-13 bg-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white active:scale-95 transition-all shrink-0">
-                    <SlidersHorizontal size={20} className="text-[#1C1C1E]" strokeWidth={1.5} />
-                </button>
+
             </div>
 
             {/* Live Search Dropdown */}

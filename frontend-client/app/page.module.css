@@ -2,19 +2,35 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    transition: background-color 0.8s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 60px 0 0;
     overflow-x: hidden;
-    /* overflow-y: auto; - Removed to allow body scroll and proper locking */
     background: transparent;
+}
+
+.main>* {
+    position: relative;
+    z-index: 1;
+}
+
+.contentWrapper {
+    position: relative;
+    z-index: 10;
+    background: #ffffff;
+    border-radius: 80px 80px 0 0;
+    /* Large premium rounding from photo */
+    margin-top: -80px;
+    /* Overlap effect */
+    width: 100%;
+    padding-top: 40px;
+    box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.04);
+    /* Subtle top shadow for depth */
 }
 
 @media (max-width: 768px) {
     .main {
         padding-top: 20px;
-        /* Уменьшаем отступ сверху на мобилке */
     }
 }

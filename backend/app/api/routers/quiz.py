@@ -50,8 +50,13 @@ async def get_recommendations(answers: Dict[str, str] = Body(...), db: AsyncSess
         user_val = answers.get(q.id)
         if user_val:
             if q.type == "options":
-                option_text = next((opt.text for opt in q.options if opt.id == user_val), user_val)
-                enriched_answers[q.label] = option_text
+                if q.multiple:
+                    selected_ids = user_val.split(',')
+                    option_texts = [next((opt.text for opt in q.options if opt.id == sid), sid) for sid in selected_ids]
+                    enriched_answers[q.label] = ", ".join(option_texts)
+                else:
+                    option_text = next((opt.text for opt in q.options if opt.id == user_val), user_val)
+                    enriched_answers[q.label] = option_text
             else:
                 enriched_answers[q.label] = user_val
                 
@@ -216,10 +221,22 @@ async def get_recommendations(answers: Dict[str, str] = Body(...), db: AsyncSess
                         )
                     )
             
+    # Extract stats from AI response
+    stats_data = ai_resp.get("stats")
+    recommendation_stats = None
+    if stats_data:
+        try:
+            from app.schemas.recommendation import RecommendationStats
+            recommendation_stats = RecommendationStats(**stats_data)
+        except Exception as e:
+            print(f"Stats validation error: {e}")
+            pass
+
     return RecommendationResult(
         title=rec_product.name,
         description=ai_reasoning,
         image=main_image, 
         products=recommendation_products,
-        subscription_plans=subscription_plans
+        subscription_plans=subscription_plans,
+        stats=recommendation_stats
     )

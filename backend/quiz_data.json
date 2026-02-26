@@ -1,26 +1,11 @@
 {
     "questions": [
         {
-            "id": "name",
-            "section": "Блок 1: Общий профиль",
-            "section_uz": "Blok 1: Umumiy profil",
-            "section_en": "Block 1: General Profile",
-            "label": "Как нам к вам обращаться?",
-            "label_uz": "Sizga qanday murojaat qilamiz?",
-            "label_en": "How should we address you?",
-            "type": "input",
-            "placeholder": "Ваше имя",
-            "placeholder_uz": "Ismingiz",
-            "placeholder_en": "Your name",
-            "options": [],
-            "order": 0
-        },
-        {
             "id": "gender",
-            "section": "Блок 1: Общий профиль",
-            "section_uz": "Blok 1: Umumiy profil",
-            "section_en": "Block 1: General Profile",
-            "label": "Ваш пол:2",
+            "section": "Личные данные",
+            "section_uz": "Shaxsiy ma'lumotlar",
+            "section_en": "Personal Data",
+            "label": "Ваш пол:",
             "label_uz": "Jinsingiz:",
             "label_en": "Your gender:",
             "type": "options",
@@ -29,271 +14,759 @@
             "placeholder_en": "",
             "options": [
                 {
-                    "id": "male",
-                    "text": "Мужчина",
-                    "text_uz": "Erkak",
-                    "text_en": "Male"
-                },
-                {
                     "id": "female",
                     "text": "Женщина",
                     "text_uz": "Ayol",
-                    "text_en": "Female"
+                    "text_en": "Woman"
+                },
+                {
+                    "id": "male",
+                    "text": "Мужчина",
+                    "text_uz": "Erkak",
+                    "text_en": "Man"
+                }
+            ],
+            "order": 0
+        },
+        {
+            "id": "priorities_f",
+            "section": "🎯 ШАГ 1: ПРИОРИТЕТЫ",
+            "section_uz": "🎯 1-QADAM: USTUVORLIKLAR",
+            "section_en": "🎯 STEP 1: PRIORITIES",
+            "label": "Отметьте до 3-х направлений, которые для вас наиболее важны сейчас:",
+            "label_uz": "Hozirda siz uchun eng muhim bo'lgan 3 tagacha yo'nalishni belgilang:",
+            "label_en": "Mark up to 3 areas that are most important to you now:",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "energy",
+                    "text": "Энергия и бодрость на весь день",
+                    "text_uz": "Kun bo'yi energiya va tetiklik",
+                    "text_en": "Energy and vitality all day"
+                },
+                {
+                    "id": "stress",
+                    "text": "Спокойствие и устойчивость к стрессу",
+                    "text_uz": "Xotirjamlik va stressga chidamlilik",
+                    "text_en": "Calmness and stress resistance"
+                },
+                {
+                    "id": "sleep",
+                    "text": "Глубокий восстанавливающий сон",
+                    "text_uz": "Chuqur tiklovchi uyqu",
+                    "text_en": "Deep restorative sleep"
+                },
+                {
+                    "id": "immunity",
+                    "text": "Укрепление защитных сил организма",
+                    "text_uz": "Organizm himoya kuchlarini mustahkamlash",
+                    "text_en": "Strengthening immune system"
+                },
+                {
+                    "id": "beauty",
+                    "text": "Красота кожи, сияние волос, крепкие ногти",
+                    "text_uz": "Teri go'zalligi, sochlar jilosi, tirnoqlar mustahkamligi",
+                    "text_en": "Beauty of skin, hair, and nails"
+                },
+                {
+                    "id": "weight",
+                    "text": "Гармония веса и обмена веществ",
+                    "text_uz": "Vazn va moddalar almashinuvi garmoniyasi",
+                    "text_en": "Weight and metabolism harmony"
+                },
+                {
+                    "id": "focus",
+                    "text": "Ясный ум и фокус внимания",
+                    "text_uz": "Tiniq aql va diqqatni jamlash",
+                    "text_en": "Clear mind and focus"
+                },
+                {
+                    "id": "joints",
+                    "text": "Здоровье опорно-двигательной системы",
+                    "text_uz": "Tayanch-harakat tizimi salomatligi",
+                    "text_en": "Musculoskeletal health"
+                },
+                {
+                    "id": "female_health",
+                    "text": "Баланс женского здоровья",
+                    "text_uz": "Ayollar salomatligi balansi",
+                    "text_en": "Women's health balance"
                 }
             ],
             "order": 1
         },
         {
-            "id": "age",
-            "section": "Блок 1: Общий профиль",
-            "section_uz": "Blok 1: Umumiy profil",
-            "section_en": "Block 1: General Profile",
-            "label": "Укажите ваш возраст:",
-            "label_uz": "Yoshingizni ko'rsating:",
-            "label_en": "Specify your age:",
+            "id": "priorities_m",
+            "section": "🎯 ШАГ 1: ЦЕЛИ",
+            "section_uz": "🎯 1-QADAM: MAQSADLAR",
+            "section_en": "🎯 STEP 1: GOALS",
+            "label": "Выберите до 3-х приоритетных направлений:",
+            "label_uz": "3 tagacha ustuvor yo'nalishni tanlang:",
+            "label_en": "Select up to 3 priority areas:",
             "type": "options",
             "placeholder": "",
             "placeholder_uz": "",
             "placeholder_en": "",
             "options": [
                 {
-                    "id": "u25",
-                    "text": "До 25 лет",
-                    "text_uz": "25 yoshgacha",
-                    "text_en": "Under 25"
+                    "id": "energy",
+                    "text": "Энергия и выносливость",
+                    "text_uz": "Energiya va chidamlilik",
+                    "text_en": "Energy and endurance"
                 },
                 {
-                    "id": "25-45",
-                    "text": "25–45 лет",
-                    "text_uz": "25–45 yosh",
-                    "text_en": "25–45 years"
+                    "id": "focus",
+                    "text": "Умственная работоспособность",
+                    "text_uz": "Aqliy ish qobiliyati",
+                    "text_en": "Mental performance"
                 },
                 {
-                    "id": "45+",
-                    "text": "45 лет и старше",
-                    "text_uz": "45 yosh va undan yuqori",
-                    "text_en": "45 and older"
+                    "id": "muscle",
+                    "text": "Набор мышечной массы и силы",
+                    "text_uz": "Mushak massasi va kuchini oshirish",
+                    "text_en": "Muscle mass and strength gain"
+                },
+                {
+                    "id": "immunity",
+                    "text": "Крепкий иммунитет",
+                    "text_uz": "Kuchli immunitet",
+                    "text_en": "Strong immunity"
+                },
+                {
+                    "id": "sleep",
+                    "text": "Качественный сон и восстановление",
+                    "text_uz": "Sifatli uyqu va tiklanish",
+                    "text_en": "Quality sleep and recovery"
+                },
+                {
+                    "id": "weight",
+                    "text": "Метаболизм и контроль веса",
+                    "text_uz": "Metabolizm va vazn nazorati",
+                    "text_en": "Metabolism and weight control"
+                },
+                {
+                    "id": "stress",
+                    "text": "Управление стрессом",
+                    "text_uz": "Stressni boshqarish",
+                    "text_en": "Stress management"
+                },
+                {
+                    "id": "joints",
+                    "text": "Здоровье суставов и связок",
+                    "text_uz": "Bo'g'imlar va boylamlar salomatligi",
+                    "text_en": "Joint and ligament health"
+                },
+                {
+                    "id": "heart",
+                    "text": "Сердечно-сосудистая система",
+                    "text_uz": "Yurak-qon tomir tizimi",
+                    "text_en": "Cardiovascular system"
+                },
+                {
+                    "id": "potency",
+                    "text": "Мужская сила и потенция",
+                    "text_uz": "Erkaklik kuchi va potentsiya",
+                    "text_en": "Male strength and potency"
                 }
             ],
             "order": 2
         },
         {
-            "id": "activity",
-            "section": "Блок 1: Общий профиль",
-            "section_uz": "Blok 1: Umumiy profil",
-            "section_en": "Block 1: General Profile",
-            "label": "Каков ваш типичный уровень физической активности?",
-            "label_uz": "Jismoniy faollik darajangiz qanday?",
-            "label_en": "What is your typical level of physical activity?",
+            "id": "age",
+            "section": "📋 ШАГ 2: О СЕБЕ",
+            "section_uz": "📋 2-QADAM: O'ZINGIZ HAQINGIZDA",
+            "section_en": "📋 STEP 2: ABOUT YOU",
+            "label": "Сколько вам лет?",
+            "label_uz": "Yoshingiz nechada?",
+            "label_en": "How old are you?",
             "type": "options",
             "placeholder": "",
             "placeholder_uz": "",
             "placeholder_en": "",
             "options": [
                 {
-                    "id": "low",
-                    "text": "Низкий (сидячая работа, мало движения)",
-                    "text_uz": "Past (o'tirgan ish, kam harakat)",
-                    "text_en": "Low (sedentary work, little movement)"
+                    "id": "18-25",
+                    "text": "18-25",
+                    "text_uz": "18-25",
+                    "text_en": "18-25"
                 },
                 {
-                    "id": "mid",
-                    "text": "Средний (прогулки, 1-2 тренировки в неделю)",
-                    "text_uz": "O'rtacha (sayrlar, haftasiga 1-2 mashq)",
-                    "text_en": "Medium (walks, 1-2 workouts per week)"
+                    "id": "26-35",
+                    "text": "26-35",
+                    "text_uz": "26-35",
+                    "text_en": "26-35"
                 },
                 {
-                    "id": "high",
-                    "text": "Высокий (регулярный спорт, физический труд)",
-                    "text_uz": "Yuqori (muntazam sport, jismoniy mehnat)",
-                    "text_en": "High (regular sports, physical labor)"
+                    "id": "36-45",
+                    "text": "36-45",
+                    "text_uz": "36-45",
+                    "text_en": "36-45"
+                },
+                {
+                    "id": "46-55",
+                    "text": "46-55",
+                    "text_uz": "46-55",
+                    "text_en": "46-55"
+                },
+                {
+                    "id": "56+",
+                    "text": "56 и старше",
+                    "text_uz": "56 va undan katta",
+                    "text_en": "56 and older"
                 }
             ],
             "order": 3
         },
         {
-            "id": "energy_level",
-            "section": "Блок 2: Энергия и продуктивность",
-            "section_uz": "Blok 2: Energiya va samaradorlik",
-            "section_en": "Block 2: Energy and Productivity",
-            "label": "Как бы вы описали свой уровень энергии в течение дня?",
-            "label_uz": "Kun davomida energiya darajangizni qanday tavsiflay olasiz?",
-            "label_en": "How would you describe your energy level throughout the day?",
-            "type": "options",
-            "placeholder": "",
-            "placeholder_uz": "",
-            "placeholder_en": "",
-            "options": [
-                {
-                    "id": "high",
-                    "text": "Энергии хватает на всё",
-                    "text_uz": "Energiya hamma narsaga yetadi",
-                    "text_en": "Enough energy for everything"
-                },
-                {
-                    "id": "drops_noon",
-                    "text": "Устаю уже к обеду",
-                    "text_uz": "Tushlikka kelib charchayman",
-                    "text_en": "Tired by lunch"
-                },
-                {
-                    "id": "low_morning",
-                    "text": "Чувствую разбитость прямо с утра",
-                    "text_uz": "Ertalabdan boshlab yomon his qilaman",
-                    "text_en": "Feel exhausted right from the morning"
-                }
-            ],
+            "id": "height",
+            "section": "📋 ШАГ 2: О СЕБЕ",
+            "section_uz": "📋 2-QADAM: O'ZINGIZ HAQINGIZDA",
+            "section_en": "📋 STEP 2: ABOUT YOU",
+            "label": "Ваш рост (см):",
+            "label_uz": "Bo'yingiz (sm):",
+            "label_en": "Your height (cm):",
+            "type": "input",
+            "placeholder": "170",
+            "placeholder_uz": "170",
+            "placeholder_en": "170",
+            "options": [],
             "order": 4
         },
         {
-            "id": "brain_fog",
-            "section": "Блок 2: Энергия и продуктивность",
-            "section_uz": "Blok 2: Energiya va samaradorlik",
-            "section_en": "Block 2: Energy and Productivity",
-            "label": "Сталкиваетесь ли вы с «туманом в голове» или сложностью сфокусироваться?",
-            "label_uz": "«Boshda tuman» yoki diqqatni jamlashda qiyinchilik bormi?",
-            "label_en": "Do you experience 'brain fog' or difficulty focusing?",
-            "type": "options",
-            "placeholder": "",
-            "placeholder_uz": "",
-            "placeholder_en": "",
-            "options": [
-                {
-                    "id": "rare",
-                    "text": "Редко, голова всегда ясная",
-                    "text_uz": "Kamdan-kam, bosh doim aniq",
-                    "text_en": "Rarely, head is always clear"
-                },
-                {
-                    "id": "often",
-                    "text": "Часто, трудно долго удерживать внимание",
-                    "text_uz": "Tez-tez, diqqatni uzoq saqlash qiyin",
-                    "text_en": "Often, hard to maintain attention for long"
-                },
-                {
-                    "id": "constant",
-                    "text": "Постоянно чувствую когнитивную усталость",
-                    "text_uz": "Doimiy ravishda kognitiv charchoqni his qilaman",
-                    "text_en": "Constantly feel cognitive fatigue"
-                }
-            ],
+            "id": "weight",
+            "section": "📋 ШАГ 2: О СЕБЕ",
+            "section_uz": "📋 2-QADAM: O'ZINGIZ HAQINGIZDA",
+            "section_en": "📋 STEP 2: ABOUT YOU",
+            "label": "Ваш вес (кг):",
+            "label_uz": "Vazningiz (kg):",
+            "label_en": "Your weight (kg):",
+            "type": "input",
+            "placeholder": "70",
+            "placeholder_uz": "70",
+            "placeholder_en": "70",
+            "options": [],
             "order": 5
         },
         {
-            "id": "mood",
-            "section": "Блок 2: Энергия и продуктивность",
-            "section_uz": "Blok 2: Energiya va samaradorlik",
-            "section_en": "Block 2: Energy and Productivity",
-            "label": "Бывают ли у вас моменты резкой смены настроения или раздражительности?",
-            "label_uz": "Kayfiyatning keskin o'zgarishi yoki asabiylik paytlari bormi?",
-            "label_en": "Do you have moments of sudden mood swings or irritability?",
+            "id": "allergies",
+            "section": "🍴 ШАГ 3: ПИТАНИЕ",
+            "section_uz": "🍴 3-QADAM: OVQATLANISH",
+            "section_en": "🍴 STEP 3: NUTRITION",
+            "label": "Какие продукты вызывают у вас аллергическую реакцию?",
+            "label_uz": "Qaysi mahsulotlar sizda allergiya chaqiradi?",
+            "label_en": "Which products cause an allergic reaction?",
             "type": "options",
             "placeholder": "",
             "placeholder_uz": "",
             "placeholder_en": "",
             "options": [
                 {
-                    "id": "never",
-                    "text": "Почти никогда",
-                    "text_uz": "Deyarli hech qachon",
-                    "text_en": "Almost never"
+                    "id": "none",
+                    "text": "Аллергий нет",
+                    "text_uz": "Allergiya yo'q",
+                    "text_en": "No allergies"
                 },
                 {
-                    "id": "sometime",
-                    "text": "Иногда бывает",
-                    "text_uz": "Ba'zida bo'ladi",
-                    "text_en": "Sometimes happens"
+                    "id": "milk",
+                    "text": "Молоко и его производные",
+                    "text_uz": "Sut va sut mahsulotlari",
+                    "text_en": "Milk and derivatives"
                 },
                 {
-                    "id": "regular",
-                    "text": "Регулярно, трудно контролировать эмоции",
-                    "text_uz": "Muntazam, his-tuyg'ularni nazorat qilish qiyin",
-                    "text_en": "Regularly, hard to control emotions"
+                    "id": "gluten",
+                    "text": "Продукты с глютеном",
+                    "text_uz": "Glyutenli mahsulotlar",
+                    "text_en": "Gluten products"
+                },
+                {
+                    "id": "citrus",
+                    "text": "Цитрусовые и ягоды",
+                    "text_uz": "Sitrus va rezavorlar",
+                    "text_en": "Citrus and berries"
+                },
+                {
+                    "id": "veggies",
+                    "text": "Некоторые овощи",
+                    "text_uz": "Ba'zi sabzavotlar",
+                    "text_en": "Some vegetables"
+                },
+                {
+                    "id": "meat",
+                    "text": "Мясные изделия",
+                    "text_uz": "Go'sht mahsulotlari",
+                    "text_en": "Meat products"
+                },
+                {
+                    "id": "seafood",
+                    "text": "Дары моря",
+                    "text_uz": "Dengiz mahsulotlari",
+                    "text_en": "Seafood"
+                },
+                {
+                    "id": "cacao",
+                    "text": "Какао-продукты",
+                    "text_uz": "Kakao mahsulotlari",
+                    "text_en": "Cacao products"
+                },
+                {
+                    "id": "honey",
+                    "text": "Продукты пчеловодства",
+                    "text_uz": "Asalari mahsulotlari",
+                    "text_en": "Bee products"
+                },
+                {
+                    "id": "egg",
+                    "text": "Яичные продукты",
+                    "text_uz": "Tuxum mahsulotlari",
+                    "text_en": "Egg products"
+                },
+                {
+                    "id": "nuts",
+                    "text": "Орехи и семена",
+                    "text_uz": "Yong'oq va urug'lar",
+                    "text_en": "Nuts and seeds"
+                },
+                {
+                    "id": "soy",
+                    "text": "Соевые продукты",
+                    "text_uz": "Soya mahsulotlari",
+                    "text_en": "Soy products"
+                },
+                {
+                    "id": "mushrooms",
+                    "text": "Грибы",
+                    "text_uz": "Qo'ziqorinlar",
+                    "text_en": "Mushrooms"
                 }
             ],
             "order": 6
         },
         {
-            "id": "stress",
-            "section": "Блок 3: Стресс и сон",
-            "section_uz": "Blok 3: Stress va uyqu",
-            "section_en": "Block 3: Stress and Sleep",
-            "label": "Оцените ваш средний уровень стресса за последний месяц:",
-            "label_uz": "O'tgan oy davomida o'rtacha stress darajangizni baholang:",
-            "label_en": "Rate your average stress level over the past month:",
+            "id": "diet_system",
+            "section": "🍴 ШАГ 3: ПИТАНИЕ",
+            "section_uz": "🍴 3-QADAM: OVQATLANISH",
+            "section_en": "🍴 STEP 3: NUTRITION",
+            "label": "Следуете ли вы определенной системе питания?",
+            "label_uz": "Muayyan ovqatlanish tizimiga amal qilasizmi?",
+            "label_en": "Do you follow a certain diet system?",
             "type": "options",
             "placeholder": "",
             "placeholder_uz": "",
             "placeholder_en": "",
             "options": [
                 {
-                    "id": "low",
-                    "text": "Низкий (всё под контролем)",
-                    "text_uz": "Past (hamma narsa nazorat ostida)",
-                    "text_en": "Low (everything under control)"
+                    "id": "regular",
+                    "text": "Придерживаюсь обычного рациона",
+                    "text_uz": "Oddiy ratsion",
+                    "text_en": "Regular diet"
                 },
                 {
-                    "id": "mid",
-                    "text": "Умеренный (бывают авралы и переживания)",
-                    "text_uz": "O'rtacha (shoshilinch vaqtlar va tashvishlar bo'ladi)",
-                    "text_en": "Moderate (there are rush periods and worries)"
+                    "id": "vegetarian",
+                    "text": "Растительное питание (допускаю молочное)",
+                    "text_uz": "O'simlikka asoslangan (sut mahsulotlari bilan)",
+                    "text_en": "Plant-based (with dairy)"
                 },
                 {
-                    "id": "high",
-                    "text": "Высокий (живу в состоянии постоянного напряжения)",
-                    "text_uz": "Yuqori (doimiy kuchlanish holatida yashayman)",
-                    "text_en": "High (living in constant tension)"
+                    "id": "vegan",
+                    "text": "Строгое растительное питание",
+                    "text_uz": "Qat'iy o'simlik ratsioni (vegan)",
+                    "text_en": "Strict plant-based (vegan)"
+                },
+                {
+                    "id": "halal",
+                    "text": "Следую религиозным предписаниям (халяль)",
+                    "text_uz": "Diniy amallar (halol)",
+                    "text_en": "Religious (Halal)"
+                },
+                {
+                    "id": "keto",
+                    "text": "Низкоуглеводный рацион",
+                    "text_uz": "Kichik uglevodli ratsion",
+                    "text_en": "Low-carb diet"
+                },
+                {
+                    "id": "fasting",
+                    "text": "Практикую пищевые окна",
+                    "text_uz": "Interval ochlik",
+                    "text_en": "Intermittent fasting"
                 }
             ],
             "order": 7
         },
         {
-            "id": "sleep_onset",
-            "section": "Блок 3: Стресс и сон",
-            "section_uz": "Blok 3: Stress va uyqu",
-            "section_en": "Block 3: Stress and Sleep",
-            "label": "Как быстро вы обычно засыпаете?",
-            "label_uz": "Odatda qanchalik tez uxlayapsiz?",
-            "label_en": "How quickly do you usually fall asleep?",
+            "id": "seafood_freq",
+            "section": "🍴 РАЦИОН",
+            "section_uz": "🍴 RATSIYON",
+            "section_en": "🍴 DIET DETAILS",
+            "label": "Дары моря (рыба, морепродукты):",
+            "label_uz": "Dengiz mahsulotlari:",
+            "label_en": "Seafood:",
             "type": "options",
             "placeholder": "",
             "placeholder_uz": "",
             "placeholder_en": "",
             "options": [
                 {
-                    "id": "fast",
-                    "text": "Мгновенно (в течение 10–15 минут)",
-                    "text_uz": "Zudlik bilan (10-15 daqiqa ichida)",
-                    "text_en": "Instantly (within 10-15 minutes)"
+                    "id": "regular",
+                    "text": "Регулярно (3+ раза в неделю)",
+                    "text_uz": "Muntazam (haftasiga 3+ marta)",
+                    "text_en": "Regularly (3+ times a week)"
                 },
                 {
-                    "id": "thoughts",
-                    "text": "Долго кручусь, прокручивая события дня",
-                    "text_uz": "Uzoq vaqt aylanib, kun voqealarini takrorlayman",
-                    "text_en": "Toss and turn for a long time, replaying the day's events"
+                    "id": "seldom",
+                    "text": "Изредка (раз в неделю)",
+                    "text_uz": "Ba'zi-ba'zida (haftada bir)",
+                    "text_en": "Occasionally (once a week)"
                 },
                 {
-                    "id": "insomnia",
-                    "text": "Часто страдаю от бессонницы",
-                    "text_uz": "Ko'pincha uyqusizlikdan azob chekaman",
-                    "text_en": "Often suffer from insomnia"
+                    "id": "never",
+                    "text": "Исключаю из рациона",
+                    "text_uz": "Ratsiondan chiqarilgan",
+                    "text_en": "Exclude from diet"
                 }
             ],
             "order": 8
         },
         {
-            "id": "tension",
-            "section": "Блок 3: Стресс и сон",
-            "section_uz": "Blok 3: Stress va uyqu",
-            "section_en": "Block 3: Stress and Sleep",
-            "label": "Чувствуете ли вы мышечное напряжение или мелкие судороги?",
-            "label_uz": "Mushak kuchlanishi yoki kichik kramplarni his qilyapsizmi?",
-            "label_en": "Do you feel muscle tension or minor cramps?",
+            "id": "meat_freq",
+            "section": "🍴 РАЦИОН",
+            "section_uz": "🍴 RATSIYON",
+            "section_en": "🍴 DIET DETAILS",
+            "label": "Мясная продукция:",
+            "label_uz": "Go'sht mahsulotlari:",
+            "label_en": "Meat products:",
             "type": "options",
             "placeholder": "",
             "placeholder_uz": "",
             "placeholder_en": "",
             "options": [
+                {
+                    "id": "daily",
+                    "text": "Каждый день",
+                    "text_uz": "Har kuni",
+                    "text_en": "Every day"
+                },
+                {
+                    "id": "often",
+                    "text": "Несколько раз в неделю",
+                    "text_uz": "Haftada bir necha marta",
+                    "text_en": "Several times a week"
+                },
+                {
+                    "id": "never",
+                    "text": "Не употребляю",
+                    "text_uz": "Istemol qilmayman",
+                    "text_en": "Do not consume"
+                }
+            ],
+            "order": 9
+        },
+        {
+            "id": "veggies_freq",
+            "section": "🍴 РАЦИОН",
+            "section_uz": "🍴 RATSIYON",
+            "section_en": "🍴 DIET DETAILS",
+            "label": "Свежие овощи:",
+            "label_uz": "Yangi sabzavotlar:",
+            "label_en": "Fresh vegetables:",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "daily",
+                    "text": "Ежедневно",
+                    "text_uz": "Har kuni",
+                    "text_en": "Daily"
+                },
+                {
+                    "id": "period",
+                    "text": "Периодически",
+                    "text_uz": "Vaqti-vaqti bilan",
+                    "text_en": "Periodically"
+                },
+                {
+                    "id": "rare",
+                    "text": "Редко или никогда",
+                    "text_uz": "Kamdan-kam yoki hech qachon",
+                    "text_en": "Rarely or never"
+                }
+            ],
+            "order": 10
+        },
+        {
+            "id": "fruits_freq",
+            "section": "🍴 РАЦИОН",
+            "section_uz": "🍴 RATSIYON",
+            "section_en": "🍴 DIET DETAILS",
+            "label": "Фрукты:",
+            "label_uz": "Mevalar:",
+            "label_en": "Fruits:",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "daily",
+                    "text": "Ежедневно",
+                    "text_uz": "Har kuni",
+                    "text_en": "Daily"
+                },
+                {
+                    "id": "period",
+                    "text": "Периодически",
+                    "text_uz": "Vaqti-vaqti bilan",
+                    "text_en": "Periodically"
+                },
+                {
+                    "id": "rare",
+                    "text": "Редко или никогда",
+                    "text_uz": "Kamdan-kam yoki hech qachon",
+                    "text_en": "Rarely or never"
+                }
+            ],
+            "order": 11
+        },
+        {
+            "id": "dairy_freq",
+            "section": "🍴 РАЦИОН",
+            "section_uz": "🍴 RATSIYON",
+            "section_en": "🍴 DIET DETAILS",
+            "label": "Молочная продукция:",
+            "label_uz": "Sut mahsulotlari:",
+            "label_en": "Dairy products:",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "const",
+                    "text": "В рационе постоянно",
+                    "text_uz": "Doimratsionda",
+                    "text_en": "Constantly in diet"
+                },
+                {
+                    "id": "some",
+                    "text": "Употребляю иногда",
+                    "text_uz": "Ba'zida iste'mol qilaman",
+                    "text_en": "Consume sometimes"
+                },
+                {
+                    "id": "never",
+                    "text": "Избегаю",
+                    "text_uz": "Parchayman/Yemayman",
+                    "text_en": "Avoid"
+                }
+            ],
+            "order": 12
+        },
+        {
+            "id": "nuts_freq",
+            "section": "🍴 РАЦИОН",
+            "section_uz": "🍴 RATSIYON",
+            "section_en": "🍴 DIET DETAILS",
+            "label": "Орехи и семена:",
+            "label_uz": "Yong'oq va urug'lar:",
+            "label_en": "Nuts and seeds:",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "reg",
+                    "text": "Регулярная часть рациона",
+                    "text_uz": "Ratsionning muntazam qismi",
+                    "text_en": "Regular part of diet"
+                },
+                {
+                    "id": "rare",
+                    "text": "Ем нечасто",
+                    "text_uz": "Kamdan-kam yeyman",
+                    "text_en": "Eat infrequently"
+                },
+                {
+                    "id": "never",
+                    "text": "Не включаю в меню",
+                    "text_uz": "Menyuga kiritmayman",
+                    "text_en": "Do not include in menu"
+                }
+            ],
+            "order": 13
+        },
+        {
+            "id": "sweets_freq",
+            "section": "🍴 РАЦИОН",
+            "section_uz": "🍴 RATSIYON",
+            "section_en": "🍴 DIET DETAILS",
+            "label": "Сладкое:",
+            "label_uz": "Shirinliklar:",
+            "label_en": "Sweets:",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "daily",
+                    "text": "Каждодневная привычка",
+                    "text_uz": "Kundalik odat",
+                    "text_en": "Daily habit"
+                },
+                {
+                    "id": "some",
+                    "text": "Позволяю себе время от времени",
+                    "text_uz": "Vaqti-vaqti bilan ruxsat beraman",
+                    "text_en": "Allow sometimes"
+                },
+                {
+                    "id": "never",
+                    "text": "Стараюсь избегать",
+                    "text_uz": "Qochishga harakat qilaman",
+                    "text_en": "Try to avoid"
+                }
+            ],
+            "order": 14
+        },
+        {
+            "id": "activity_level",
+            "section": "💪 ШАГ 4: ДВИЖЕНИЕ",
+            "section_uz": "💪 4-QADAM: HARAKAT",
+            "section_en": "💪 STEP 4: MOVEMENT",
+            "label": "Опишите ваш уровень подвижности в течение дня:",
+            "label_uz": "Kun davomida harakat darajangizni tavsiflang:",
+            "label_en": "Describe your activity level during the day:",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "intense",
+                    "text": "Интенсивные тренировки, активная работа",
+                    "text_uz": "Intensiv mashg'ulotlar, faol ish",
+                    "text_en": "Intense training, active work"
+                },
+                {
+                    "id": "mod",
+                    "text": "Умеренная нагрузка, регулярные прогулки",
+                    "text_uz": "O'rtacha yuklama, muntazam sayrlar",
+                    "text_en": "Moderate load, regular walks"
+                },
+                {
+                    "id": "sed",
+                    "text": "Преимущественно сидячий образ жизни",
+                    "text_uz": "Asosan o'tirgan hayot tarzi",
+                    "text_en": "Mostly sedentary lifestyle"
+                },
+                {
+                    "id": "limit",
+                    "text": "Есть физические ограничения",
+                    "text_uz": "Jismoniy cheklovlar bor",
+                    "text_en": "There are physical limitations"
+                }
+            ],
+            "order": 15
+        },
+        {
+            "id": "water_norm",
+            "section": "💪 ШАГ 4: ДВИЖЕНИЕ",
+            "section_uz": "💪 4-QADAM: HARAKAT",
+            "section_en": "💪 STEP 4: MOVEMENT",
+            "label": "Соблюдаете ли норму чистой воды (около 2л)?",
+            "label_uz": "Toza suv normasiga rioya qilasizmi (taxminan 2L)?",
+            "label_en": "Do you follow the daily water norm (about 2L)?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "yes",
+                    "text": "Да, пью достаточно",
+                    "text_uz": "Ha, yetarli suv ichaman",
+                    "text_en": "Yes, I drink enough"
+                },
+                {
+                    "id": "no",
+                    "text": "Нет, не добираю норму",
+                    "text_uz": "Yo'q, normaga yetmaydi",
+                    "text_en": "No, I don't reach the norm"
+                },
+                {
+                    "id": "not_track",
+                    "text": "Не отслеживаю регулярно",
+                    "text_uz": "Muntazam kuzatib bormayman",
+                    "text_en": "Do not track regularly"
+                }
+            ],
+            "order": 16
+        },
+        {
+            "id": "caffeine",
+            "section": "☕ ПРИВЫЧКИ",
+            "section_uz": "☕ ODATLAR",
+            "section_en": "☕ HABITS",
+            "label": "Ваши отношения с кофеином:",
+            "label_uz": "Kofein bilan munosabatingiz:",
+            "label_en": "Your relation with caffeine:",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "many",
+                    "text": "Несколько порций кофе ежедневно",
+                    "text_uz": "Har kuni bir necha marta kofe",
+                    "text_en": "Several cups of coffee daily"
+                },
+                {
+                    "id": "one",
+                    "text": "Одна чашка в день",
+                    "text_uz": "Kuniga bir finjon",
+                    "text_en": "One cup a day"
+                },
+                {
+                    "id": "rare",
+                    "text": "Пью нечасто",
+                    "text_uz": "Kamdan-kam ichaman",
+                    "text_en": "Drink infrequently"
+                },
+                {
+                    "id": "none",
+                    "text": "Обхожусь без кофе",
+                    "text_uz": "Kofesiz ham bo'ladi",
+                    "text_en": "Go without coffee"
+                }
+            ],
+            "order": 17
+        },
+        {
+            "id": "smoking",
+            "section": "🚬 ПРИВЫЧКИ",
+            "section_uz": "🚬 ODATLAR",
+            "section_en": "🚬 HABITS",
+            "label": "Курите ли вы? (вкл. электронные устройства)",
+            "label_uz": "Chekasizmi? (elektron moslamalar bilan)",
+            "label_en": "Do you smoke? (incl. electronic devices)",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "yes",
+                    "text": "Да",
+                    "text_uz": "Ha",
+                    "text_en": "Yes"
+                },
                 {
                     "id": "no",
                     "text": "Нет",
@@ -302,188 +775,867 @@
                 },
                 {
                     "id": "rare",
-                    "text": "Изредка",
-                    "text_uz": "Kamdan-kam",
-                    "text_en": "Rarely"
-                },
-                {
-                    "id": "often",
-                    "text": "Да, довольно часто",
-                    "text_uz": "Ha, juda tez-tez",
-                    "text_en": "Yes, quite often"
-                }
-            ],
-            "order": 9
-        },
-        {
-            "id": "joints",
-            "section": "Блок 4: Физические показатели",
-            "section_uz": "Blok 4: Jismoniy ko'rsatkichlar",
-            "section_en": "Block 4: Physical Indicators",
-            "label": "Беспокоит ли вас состояние суставов или плотность костной ткани?",
-            "label_uz": "Bo'g'imlar holati yoki suyak to'qimasining zichligi sizni bezovta qiladimi?",
-            "label_en": "Are you concerned about joint condition or bone density?",
-            "type": "options",
-            "placeholder": "",
-            "placeholder_uz": "",
-            "placeholder_en": "",
-            "options": [
-                {
-                    "id": "fine",
-                    "text": "Нет, всё отлично",
-                    "text_uz": "Yo'q, hamma narsa ajoyib",
-                    "text_en": "No, everything is fine"
-                },
-                {
-                    "id": "start",
-                    "text": "Начинаю замечать дискомфорт",
-                    "text_uz": "Noqulaylikni seza boshlayman",
-                    "text_en": "Starting to notice discomfort"
-                },
-                {
-                    "id": "prio",
-                    "text": "Да, это мой приоритет",
-                    "text_uz": "Ha, bu mening ustuvorligim",
-                    "text_en": "Yes, this is my priority"
-                }
-            ],
-            "order": 10
-        },
-        {
-            "id": "immunity",
-            "section": "Блок 4: Физические показатели",
-            "section_uz": "Blok 4: Jismoniy ko'rsatkichlar",
-            "section_en": "Block 4: Physical Indicators",
-            "label": "Как часто вы замечаете у себя признаки снижения иммунитета?",
-            "label_uz": "Immunitet pasayishi belgilarini qanchalik tez-tez sezasiz?",
-            "label_en": "How often do you notice signs of decreased immunity?",
-            "type": "options",
-            "placeholder": "",
-            "placeholder_uz": "",
-            "placeholder_en": "",
-            "options": [
-                {
-                    "id": "rare",
-                    "text": "Очень редко",
+                    "text": "Крайне редко",
                     "text_uz": "Juda kamdan-kam",
-                    "text_en": "Very rarely"
-                },
-                {
-                    "id": "few",
-                    "text": "2–3 раза в год",
-                    "text_uz": "Yilda 2-3 marta",
-                    "text_en": "2-3 times a year"
-                },
-                {
-                    "id": "regular",
-                    "text": "Регулярно чувствую недомогание",
-                    "text_uz": "Muntazam ravishda noto'g'ri his qilaman",
-                    "text_en": "Regularly feel unwell"
+                    "text_en": "Extremely rarely"
                 }
             ],
-            "order": 11
+            "order": 18
         },
         {
-            "id": "diet",
-            "section": "Блок 4: Физические показатели",
-            "section_uz": "Blok 4: Jismoniy ko'rsatkichlar",
-            "section_en": "Block 4: Physical Indicators",
-            "label": "Придерживаетесь ли вы ограничений в питании?",
-            "label_uz": "Ovqatlanishda cheklovlarga rioya qilyapsizmi?",
-            "label_en": "Do you follow dietary restrictions?",
+            "id": "alcohol",
+            "section": "🍷 ПРИВЫЧКИ",
+            "section_uz": "🍷 ODATLAR",
+            "section_en": "🍷 HABITS",
+            "label": "Как часто употребляете спиртное?",
+            "label_uz": "Spirtli ichimliklarni qanchalik tez-tez iste'mol qilasiz?",
+            "label_en": "How often do you consume alcohol?",
             "type": "options",
             "placeholder": "",
             "placeholder_uz": "",
             "placeholder_en": "",
             "options": [
                 {
-                    "id": "all",
-                    "text": "Ем всё",
-                    "text_uz": "Hamma narsani yeyman",
-                    "text_en": "Eat everything"
+                    "id": "daily",
+                    "text": "Почти ежедневно",
+                    "text_uz": "Deyarli har kuni",
+                    "text_en": "Almost daily"
                 },
                 {
-                    "id": "veg",
-                    "text": "Вегетарианец / Веган",
-                    "text_uz": "Vegetarian / Vegan",
-                    "text_en": "Vegetarian / Vegan"
+                    "id": "weekly",
+                    "text": "Несколько раз за неделю",
+                    "text_uz": "Haftada bir necha marta",
+                    "text_en": "Several times a week"
                 },
                 {
-                    "id": "keto",
-                    "text": "Кето-диета / Интервальное голодание",
-                    "text_uz": "Keto-dieta / Interval ochlik",
-                    "text_en": "Keto diet / Intermittent fasting"
+                    "id": "monthly",
+                    "text": "Несколько раз за месяц",
+                    "text_uz": "Oyiga bir necha marta",
+                    "text_en": "Several times a month"
+                },
+                {
+                    "id": "none",
+                    "text": "Не пью вообще",
+                    "text_uz": "Umuman ichmayman",
+                    "text_en": "Do not drink at all"
                 }
             ],
-            "order": 12
+            "order": 19
         },
         {
-            "id": "priority_sphere",
-            "section": "Блок 5: Цели и приоритеты",
-            "section_uz": "Blok 5: Maqsadlar va ustuvorliklar",
-            "section_en": "Block 5: Goals and Priorities",
-            "label": "Какая сфера жизни сейчас требует наибольшей поддержки?",
-            "label_uz": "Hayotning qaysi sohasi hozir eng ko'p qo'llab-quvvatlashni talab qiladi?",
-            "label_en": "Which area of life currently requires the most support?",
+            "id": "screen_time",
+            "section": "📱 ЦИФРОВАЯ НАГРУЗКА",
+            "section_uz": "📱 RAQAMLI YUKLAMA",
+            "section_en": "📱 DIGITAL LOAD",
+            "label": "Сколько часов в день вы перед экранами?",
+            "label_uz": "Kunda necha soat ekran qarshisida bo'lasiz?",
+            "label_en": "How many hours a day are you in front of screens?",
             "type": "options",
             "placeholder": "",
             "placeholder_uz": "",
             "placeholder_en": "",
             "options": [
                 {
-                    "id": "career",
-                    "text": "Карьера и обучение (нужен острый ум)",
-                    "text_uz": "Karyera va ta'lim (o'tkir aql kerak)",
-                    "text_en": "Career and learning (need sharp mind)"
+                    "id": "most",
+                    "text": "Большую часть дня (работа)",
+                    "text_uz": "Kunning katta qismi (ish)",
+                    "text_en": "Most of the day (work)"
                 },
                 {
-                    "id": "psycho",
-                    "text": "Психологический комфорт (нужно спокойствие)",
-                    "text_uz": "Psixologik qulaylik (tinchlik kerak)",
-                    "text_en": "Psychological comfort (need calm)"
+                    "id": "sig",
+                    "text": "Значительно (4-6 часов)",
+                    "text_uz": "Sezilarli darajada (4-6 soat)",
+                    "text_en": "Significant (4-6 hours)"
                 },
                 {
-                    "id": "body",
-                    "text": "Физическое здоровье и долголетие",
-                    "text_uz": "Jismoniy salomatlik va uzoq umr",
-                    "text_en": "Physical health and longevity"
+                    "id": "min",
+                    "text": "Минимально",
+                    "text_uz": "Minimal darajada",
+                    "text_en": "Minimal"
                 }
             ],
-            "order": 13
+            "order": 20
         },
         {
-            "id": "recovery",
-            "section": "Блок 5: Цели и приоритеты",
-            "section_uz": "Blok 5: Maqsadlar va ustuvorliklar",
-            "section_en": "Block 5: Goals and Priorities",
-            "label": "Важно ли для вас восстановление после работы или тренировок?",
-            "label_uz": "Ish yoki mashqlardan keyin tiklanish siz uchun muhimmi?",
-            "label_en": "Is recovery after work or training important to you?",
+            "id": "eye_fatigue",
+            "section": "📱 ЦИФРОВАЯ НАГРУЗКА",
+            "section_uz": "📱 RAQAMLI YUKLAMA",
+            "section_en": "📱 DIGITAL LOAD",
+            "label": "Замечаете ли утомление глаз?",
+            "label_uz": "Ko'z toliqishini sezasizmi?",
+            "label_en": "Do you notice eye fatigue?",
             "type": "options",
             "placeholder": "",
             "placeholder_uz": "",
             "placeholder_en": "",
             "options": [
                 {
-                    "id": "important",
-                    "text": "Да, это очень важно",
-                    "text_uz": "Ha, bu juda muhim",
-                    "text_en": "Yes, it's very important"
+                    "id": "always",
+                    "text": "Постоянно беспокоит",
+                    "text_uz": "Doimiy ravishda bezovta qiladi",
+                    "text_en": "Constantly bothers me"
                 },
                 {
-                    "id": "desirable",
-                    "text": "Желательно, но не приоритетно",
-                    "text_uz": "Istisno, lekin ustuvor emas",
-                    "text_en": "Desirable, but not a priority"
+                    "id": "period",
+                    "text": "Бывает периодически",
+                    "text_uz": "Vaqti-vaqti bilan bo'ladi",
+                    "text_en": "Happens periodically"
+                },
+                {
+                    "id": "ok",
+                    "text": "Глаза в порядке",
+                    "text_uz": "Ko'zlar joyida",
+                    "text_en": "Eyes are fine"
+                }
+            ],
+            "order": 21
+        },
+        {
+            "id": "sport",
+            "section": "💪 СПОРТ",
+            "section_uz": "💪 SPORT",
+            "section_en": "💪 SPORT",
+            "label": "Занимаетесь ли спортом?",
+            "label_uz": "Sport bilan shug'ullanasizmi?",
+            "label_en": "Do you go in for sports?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "yes",
+                    "text": "Да, на регулярной основе",
+                    "text_uz": "Ha, muntazam ravishda",
+                    "text_en": "Yes, on a regular basis"
                 },
                 {
                     "id": "no",
-                    "text": "Нет необходимости",
-                    "text_uz": "Kerak yo'q",
-                    "text_en": "Not necessary"
+                    "text": "Нет",
+                    "text_uz": "Yo'q",
+                    "text_en": "No"
+                },
+                {
+                    "id": "plan",
+                    "text": "Планирую начать",
+                    "text_uz": "Boshlashni rejalashtiryapman",
+                    "text_en": "Planning to start"
                 }
             ],
-            "order": 14
+            "order": 22
+        },
+        {
+            "id": "weight_goal",
+            "section": "💪 СПОРТ",
+            "section_uz": "💪 SPORT",
+            "section_en": "💪 SPORT",
+            "label": "Хотите ли скорректировать вес?",
+            "label_uz": "Vazningizni to'g'irlashni xohlaysizmi?",
+            "label_en": "Do you want to adjust your weight?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "ok",
+                    "text": "Устраивает текущий",
+                    "text_uz": "Hozirgisi mos keladi",
+                    "text_en": "Satisfied with current"
+                },
+                {
+                    "id": "lose",
+                    "text": "Хочу уменьшить",
+                    "text_uz": "Kamaytirmoqchiman",
+                    "text_en": "Want to lose"
+                },
+                {
+                    "id": "gain",
+                    "text": "Планирую набрать мышечную массу",
+                    "text_uz": "Mushak massasini oshirmoqchiman",
+                    "text_en": "Plan to gain muscle mass"
+                },
+                {
+                    "id": "relief",
+                    "text": "Нужен рельеф без потери массы",
+                    "text_uz": "Vazn yo'qotmasdan relyef kerak",
+                    "text_en": "Need relief without mass loss"
+                }
+            ],
+            "order": 23
+        },
+        {
+            "id": "fatigue",
+            "section": "😴 ШАГ 5: ЭНЕРГИЯ",
+            "section_uz": "😴 5-QADAM: ENERGIYA",
+            "section_en": "😴 STEP 5: ENERGY",
+            "label": "Чувствуете ли хроническую усталость?",
+            "label_uz": "Surunkali charchoqni his qilasizmi?",
+            "label_en": "Do you feel chronic fatigue?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "no",
+                    "text": "Нет, чувствую себя бодрым весь день",
+                    "text_uz": "Yo'q, kun bo'yi o'zimni tetik his qilaman",
+                    "text_en": "No, feel energetic all day"
+                },
+                {
+                    "id": "morning",
+                    "text": "Да, утром уже нет сил",
+                    "text_uz": "Ha, eartalabdanoq kuch yo'q",
+                    "text_en": "Yes, no strength in the morning"
+                },
+                {
+                    "id": "afternoon",
+                    "text": "Да, энергия падает после обеда",
+                    "text_uz": "Ha, tushlikdan keyin energiya pasayadi",
+                    "text_en": "Yes, energy drops after lunch"
+                }
+            ],
+            "order": 24
+        },
+        {
+            "id": "sleep_quality",
+            "section": "😴 ШАГ 5: ЭНЕРГИЯ",
+            "section_uz": "😴 5-QADAM: ENERGIYA",
+            "section_en": "😴 STEP 5: ENERGY",
+            "label": "Как обстоят дела со сном?",
+            "label_uz": "Uyquingiz qanday?",
+            "label_en": "How is your sleep?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "good",
+                    "text": "Сплю крепко и хорошо",
+                    "text_uz": "Yaxshi va xotirjam uxlayman",
+                    "text_en": "Sleep soundly and well"
+                },
+                {
+                    "id": "some_diff",
+                    "text": "Иногда бывают сложности",
+                    "text_uz": "Ba'zida qiyinchiliklar bo'ladi",
+                    "text_en": "Sometimes have difficulties"
+                },
+                {
+                    "id": "onset",
+                    "text": "Долго не могу уснуть",
+                    "text_uz": "Uzoq vaqt uxlay olmayman",
+                    "text_en": "Can't fall asleep for long"
+                },
+                {
+                    "id": "insomnia",
+                    "text": "Страдаю бессонницей",
+                    "text_uz": "Uyqusizlikdan azob chekaman",
+                    "text_en": "Suffer from insomnia"
+                }
+            ],
+            "order": 25
+        },
+        {
+            "id": "stress_freq",
+            "section": "🧘 ШАГ 6: ЭМОЦИИ",
+            "section_uz": "🧘 6-QADAM: HISLAR",
+            "section_en": "🧘 STEP 6: EMOTIONS",
+            "label": "Как часто вы находитесь в состоянии напряжения?",
+            "label_uz": "Qanchalik tez-tez kuchlanish holatida bo'lasiz?",
+            "label_en": "How often are you in a state of tension?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "const",
+                    "text": "Стресс присутствует постоянно",
+                    "text_uz": "Stress doimiy ravishda mavjud",
+                    "text_en": "Stress is constantly present"
+                },
+                {
+                    "id": "period",
+                    "text": "Периодически возникает",
+                    "text_uz": "Vaqti-vaqti bilan paydo bo'ladi",
+                    "text_en": "Occurs periodically"
+                },
+                {
+                    "id": "rare",
+                    "text": "Редкое явление",
+                    "text_uz": "Kamdan-kam uchraydi",
+                    "text_en": "Rare occurrence"
+                },
+                {
+                    "id": "none",
+                    "text": "Практически не испытываю",
+                    "text_uz": "Deyarli his qilmayman",
+                    "text_en": "Practically don't experience"
+                }
+            ],
+            "order": 26
+        },
+        {
+            "id": "cold_freq",
+            "section": "🛡️ ШАГ 7: ИММУНИТЕТ",
+            "section_uz": "🛡️ 7-QADAM: IMMUNITET",
+            "section_en": "🛡️ STEP 7: IMMUNITY",
+            "label": "Сколько раз за год вы болеете простудными заболеваниями?",
+            "label_uz": "Yilda necha marta shamollash bilan bog'liq kasalliklar bilan og'riysiz?",
+            "label_en": "How many times a year do you get colds?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "3plus",
+                    "text": "Более трёх раз",
+                    "text_uz": "3 martadan ko'proq",
+                    "text_en": "More than three times"
+                },
+                {
+                    "id": "2-3",
+                    "text": "Два-три раза",
+                    "text_uz": "Ikki-uch marta",
+                    "text_en": "Two-three times"
+                },
+                {
+                    "id": "0-1",
+                    "text": "Раз или вообще не болею",
+                    "text_uz": "Bir marta yoki umuman og'rimayman",
+                    "text_en": "Once or not at all"
+                },
+                {
+                    "id": "vrare",
+                    "text": "Очень редко простужаюсь",
+                    "text_uz": "Juda kamdan-kam shamollayman",
+                    "text_en": "Very rarely get cold"
+                }
+            ],
+            "order": 27
+        },
+        {
+            "id": "beauty_issues",
+            "section": "✨ ШАГ 8: ВНЕШНИЙ ВИД",
+            "section_uz": "✨ 8-QADAM: TASHQI KO'RINISH",
+            "section_en": "✨ STEP 8: APPEARANCE",
+            "label": "Какие проблемы с кожей, волосами или ногтями вас беспокоят?",
+            "label_uz": "Teri, soch yoki tirnoqlar bilan bog'liq qaysi muammolardan xavotirdasiz?",
+            "label_en": "What skin, hair, or nail problems bother you?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "none",
+                    "text": "Проблем нет",
+                    "text_uz": "Muammolar yo'q",
+                    "text_en": "No problems"
+                },
+                {
+                    "id": "dry_skin",
+                    "text": "Сухость кожи",
+                    "text_uz": "Teri quruqligi",
+                    "text_en": "Dry skin"
+                },
+                {
+                    "id": "elasticity",
+                    "text": "Потеря упругости кожи",
+                    "text_uz": "Teri elastikligini yo'qotishi",
+                    "text_en": "Loss of skin elasticity"
+                },
+                {
+                    "id": "wrinkles",
+                    "text": "Морщины",
+                    "text_uz": "Ajinlar",
+                    "text_en": "Wrinkles"
+                },
+                {
+                    "id": "acne",
+                    "text": "Угревая сыпь / акне",
+                    "text_uz": "Husnbuzarlar / akne",
+                    "text_en": "Acne"
+                },
+                {
+                    "id": "hair_loss",
+                    "text": "Выпадение волос",
+                    "text_uz": "Soch to'kilishi",
+                    "text_en": "Hair loss"
+                },
+                {
+                    "id": "brittle_hair",
+                    "text": "Сухие / ломкие волосы",
+                    "text_uz": "Quruq / sinuvchan sochlar",
+                    "text_en": "Dry / brittle hair"
+                },
+                {
+                    "id": "dandruff",
+                    "text": "Перхоть",
+                    "text_uz": "Qazg'oq",
+                    "text_en": "Dandruff"
+                },
+                {
+                    "id": "brittle_nails",
+                    "text": "Ломкие ногти",
+                    "text_uz": "Sinuvchan tirnoqlar",
+                    "text_en": "Brittle nails"
+                }
+            ],
+            "order": 28
+        },
+        {
+            "id": "cycle_regularity",
+            "section": "🌸 ШАГ 9: ЖЕНСКОЕ ЗДОРОВЬЕ",
+            "section_uz": "🌸 9-QADAM: AYOLLAR SALOMATLIGI",
+            "section_en": "🌸 STEP 9: WOMEN'S HEALTH",
+            "label": "Насколько регулярен ваш цикл?",
+            "label_uz": "Sizning siklingiz qanchalik muntazam?",
+            "label_en": "How regular is your cycle?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "stable",
+                    "text": "Стабильный и предсказуемый",
+                    "text_uz": "Barqaror va bashorat qilinadigan",
+                    "text_en": "Stable and predictable"
+                },
+                {
+                    "id": "irreg",
+                    "text": "Нерегулярный",
+                    "text_uz": "Nomuntazam",
+                    "text_en": "Irregular"
+                },
+                {
+                    "id": "menopause",
+                    "text": "Период менопаузы",
+                    "text_uz": "Menopauza davri",
+                    "text_en": "Menopause period"
+                },
+                {
+                    "id": "climacteric",
+                    "text": "Климактерический период",
+                    "text_uz": "Klimakterik davr",
+                    "text_en": "Climacteric period"
+                },
+                {
+                    "id": "pregnant",
+                    "text": "Беременность (цикла нет)",
+                    "text_uz": "Homiladorlik (sikl yo'q)",
+                    "text_en": "Pregnancy (no cycle)"
+                }
+            ],
+            "order": 29
+        },
+        {
+            "id": "cycle_flow",
+            "section": "🌸 ШАГ 9: ЖЕНСКОЕ ЗДОРОВЬЕ",
+            "section_uz": "🌸 9-QADAM: AYOLLAR SALOMATLIGI",
+            "section_en": "🌸 STEP 9: WOMEN'S HEALTH",
+            "label": "Характер менструальных выделений:",
+            "label_uz": "Hayz ko'rish xususiyati:",
+            "label_en": "Menstrual flow character:",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "heavy",
+                    "text": "Обильные",
+                    "text_uz": "Ko'p",
+                    "text_en": "Heavy"
+                },
+                {
+                    "id": "mod",
+                    "text": "Умеренные",
+                    "text_uz": "O'rtacha",
+                    "text_en": "Moderate"
+                },
+                {
+                    "id": "scanty",
+                    "text": "Скудные",
+                    "text_uz": "Kam",
+                    "text_en": "Scanty"
+                }
+            ],
+            "order": 30
+        },
+        {
+            "id": "contraception",
+            "section": "🌸 ШАГ 9: КОНТРАЦЕПЦИЯ",
+            "section_uz": "🌸 9-QADAM: KONTRATSEPTSIYA",
+            "section_en": "🌸 STEP 9: CONTRACEPTION",
+            "label": "Используете ли гормональную контрацепцию?",
+            "label_uz": "Gormonal kontratseptsiyadan foydalanasizmi?",
+            "label_en": "Do you use hormonal contraception?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "const",
+                    "text": "Да, регулярно",
+                    "text_uz": "Ha, muntazam",
+                    "text_en": "Yes, regularly"
+                },
+                {
+                    "id": "no",
+                    "text": "Нет",
+                    "text_uz": "Yo'q",
+                    "text_en": "No"
+                },
+                {
+                    "id": "period",
+                    "text": "Периодически",
+                    "text_uz": "Vaqti-vaqti bilan",
+                    "text_en": "Periodically"
+                }
+            ],
+            "order": 31
+        },
+        {
+            "id": "has_children",
+            "section": "🌸 ШАГ 9: МАТЕРИНСТВО",
+            "section_uz": "🌸 9-QADAM: ONALIK",
+            "section_en": "🌸 STEP 9: MOTHERHOOD",
+            "label": "Есть ли у вас дети?",
+            "label_uz": "Farzandlaringiz bormi?",
+            "label_en": "Do you have children?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "yes",
+                    "text": "Да",
+                    "text_uz": "Ha",
+                    "text_en": "Yes"
+                },
+                {
+                    "id": "no",
+                    "text": "Нет",
+                    "text_uz": "Yo'q",
+                    "text_en": "No"
+                }
+            ],
+            "order": 32
+        },
+        {
+            "id": "blood_tests",
+            "section": "🏥 ШАГ 10: ЗДОРОВЬЕ",
+            "section_uz": "🏥 10-QADAM: SALOMATLIK",
+            "section_en": "🏥 STEP 10: HEALTH",
+            "label": "Есть ли у вас свежие анализы крови (за последние полгода)?",
+            "label_uz": "Yaqinda qon tahlillari topshirdingizmi (oxirgi 6 oy)?",
+            "label_en": "Do you have recent blood tests (last 6 months)?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "yes",
+                    "text": "Да, готова предоставить данные",
+                    "text_uz": "Ha, ma'lumotlarni berishga tayyorman",
+                    "text_en": "Yes, ready to provide data"
+                },
+                {
+                    "id": "later",
+                    "text": "Есть, но предоставлю позже",
+                    "text_uz": "Bor, lekin keyinroq beraman",
+                    "text_en": "Yes, but provide later"
+                },
+                {
+                    "id": "no",
+                    "text": "Анализов нет",
+                    "text_uz": "Tahlillar yo'q",
+                    "text_en": "No tests"
+                }
+            ],
+            "order": 33
+        },
+        {
+            "id": "chronic",
+            "section": "🏥 ШАГ 10: ЗДОРОВЬЕ",
+            "section_uz": "🏥 10-QADAM: SALOMATLIK",
+            "section_en": "🏥 STEP 10: HEALTH",
+            "label": "Имеются ли хронические диагнозы?",
+            "label_uz": "Surunkali kasalliklaringiz bormi?",
+            "label_en": "Do you have chronic diagnoses?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "yes",
+                    "text": "Да",
+                    "text_uz": "Ha",
+                    "text_en": "Yes"
+                },
+                {
+                    "id": "no",
+                    "text": "Нет",
+                    "text_uz": "Yo'q",
+                    "text_en": "No"
+                },
+                {
+                    "id": "not_sure",
+                    "text": "Затрудняюсь ответить",
+                    "text_uz": "Javob berishga qiynalaman",
+                    "text_en": "Not sure"
+                }
+            ],
+            "order": 34
+        },
+        {
+            "id": "digestive",
+            "section": "🏥 ШАГ 10: ЖКТ",
+            "section_uz": "🏥 10-QADAM: OSHQOZON-ICHAK",
+            "section_en": "🏥 STEP 10: GI TRACT",
+            "label": "Диагностированы ли заболевания ЖКТ?",
+            "label_uz": "Oshqozon-ichak kasalliklari tashxisi qo'yilganmi?",
+            "label_en": "Have GI tract diseases been diagnosed?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "none",
+                    "text": "Нет диагнозов",
+                    "text_uz": "Tashxislar yo'q",
+                    "text_en": "No diagnoses"
+                },
+                {
+                    "id": "ulcer",
+                    "text": "Язвенная болезнь",
+                    "text_uz": "Oshqozon yarasi",
+                    "text_en": "Ulcer"
+                },
+                {
+                    "id": "gastritis",
+                    "text": "Гастрит",
+                    "text_uz": "Gastrit",
+                    "text_en": "Gastritis"
+                },
+                {
+                    "id": "gallbladder",
+                    "text": "Проблемы с желчевыводящими путями",
+                    "text_uz": "O't yo'llari bilan bog'liq muammolar",
+                    "text_en": "Gallbladder problems"
+                },
+                {
+                    "id": "stones",
+                    "text": "Камни в желчном пузыре",
+                    "text_uz": "O't pufagidagi toshlar",
+                    "text_en": "Gallstones"
+                },
+                {
+                    "id": "pancreatitis",
+                    "text": "Панкреатит",
+                    "text_uz": "Pankreatit",
+                    "text_en": "Pancreatitis"
+                },
+                {
+                    "id": "cholecystitis",
+                    "text": "Холецистит",
+                    "text_uz": "Xolestistit",
+                    "text_en": "Cholecystitis"
+                },
+                {
+                    "id": "diarrhea",
+                    "text": "Частая диарея",
+                    "text_uz": "Tez-tez diareya",
+                    "text_en": "Frequent diarrhea"
+                },
+                {
+                    "id": "constipation",
+                    "text": "Склонность к запорам",
+                    "text_uz": "Qabziyatga moyillik",
+                    "text_en": "Constipation tendency"
+                }
+            ],
+            "order": 35
+        },
+        {
+            "id": "meds",
+            "section": "🏥 ШАГ 10: ЗДОРОВЬЕ",
+            "section_uz": "🏥 10-QADAM: SALOMATLIK",
+            "section_en": "🏥 STEP 10: HEALTH",
+            "label": "Принимаете ли медикаменты постоянно?",
+            "label_uz": "Doimiy ravishda dori-darmonlar qabul qilasizmi?",
+            "label_en": "Do you take medications constantly?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "yes",
+                    "text": "Да",
+                    "text_uz": "Ha",
+                    "text_en": "Yes"
+                },
+                {
+                    "id": "no",
+                    "text": "Нет",
+                    "text_uz": "Yo'q",
+                    "text_en": "No"
+                }
+            ],
+            "order": 36
+        },
+        {
+            "id": "blood_pressure",
+            "section": "🏥 ШАГ 10: ЗДОРОВЬЕ",
+            "section_uz": "🏥 10-QADAM: SALOMATLIK",
+            "section_en": "🏥 STEP 10: HEALTH",
+            "label": "Каковы обычные показатели вашего давления?",
+            "label_uz": "Qon bosimingizning odatiy ko'rsatkichlari qanday?",
+            "label_en": "What are your typical blood pressure readings?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "norm",
+                    "text": "В пределах нормы",
+                    "text_uz": "Norma darajasida",
+                    "text_en": "Within norm"
+                },
+                {
+                    "id": "high",
+                    "text": "Выше нормы",
+                    "text_uz": "Normadan yuqori",
+                    "text_en": "Above norm"
+                },
+                {
+                    "id": "low",
+                    "text": "Ниже нормы",
+                    "text_uz": "Normadan past",
+                    "text_en": "Below norm"
+                },
+                {
+                    "id": "none",
+                    "text": "Не измеряю",
+                    "text_uz": "O'lchamayman",
+                    "text_en": "Don't measure"
+                }
+            ],
+            "order": 37
+        },
+        {
+            "id": "supplements_exp",
+            "section": "💊 ШАГ 11: Опыт",
+            "section_uz": "💊 11-QADAM: Tajriba",
+            "section_en": "💊 STEP 11: Experience",
+            "label": "Каков ваш опыт использования витаминов и БАДов?",
+            "label_uz": "Vitamin va BFQlardan foydalanish tajribangiz qanday?",
+            "label_en": "What is your experience with vitamins and supplements?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "none",
+                    "text": "Никогда не принимала",
+                    "text_uz": "Hech qachon qabul qilmaganman",
+                    "text_en": "Never taken"
+                },
+                {
+                    "id": "trying",
+                    "text": "Пробовала, но без системы",
+                    "text_uz": "Sinab ko'rganman, lekin muntazam emas",
+                    "text_en": "Tried, but without system"
+                },
+                {
+                    "id": "seasonal",
+                    "text": "Пью курсами или по сезонам",
+                    "text_uz": "Kurs yoki mavsumiy qabul qilaman",
+                    "text_en": "Take in courses or seasonally"
+                },
+                {
+                    "id": "const",
+                    "text": "Принимаю постоянно длительное время",
+                    "text_uz": "Uzoq vaqtdan beri doimiy qabul qilaman",
+                    "text_en": "Take constantly for a long time"
+                }
+            ],
+            "order": 38
+        },
+        {
+            "id": "source",
+            "section": "📢 ШАГ 12: ИСТОЧНИКИ",
+            "section_uz": "📢 12-QADAM: MANBALAR",
+            "section_en": "📢 STEP 12: SOURCES",
+            "label": "Откуда вы узнали о HESSA?",
+            "label_uz": "HESSA haqida qayerdan bildingiz?",
+            "label_en": "Where did you hear about HESSA?",
+            "type": "options",
+            "placeholder": "",
+            "placeholder_uz": "",
+            "placeholder_en": "",
+            "options": [
+                {
+                    "id": "friend",
+                    "text": "Порекомендовал близкий человек",
+                    "text_uz": "Yaqin insonim tavsiya qildi",
+                    "text_en": "Recommended by a close person"
+                },
+                {
+                    "id": "spec",
+                    "text": "Совет специалиста",
+                    "text_uz": "Mutaxassis maslahati",
+                    "text_en": "Specialist's advice"
+                },
+                {
+                    "id": "tv",
+                    "text": "Увидела по ТВ",
+                    "text_uz": "Televizorda ko'rdim",
+                    "text_en": "Saw on TV"
+                },
+                {
+                    "id": "internet",
+                    "text": "Нашла в интернете",
+                    "text_uz": "Internetdan topdim",
+                    "text_en": "Found on the Internet"
+                },
+                {
+                    "id": "unknown",
+                    "text": "Не помню источник",
+                    "text_uz": "Manba esimda yo'q",
+                    "text_en": "Don't remember the source"
+                }
+            ],
+            "order": 39
+        },
+        {
+            "id": "phone",
+            "section": "📱 ШАГ 13: КОНТАКТ",
+            "section_uz": "📱 13-QADAM: ALOQA",
+            "section_en": "📱 STEP 13: CONTACT",
+            "label": "Ваш номер телефона:",
+            "label_uz": "Telefon raqamingiz:",
+            "label_en": "Your phone number:",
+            "type": "input",
+            "placeholder": "+998",
+            "placeholder_uz": "+998",
+            "placeholder_en": "+998",
+            "options": [],
+            "order": 40
         }
     ]
 }

@@ -16,7 +16,10 @@ import {
     Check,
     ChevronRight,
     Type,
-    ArrowRight
+    ArrowRight,
+    HelpCircle,
+    Plus,
+    Trash2
 } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,7 +27,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type Language = "RU" | "UZ" | "EN";
 type SlideIndex = 0 | 1 | 2;
-type Section = "hero" | "ticker" | "benefits";
+type Section = "hero" | "ticker" | "benefits" | "faq";
 
 interface MainPageFormProps {
     lang: Language;
@@ -38,6 +41,8 @@ export function MainPageForm({ lang }: MainPageFormProps) {
     const [slides, setSlides] = useState<any[]>([]);
     const [ticker, setTicker] = useState<any[]>([]);
     const [benefits, setBenefits] = useState<any[]>([]);
+    const [faq, setFaq] = useState<any[]>([]);
+    const [faqTitles, setFaqTitles] = useState<any>({});
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [uploading, setUploading] = useState<number | null>(null);
@@ -64,6 +69,15 @@ export function MainPageForm({ lang }: MainPageFormProps) {
                 const dataContent = await resContent.json();
                 if (dataContent.ticker) setTicker(dataContent.ticker);
                 if (dataContent.benefits) setBenefits(dataContent.benefits);
+                if (dataContent.faq) setFaq(dataContent.faq);
+                setFaqTitles({
+                    faq_title: dataContent.faq_title || "",
+                    faq_title_uz: dataContent.faq_title_uz || "",
+                    faq_title_en: dataContent.faq_title_en || "",
+                    faq_subtitle: dataContent.faq_subtitle || "",
+                    faq_subtitle_uz: dataContent.faq_subtitle_uz || "",
+                    faq_subtitle_en: dataContent.faq_subtitle_en || "",
+                });
             }
         } catch (err) {
             console.error(err);
@@ -94,6 +108,15 @@ export function MainPageForm({ lang }: MainPageFormProps) {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ benefits }),
+                });
+            } else if (activeSection === 'faq') {
+                res = await fetch('http://localhost:8000/api/content', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        faq,
+                        ...faqTitles
+                    }),
                 });
             }
 
@@ -155,6 +178,28 @@ export function MainPageForm({ lang }: MainPageFormProps) {
         setBenefits(newBenefits);
     };
 
+    const updateFaq = (index: number, field: string, value: any) => {
+        const newFaq = [...faq];
+        if (!newFaq[index]) return;
+        newFaq[index] = { ...newFaq[index], [field]: value };
+        setFaq(newFaq);
+    };
+
+    const updateFaqTitles = (field: string, value: any) => {
+        setFaqTitles({ ...faqTitles, [field]: value });
+    };
+
+    const addFaqItem = () => {
+        setFaq([...faq, {
+            question: "Новый вопрос", question_uz: "", question_en: "",
+            answer: "Текст ответа", answer_uz: "", answer_en: ""
+        }]);
+    };
+
+    const removeFaqItem = (index: number) => {
+        setFaq(faq.filter((_, i) => i !== index));
+    };
+
     const getFieldForLang = (baseName: string, currentLang: Language) => {
         if (currentLang === 'RU') return baseName;
         return `${baseName}_${currentLang.toLowerCase()}`;
@@ -210,7 +255,7 @@ export function MainPageForm({ lang }: MainPageFormProps) {
         visible: {
             opacity: 1,
             x: 0,
-            transition: { type: "tween", ease: "easeOut", duration: 0.3 }
+            transition: { type: "tween" as const, ease: "easeOut" as const, duration: 0.3 }
         },
         exit: {
             opacity: 0,
@@ -233,6 +278,7 @@ export function MainPageForm({ lang }: MainPageFormProps) {
                         { id: 'hero', label: 'Баннеры', icon: ImageIcon },
                         { id: 'ticker', label: 'Строка', icon: Megaphone },
                         { id: 'benefits', label: 'Преимущества', icon: Sparkles },
+                        { id: 'faq', label: 'FAQ', icon: HelpCircle },
                     ].map((sec) => {
                         const isActive = activeSection === sec.id;
                         return (
@@ -314,6 +360,16 @@ export function MainPageForm({ lang }: MainPageFormProps) {
                                                 />
                                             </div>
 
+                                            <div className="space-y-2">
+                                                <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pl-1">Текст кнопки</Label>
+                                                <Input
+                                                    placeholder="Текст кнопки..."
+                                                    value={currentSlide?.[getFieldForLang('buttonText', lang)] || ''}
+                                                    onChange={(e) => updateSlideField(activeSlide, getFieldForLang('buttonText', lang), e.target.value)}
+                                                    className="h-11 bg-muted/20 border-border/40 focus:bg-background focus:border-primary/20 rounded-xl transition-all"
+                                                />
+                                            </div>
+
                                             <div className="grid grid-cols-1 gap-4">
                                                 <div className="space-y-2">
                                                     <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pl-1">Описание слева</Label>
@@ -384,21 +440,6 @@ export function MainPageForm({ lang }: MainPageFormProps) {
                                     </div>
                                 </div>
 
-                                {/* Footer Actions */}
-                                <div className="p-4 px-8 border-t border-border/50 bg-muted/10 flex items-center justify-between">
-                                    <div className="flex items-center gap-2 text-muted-foreground/50 text-[10px] uppercase font-bold tracking-widest">
-                                        <Check className="size-3" />
-                                        Изменения не сохранены
-                                    </div>
-                                    <Button
-                                        onClick={handleSave}
-                                        disabled={saving}
-                                        className="h-10 px-8 rounded-full font-semibold shadow-none active:scale-95 transition-all"
-                                    >
-                                        {saving ? <RefreshCw className="size-4 animate-spin mr-2" /> : <Save className="size-4 mr-2" />}
-                                        Сохранить слайд
-                                    </Button>
-                                </div>
                             </CardContent>
                         </Card>
                     </motion.div>
@@ -447,16 +488,6 @@ export function MainPageForm({ lang }: MainPageFormProps) {
                                         </motion.div>
                                     ))}
                                 </div>
-                            </div>
-                            <div className="p-4 px-8 border-t border-border/50 bg-muted/10 flex justify-end">
-                                <Button
-                                    onClick={handleSave}
-                                    disabled={saving}
-                                    className="h-10 px-8 rounded-full font-semibold shadow-none active:scale-95 transition-all"
-                                >
-                                    {saving ? <RefreshCw className="size-4 animate-spin mr-2" /> : <Save className="size-4 mr-2" />}
-                                    Сохранить
-                                </Button>
                             </div>
                         </Card>
                     </motion.div>
@@ -526,20 +557,133 @@ export function MainPageForm({ lang }: MainPageFormProps) {
                                     ))}
                                 </div>
                             </div>
-                            <div className="p-4 px-8 border-t border-border/50 bg-muted/10 flex justify-end">
-                                <Button
-                                    onClick={handleSave}
-                                    disabled={saving}
-                                    className="h-10 px-8 rounded-full font-semibold shadow-none active:scale-95 transition-all"
-                                >
-                                    {saving ? <RefreshCw className="size-4 animate-spin mr-2" /> : <Save className="size-4 mr-2" />}
-                                    Сохранить все
-                                </Button>
+                        </Card>
+                    </motion.div>
+                )}
+
+                {/* FAQ SECTION */}
+                {activeSection === 'faq' && (
+                    <motion.div
+                        key="faq"
+                        variants={slideVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="space-y-6"
+                    >
+                        <Card className="rounded-3xl border-border/60 bg-card/50 shadow-none overflow-hidden">
+                            <div className="p-8 space-y-8">
+                                <div className="flex items-center justify-between border-b border-border/40 pb-6">
+                                    <div className="flex items-center gap-4">
+                                        <div className="size-12 rounded-2xl bg-teal-500/10 flex items-center justify-center text-teal-600 shadow-none">
+                                            <HelpCircle className="size-6" />
+                                        </div>
+                                        <div>
+                                            <h2 className="text-lg font-bold tracking-tight">Частые вопросы (FAQ)</h2>
+                                            <p className="text-sm text-muted-foreground">Управление разделом вопросов и ответов</p>
+                                        </div>
+                                    </div>
+                                    <Button onClick={addFaqItem} variant="outline" className="rounded-full gap-2 font-bold px-6 border-primary/20 hover:bg-primary/5 text-primary">
+                                        <Plus className="size-4" />
+                                        Добавить вопрос
+                                    </Button>
+                                </div>
+
+                                {/* Main FAQ Titles */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pl-1">Заголовок раздела</Label>
+                                        <Input
+                                            value={faqTitles[getFieldForLang('faq_title', lang)] || ''}
+                                            onChange={(e) => updateFaqTitles(getFieldForLang('faq_title', lang), e.target.value)}
+                                            className="h-11 bg-muted/20 border-border/40 focus:bg-background focus:border-primary/20 rounded-xl transition-all"
+                                            placeholder="Частые вопросы..."
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pl-1">Подзаголовок раздела</Label>
+                                        <Input
+                                            value={faqTitles[getFieldForLang('faq_subtitle', lang)] || ''}
+                                            onChange={(e) => updateFaqTitles(getFieldForLang('faq_subtitle', lang), e.target.value)}
+                                            className="h-11 bg-muted/20 border-border/40 focus:bg-background focus:border-primary/20 rounded-xl transition-all"
+                                            placeholder="Описание..."
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4 pt-4">
+                                    {faq.map((item, idx) => (
+                                        <motion.div
+                                            key={idx}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: idx * 0.05 }}
+                                            className="group bg-background/40 p-6 rounded-2xl border border-border/50 hover:border-primary/30 transition-all space-y-4"
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="size-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
+                                                        {idx + 1}
+                                                    </div>
+                                                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Вопрос ({lang})</span>
+                                                </div>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={() => removeFaqItem(idx)}
+                                                    className="size-8 p-0 rounded-lg text-muted-foreground/50 hover:text-destructive hover:bg-destructive/10 transition-colors"
+                                                >
+                                                    <Trash2 className="size-4" />
+                                                </Button>
+                                            </div>
+
+                                            <div className="space-y-4">
+                                                <div className="space-y-2">
+                                                    <Input
+                                                        value={item[getFieldForLang('question', lang)] || ''}
+                                                        onChange={(e) => updateFaq(idx, getFieldForLang('question', lang), e.target.value)}
+                                                        className="h-11 bg-muted/10 border-transparent focus:bg-background focus:border-primary/20 rounded-xl transition-all font-bold"
+                                                        placeholder="Введите вопрос..."
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Textarea
+                                                        value={item[getFieldForLang('answer', lang)] || ''}
+                                                        onChange={(e) => updateFaq(idx, getFieldForLang('answer', lang), e.target.value)}
+                                                        className="min-h-[80px] bg-muted/10 border-transparent focus:bg-background focus:border-primary/20 rounded-xl resize-none transition-all text-sm"
+                                                        placeholder="Введите ответ..."
+                                                    />
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
                             </div>
+
                         </Card>
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {/* Floating Save Button */}
+            <motion.div
+                className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5 }}
+            >
+                <div className="flex items-center gap-2 rounded-full border border-border/50 bg-background/80 p-2 shadow-2xl backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+                    <Button
+                        onClick={handleSave}
+                        disabled={saving}
+                        className="rounded-full px-8 font-semibold transition-all hover:scale-105 active:scale-95"
+                        size="lg"
+                    >
+                        {saving ? <RefreshCw className="mr-2 size-4 animate-spin" /> : <Save className="mr-2 size-4" />}
+                        Сохранить изменения
+                    </Button>
+                </div>
+            </motion.div>
         </motion.div>
     );
 }

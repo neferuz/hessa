@@ -20,6 +20,8 @@ class QuizQuestion(BaseModel):
     placeholder_uz: Optional[str] = ""
     placeholder_en: Optional[str] = ""
     options: Optional[List[QuizOption]] = []
+    gender: str = "both"  # "both", "male", "female"
+    multiple: bool = False # Multiple choice support
     order: int  # Порядок отображения
 
 class QuizData(BaseModel):

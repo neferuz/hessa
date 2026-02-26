@@ -16,6 +16,11 @@ async def get_user_orders(user_id: int, db: AsyncSession = Depends(get_db)):
     service = OrderService(db)
     return await service.get_user_orders(user_id)
 
+@router.get("/all/list", response_model=list[OrderResponse])
+async def get_all_orders(db: AsyncSession = Depends(get_db)):
+    service = OrderService(db)
+    return await service.get_all_orders()
+
 @router.get("/{order_id}", response_model=OrderResponse)
 async def get_order(order_id: int, db: AsyncSession = Depends(get_db)):
     service = OrderService(db)

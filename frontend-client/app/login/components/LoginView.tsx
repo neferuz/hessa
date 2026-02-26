@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, Mail, Lock, AlertCircle } from "lucide-react";
+import { ChevronLeft, Mail, Lock, AlertCircle, QrCode } from "lucide-react";
+import QRCode from "react-qr-code";
 import styles from "../page.module.css";
 import { ViewState, LoginStep } from "../types";
+import clsx from "clsx";
 
 interface LoginViewProps {
     setView: (view: ViewState) => void;
@@ -34,6 +36,10 @@ export default function LoginView({
 
     const handleRequestCode = async () => {
         setError(null);
+        if (!email.includes('@')) {
+            setError("Пожалуйста, введите корректный email");
+            return;
+        }
         setIsSubmitting(true);
         try {
             const res = await fetch("http://localhost:8000/api/auth/request-code", {
@@ -46,7 +52,11 @@ export default function LoginView({
                 setError(data?.detail || "Не удалось отправить код");
                 return;
             }
-            // Код отправлен на email
+            if (data.code) {
+                alert(`Ваш код для входа: ${data.code}`);
+                // Можно также автозаполнить для удобства
+                // setOtp(data.code.split(""));
+            }
             setAuthStep("otp");
         } catch (e) {
             console.error(e);
@@ -72,18 +82,8 @@ export default function LoginView({
                 return;
             }
 
-            try {
-                localStorage.setItem("hessaUser", JSON.stringify(data));
-            } catch (e) {
-                console.error("Failed to persist login user", e);
-            }
-
-            try {
-                window.dispatchEvent(new Event("hessaAuthChange"));
-            } catch {
-                // no-op
-            }
-
+            localStorage.setItem("hessaUser", JSON.stringify(data));
+            window.dispatchEvent(new Event("hessaAuthChange"));
             window.location.href = "/";
         } catch (e) {
             console.error(e);
@@ -124,7 +124,7 @@ export default function LoginView({
                                 <Mail size={24} color="#1a1a1a" />
                             </div>
                             <h2 className={styles.cardTitle}>Войти в аккаунт</h2>
-                            <p className={styles.cardDesc}>Введите ваш почтовый адрес для получения кода</p>
+                            <p className={styles.cardDesc}>Введите ваш почтовый адрес для получения кода доступа.</p>
 
                             <div className={styles.formGroup}>
                                 <input
@@ -132,16 +132,24 @@ export default function LoginView({
                                     className={styles.inputField}
                                     placeholder="name@example.com"
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => {
+                                        setEmail(e.target.value);
+                                        if (error) setError(null);
+                                    }}
                                     autoFocus
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && email.includes('@') && !isSubmitting) {
+                                            handleRequestCode();
+                                        }
+                                    }}
                                 />
                             </div>
-                            {error && authStep === "email" && (
+                            {error && (
                                 <motion.div
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
                                     className={styles.errorNotification}
+                                    style={{ marginTop: '1rem' }}
                                 >
                                     <AlertCircle size={20} />
                                     <span>{error}</span>
@@ -173,28 +181,52 @@ export default function LoginView({
                                     <input
                                         key={i}
                                         id={`otp-${i}`}
-                                        type="text"
+                                        type="tel"
                                         maxLength={1}
                                         className={styles.otpInput}
                                         value={d}
+                                        autoFocus={i === 0}
                                         onChange={(e) => {
                                             const v = e.target.value.replace(/\D/g, '');
+                                            // Handle Paste
+                                            if (v.length > 1) {
+                                                const pasted = v.split('').slice(0, 4);
+                                                setOtp(pasted.concat(Array(4 - pasted.length).fill('')));
+                                                // Focus last filled
+                                                setTimeout(() => document.getElementById(`otp-${Math.min(3, pasted.length)}`)?.focus(), 0);
+                                                return;
+                                            }
+
                                             const n = [...otp];
                                             n[i] = v;
                                             setOtp(n);
-                                            if (v && i < 3) document.getElementById(`otp-${i + 1}`)?.focus();
+
+                                            // Auto-focus next
+                                            if (v && i < 3) {
+                                                document.getElementById(`otp-${i + 1}`)?.focus();
+                                            }
+
+                                            // Auto-submit on last digit
+                                            if (i === 3 && v && n.every(digit => digit !== '')) {
+                                                completeEmailLogin();
+                                            }
                                         }}
                                         onKeyDown={(e) => {
-                                            if (e.key === 'Backspace' && !otp[i] && i > 0) document.getElementById(`otp-${i - 1}`)?.focus();
+                                            if (e.key === 'Backspace' && !otp[i] && i > 0) {
+                                                document.getElementById(`otp-${i - 1}`)?.focus();
+                                            }
+                                            if (e.key === 'Enter' && otp.join("").length === 4 && !isSubmitting) {
+                                                completeEmailLogin();
+                                            }
                                         }}
                                     />
                                 ))}
                             </div>
-                            {error && authStep === "otp" && (
+                            {error && (
                                 <motion.div
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
+                                    style={{ marginTop: '1rem' }}
                                     className={styles.errorNotification}
                                 >
                                     <AlertCircle size={20} />
@@ -223,3 +255,4 @@ export default function LoginView({
         </motion.div>
     );
 }
+

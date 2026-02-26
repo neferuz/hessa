@@ -40,6 +40,21 @@ class ProductItem(BaseModel):
     image: str
     isNew: bool = False
 
+class FooterLink(BaseModel):
+    label: str
+    label_uz: Optional[str] = ""
+    label_en: Optional[str] = ""
+    url: str
+
+class ContactsData(BaseModel):
+    latitude: float = 41.2995
+    longitude: float = 69.2401
+    address: str = "Ташкент, Узбекистан"
+    address_uz: Optional[str] = "Toshkent, O'zbekiston"
+    address_en: Optional[str] = "Tashkent, Uzbekistan"
+    phone: str = "+998 90 123 45 67"
+    email: str = "info@hessa.uz"
+
 class FooterData(BaseModel):
     slogan: str
     slogan_uz: Optional[str] = ""
@@ -52,6 +67,19 @@ class FooterData(BaseModel):
     location_uz: Optional[str] = ""
     location_en: Optional[str] = ""
     copyright_text: str
+    col_1_title: Optional[str] = "Коллекции"
+    col_1_title_uz: Optional[str] = ""
+    col_1_title_en: Optional[str] = ""
+    col_1_links: List[FooterLink] = []
+    col_2_title: Optional[str] = "Сервис"
+    col_2_title_uz: Optional[str] = ""
+    col_2_title_en: Optional[str] = ""
+    col_2_links: List[FooterLink] = []
+    col_3_title: Optional[str] = "Бренд"
+    col_3_title_uz: Optional[str] = ""
+    col_3_title_en: Optional[str] = ""
+    col_3_links: List[FooterLink] = []
+    legal_links: List[FooterLink] = []
 
 class CompaniesData(BaseModel):
     # Hero
@@ -260,10 +288,48 @@ class CompaniesData(BaseModel):
     contact_desc_uz: Optional[str] = ""
     contact_desc_en: Optional[str] = ""
 
+class PageSection(BaseModel):
+    title: str
+    title_uz: Optional[str] = ""
+    title_en: Optional[str] = ""
+    content: str
+    content_uz: Optional[str] = ""
+    content_en: Optional[str] = ""
+    image: Optional[str] = None
+
+class StaticPageData(BaseModel):
+    title: str
+    title_uz: Optional[str] = ""
+    title_en: Optional[str] = ""
+    subtitle: Optional[str] = ""
+    subtitle_uz: Optional[str] = ""
+    subtitle_en: Optional[str] = ""
+    sections: List[PageSection] = []
+
+class FAQItem(BaseModel):
+    question: str
+    question_uz: Optional[str] = ""
+    question_en: Optional[str] = ""
+    answer: str
+    answer_uz: Optional[str] = ""
+    answer_en: Optional[str] = ""
+
 class ContentData(BaseModel):
-    ticker: List[TickerItem]
-    benefits: List[BenefitItem]
+    ticker: List[TickerItem] = []
+    benefits: List[BenefitItem] = []
     difference: List[DifferenceItem] = []
     products: List[ProductItem] = []
+    faq: List[FAQItem] = []
+    faq_title: Optional[str] = "Частые вопросы"
+    faq_title_uz: Optional[str] = ""
+    faq_title_en: Optional[str] = ""
+    faq_subtitle: Optional[str] = "Всё, что вы хотели знать о нашей продукции и сервисе"
+    faq_subtitle_uz: Optional[str] = ""
+    faq_subtitle_en: Optional[str] = ""
     footer: Optional[FooterData] = None
     companies: Optional[CompaniesData] = None
+    return_page: Optional[StaticPageData] = None
+    services_page: Optional[StaticPageData] = None
+    contacts_page: Optional[StaticPageData] = None
+    faq_page : Optional[StaticPageData] = None
+    contacts_info: Optional[ContactsData] = None

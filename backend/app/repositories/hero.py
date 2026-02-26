@@ -19,7 +19,10 @@ DEFAULT_DATA = {
                 {"label": "Allergen-Free", "x": 45, "y": 30}
             ],
             "image": "/vitamins-2.png",
-            "color": "#FFFFFF"
+            "color": "#FFFFFF",
+            "buttonText": "Купить сейчас",
+            "buttonText_uz": "Sotib olish",
+            "buttonText_en": "Shop Now"
         },
         {
             "id": 2,
@@ -32,7 +35,10 @@ DEFAULT_DATA = {
                 {"label": "Fast Absorb", "x": 45, "y": 20}
             ],
             "image": "/vitamins-2.png",
-            "color": "#FFFFFF"
+            "color": "#FFFFFF",
+            "buttonText": "Купить сейчас",
+            "buttonText_uz": "Sotib olish",
+            "buttonText_en": "Shop Now"
         },
         {
             "id": 3,
@@ -45,7 +51,10 @@ DEFAULT_DATA = {
                 {"label": "Vit B12+B6", "x": 45, "y": 25}
             ],
             "image": "/vitamins-3.png",
-            "color": "#FFFFFF"
+            "color": "#FFFFFF",
+            "buttonText": "Купить сейчас",
+            "buttonText_uz": "Sotib olish",
+            "buttonText_en": "Shop Now"
         }
     ]
 }
@@ -61,8 +70,30 @@ class HeroRepository:
                 json.dump(DEFAULT_DATA, f, indent=4)
 
     def get_hero_data(self) -> HeroData:
+        if not os.path.exists(self.file_path):
+            self._ensure_file_exists()
+        
         with open(self.file_path, "r") as f:
             data = json.load(f)
+        
+        # Ensure all slides have translation fields for the button
+        updated = False
+        if "slides" in data:
+            for slide in data["slides"]:
+                if "buttonText" not in slide:
+                    slide["buttonText"] = "Купить сейчас"
+                    updated = True
+                if "buttonText_uz" not in slide:
+                    slide["buttonText_uz"] = "Sotib olish"
+                    updated = True
+                if "buttonText_en" not in slide:
+                    slide["buttonText_en"] = "Shop Now"
+                    updated = True
+        
+        if updated:
+            with open(self.file_path, "w") as f:
+                json.dump(data, f, indent=4)
+                
         return HeroData(**data)
 
     def update_hero_data(self, data: HeroData) -> HeroData:

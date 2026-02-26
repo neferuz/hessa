@@ -20,6 +20,8 @@ interface QuizQuestion {
     type: "input" | "options";
     placeholder?: string;
     options: QuizOption[];
+    multiple?: boolean;
+    gender?: string;
 }
 
 interface RecommendedProduct {
@@ -37,7 +39,7 @@ const getApiImageUrl = (url: string) => {
     if (url.startsWith('http')) return url;
     // Only prepend backend URL if it's a known backend static path
     if (url.startsWith('/static/') || url.startsWith('static/')) {
-        const baseUrl = "http://localhost:8000";
+        const baseUrl = "https://assembly-nasa-carried-hope.trycloudflare.com";
         return `${baseUrl}${url.startsWith('/') ? url : '/' + url}`;
     }
     return url;
@@ -122,7 +124,18 @@ export default function QuizPage() {
     }, []);
 
     const handleOptionSelect = (questionId: string, optionId: string) => {
-        setAnswers(prev => ({ ...prev, [questionId]: optionId }));
+        const question = filteredQuestions.find(q => q.id === questionId);
+        if (question?.multiple) {
+            setAnswers(prev => {
+                const current = prev[questionId] ? prev[questionId].split(',') : [];
+                const updated = current.includes(optionId)
+                    ? current.filter(id => id !== optionId)
+                    : [...current, optionId];
+                return { ...prev, [questionId]: updated.join(',') };
+            });
+        } else {
+            setAnswers(prev => ({ ...prev, [questionId]: optionId }));
+        }
     };
 
     const handleInputChange = (questionId: string, value: string) => {
@@ -130,7 +143,7 @@ export default function QuizPage() {
     };
 
     const nextStep = () => {
-        if (currentStep < questions.length - 1) {
+        if (currentStep < filteredQuestions.length - 1) {
             setCurrentStep(prev => prev + 1);
         } else {
             finishQuiz();
@@ -142,6 +155,12 @@ export default function QuizPage() {
             setCurrentStep(prev => prev - 1);
         }
     };
+
+    // Фильтруем вопросы по полу
+    const selectedGender = answers['gender'];
+    const filteredQuestions = questions.filter(q =>
+        !q.gender || q.gender === 'both' || q.gender === selectedGender
+    );
 
     const finishQuiz = async () => {
         setAnalyzing(true);
@@ -728,7 +747,7 @@ export default function QuizPage() {
         );
     }
 
-    const currentQuestion = questions[currentStep];
+    const currentQuestion = filteredQuestions[currentStep];
 
     if (!currentQuestion) {
         return (
@@ -738,7 +757,7 @@ export default function QuizPage() {
         );
     }
 
-    const progress = ((currentStep + 1) / questions.length) * 100;
+    const progress = ((currentStep + 1) / filteredQuestions.length) * 100;
 
     return (
         <div className="min-h-screen bg-[#F5F5F7] flex flex-col max-w-md mx-auto relative overflow-hidden font-inter text-[#1a1a1a]">
@@ -754,7 +773,7 @@ export default function QuizPage() {
                     <span className="text-sm font-medium font-inter text-gray-400 tracking-wide">
                         <span className="text-[#1a1a1a] font-bold text-base">{currentStep + 1}</span>
                         <span className="mx-1.5 opacity-30">/</span>
-                        {questions.length}
+                        {filteredQuestions.length}
                     </span>
                 </div>
                 <div className="h-1 w-full bg-gray-200/50 rounded-full overflow-hidden backdrop-blur-sm">
@@ -807,20 +826,30 @@ export default function QuizPage() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: idx * 0.04 }}
                                         onClick={() => handleOptionSelect(currentQuestion.id, opt.id)}
-                                        className={`w-full p-4 pl-6 rounded-[20px] border text-left transition-all duration-200 active:scale-[0.98] flex items-center justify-between group relative overflow-hidden ${answers[currentQuestion.id] === opt.id
+                                        className={`w-full p-4 pl-6 rounded-[20px] border text-left transition-all duration-200 active:scale-[0.98] flex items-center justify-between group relative overflow-hidden ${(currentQuestion.multiple
+                                            ? (answers[currentQuestion.id] || "").split(',').includes(opt.id)
+                                            : answers[currentQuestion.id] === opt.id)
                                             ? "bg-[#1a1a1a] border-[#1a1a1a] text-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.3)]"
                                             : "bg-white border-white hover:border-gray-100 hover:bg-gray-50/50 text-[#1a1a1a] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)]"
                                             }`}
                                     >
-                                        <span className={`text-[16px] relative z-10 leading-snug pr-4 font-inter ${answers[currentQuestion.id] === opt.id ? "font-medium" : "font-normal text-gray-700"}`}>
+                                        <span className={`text-[16px] relative z-10 leading-snug pr-4 font-inter ${(currentQuestion.multiple
+                                            ? (answers[currentQuestion.id] || "").split(',').includes(opt.id)
+                                            : answers[currentQuestion.id] === opt.id)
+                                            ? "font-medium" : "font-normal text-gray-700"}`}>
                                             {opt.text}
                                         </span>
 
-                                        <div className={`relative z-10 w-6 h-6 rounded-full border flex items-center justify-center transition-all duration-200 ${answers[currentQuestion.id] === opt.id
+                                        <div className={`relative z-10 w-6 h-6 rounded-full border flex items-center justify-center transition-all duration-200 ${(currentQuestion.multiple
+                                            ? (answers[currentQuestion.id] || "").split(',').includes(opt.id)
+                                            : answers[currentQuestion.id] === opt.id)
                                             ? "border-white bg-white"
                                             : "border-gray-200 bg-transparent"
                                             }`}>
-                                            <div className={`w-2.5 h-2.5 rounded-full bg-[#1a1a1a] transition-all duration-200 ${answers[currentQuestion.id] === opt.id ? "scale-100" : "scale-0"}`} />
+                                            <div className={`w-2.5 h-2.5 rounded-full bg-[#1a1a1a] transition-all duration-200 ${(currentQuestion.multiple
+                                                ? (answers[currentQuestion.id] || "").split(',').includes(opt.id)
+                                                : answers[currentQuestion.id] === opt.id)
+                                                ? "scale-100" : "scale-0"}`} />
                                         </div>
                                     </motion.button>
                                 ))}

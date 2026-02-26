@@ -376,7 +376,7 @@ export default function CategoriesPage() {
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: i * 0.05 }}
-                                            className="group relative h-[340px] overflow-hidden rounded-[2.5rem] border bg-card shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-2"
+                                            className="group relative h-[340px] overflow-hidden rounded-[2.5rem] border bg-card transition-all duration-500 hover:-translate-y-2 hover:border-primary/50"
                                         >
                                             {/* Full Background Image */}
                                             <div className="absolute inset-0 z-0">

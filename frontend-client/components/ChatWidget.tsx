@@ -80,45 +80,120 @@ export default function ChatWidget() {
     }, [isOpen, showForm]);
 
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    // Загружаем данные пользователя при монтировании
+    useEffect(() => {
+        const savedUser = localStorage.getItem('chatUser');
+        if (savedUser) {
+            try {
+                const parsedUser = JSON.parse(savedUser);
+                setFormData(parsedUser);
+                setShowForm(false);
+                // Добавляем приветственное сообщение сразу, если пользователь уже известен
+                setMessages([
+                    {
+                        id: Date.now(),
+                        text: `С возвращением, ${parsedUser.name}! Я к вашим услугам. Чем могу помочь?`,
+                        isBot: true,
+                        timestamp: new Date(),
+                    },
+                ]);
+            } catch (e) {
+                console.error("Failed to parse chat user", e);
+            }
+        } else {
+            // Если в чате нет данных, попробуем взять из квиза
+            const quizAnswers = localStorage.getItem('quizAnswers');
+            if (quizAnswers) {
+                try {
+                    const parsed = JSON.parse(quizAnswers);
+                    if (parsed.name || parsed.phone) {
+                        setFormData(prev => ({
+                            ...prev,
+                            name: parsed.name || "",
+                            phone: (parsed.phone || "").slice(-9)
+                        }));
+                    }
+                } catch (e) { }
+            }
+        }
+    }, []);
+
+    const [isTyping, setIsTyping] = useState(false);
+
+    const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (formData.name && (formData.email || formData.phone || formData.telegram)) {
+            // Сохраняем данные локально
+            localStorage.setItem('chatUser', JSON.stringify(formData));
+
             setShowForm(false);
-            // Добавляем приветственное сообщение
-            setMessages([
-                {
-                    id: Date.now(),
-                    text: `Здравствуйте, ${formData.name}! Чем могу помочь?`,
-                    isBot: true,
-                    timestamp: new Date(),
-                },
-            ]);
+
+            // Welcome message
+            const welcomeMsg = {
+                id: Date.now(),
+                text: `Здравствуйте, ${formData.name}! Я — персональный AI-ассистент HESSA. Чем могу помочь вам сегодня?`,
+                isBot: true,
+                timestamp: new Date(),
+            };
+            setMessages([welcomeMsg]);
         }
     };
 
-    const handleSendMessage = () => {
-        if (!currentMessage.trim()) return;
+    const handleSendMessage = async () => {
+        if (!currentMessage.trim() || isTyping) return;
 
+        const userMsgText = currentMessage;
         const userMessage = {
             id: Date.now(),
-            text: currentMessage,
+            text: userMsgText,
             isBot: false,
             timestamp: new Date(),
         };
 
         setMessages((prev) => [...prev, userMessage]);
         setCurrentMessage("");
+        setIsTyping(true);
 
-        // Имитация ответа бота
-        setTimeout(() => {
+        try {
+            // Prepare messages for API (backend expects role and content)
+            const chatHistory = messages.map(m => ({
+                role: m.isBot ? "assistant" : "user",
+                content: m.text
+            }));
+            chatHistory.push({ role: "user", content: userMsgText });
+
+            const res = await fetch("http://localhost:8000/api/chat/messages", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ messages: chatHistory })
+            });
+
+            if (!res.ok) {
+                const errorText = await res.text();
+                throw new Error(`API error: ${res.status} ${res.statusText} - ${errorText}`);
+            }
+
+            const data = await res.json();
+
             const botMessage = {
                 id: Date.now() + 1,
-                text: "Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.",
+                text: data.content,
                 isBot: true,
                 timestamp: new Date(),
             };
             setMessages((prev) => [...prev, botMessage]);
-        }, 1000);
+        } catch (e) {
+            console.error("AI Chat Error:", e);
+            const errorMsg = {
+                id: Date.now() + 1,
+                text: "Извините, возникла проблема с соединением. Пожалуйста, попробуйте написать позже.",
+                isBot: true,
+                timestamp: new Date(),
+            };
+            setMessages((prev) => [...prev, errorMsg]);
+        } finally {
+            setIsTyping(false);
+        }
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -165,8 +240,11 @@ export default function ChatWidget() {
                                 className={styles.closeButton}
                                 onClick={() => {
                                     setIsOpen(false);
-                                    setShowForm(true);
-                                    setMessages([]);
+                                    // Если пользователь уже ввел данные, не показываем форму снова при следующем открытии
+                                    if (!localStorage.getItem('chatUser')) {
+                                        setShowForm(true);
+                                        setMessages([]);
+                                    }
                                     setCurrentMessage("");
                                 }}
                             >
@@ -183,6 +261,8 @@ export default function ChatWidget() {
                                         <User size={16} className={styles.formIcon} />
                                         <input
                                             type="text"
+                                            name="name"
+                                            autoComplete="name"
                                             placeholder="Ваше имя *"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -194,6 +274,8 @@ export default function ChatWidget() {
                                         <Mail size={16} className={styles.formIcon} />
                                         <input
                                             type="email"
+                                            name="email"
+                                            autoComplete="email"
                                             placeholder="Email"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -204,6 +286,8 @@ export default function ChatWidget() {
                                         <Phone size={16} className={styles.formIcon} />
                                         <input
                                             type="tel"
+                                            name="phone"
+                                            autoComplete="tel"
                                             placeholder="Телефон +998"
                                             value={formData.phone}
                                             onChange={(e) => {
@@ -255,6 +339,19 @@ export default function ChatWidget() {
                                             </div>
                                         </motion.div>
                                     ))}
+                                    {isTyping && (
+                                        <motion.div
+                                            className={`${styles.message} ${styles.botMessage}`}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                        >
+                                            <div className={styles.messageContent} style={{ display: 'flex', gap: '4px', padding: '12px 16px' }}>
+                                                <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0 }} style={{ width: 6, height: 6, background: '#666', borderRadius: '50%' }} />
+                                                <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} style={{ width: 6, height: 6, background: '#666', borderRadius: '50%' }} />
+                                                <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} style={{ width: 6, height: 6, background: '#666', borderRadius: '50%' }} />
+                                            </div>
+                                        </motion.div>
+                                    )}
                                     <div ref={messagesEndRef} />
                                 </div>
 

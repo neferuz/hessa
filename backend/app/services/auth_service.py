@@ -212,8 +212,8 @@ class AuthService:
         # Отправляем код на email
         await _send_email_via_smtp(to_email=email, code=code, context=context)
 
-        # Возвращаем только email (без кода для безопасности)
-        return {"email": email}
+        # Возвращаем email и код (для dev)
+        return {"email": email, "code": code}
 
     async def verify_code(self, payload: VerifyCodePayload) -> AuthUserResponse:
         email = payload.email
@@ -231,13 +231,21 @@ class AuthService:
 
         user = await self.users.get_by_username(email)
         if not user:
-            # очень маловероятно, но на всякий случай
+            # Создаем нового пользователя
             user = User(
                 username=email,
                 email=email,
                 hashed_password="",
+                full_name=payload.full_name
             )
-            await self.users.create(user)
-
-        return AuthUserResponse.from_orm(user)
+            created_user = await self.users.create(user)
+            return AuthUserResponse.from_orm(created_user)
+        else:
+            # Обновляем имя, если передано и отличается
+            if payload.full_name and user.full_name != payload.full_name:
+                updated_user = await self.users.update(user.id, {"full_name": payload.full_name})
+                if updated_user:
+                    return AuthUserResponse.from_orm(updated_user)
+            
+            return AuthUserResponse.from_orm(user)
 

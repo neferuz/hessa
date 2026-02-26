@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import SearchBar from "@/components/SearchBar";
+
 import FilterTabs from "@/components/FilterTabs";
 import AIChat from "@/components/AIChat";
 import ProductCard from "@/components/ProductCard";
@@ -20,7 +20,7 @@ export default function Home() {
       <div className="relative z-10">
         <Header />
         <Hero />
-        <SearchBar />
+
         <FilterTabs active={activeCategory} setActive={setActiveCategory} />
         <ProductCard activeCategory={activeCategory} />
       </div>

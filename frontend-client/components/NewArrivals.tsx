@@ -1,48 +1,58 @@
 "use client";
 
 
-import { Heart, ShoppingBag } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import styles from "./NewArrivals.module.css";
 import TextReveal from "./ui/TextReveal";
 
-const products = [
-    {
-        id: 1,
-        name: "Мультивитамины",
-        category: "Иммунитет и энергия",
-        price: "145 000 сум",
-        image: "/vitamins-1.png",
-        isNew: true
-    },
-    {
-        id: 2,
-        name: "Железо + C",
-        category: "Здоровье крови",
-        price: "95 000 сум",
-        image: "/vitamins-2.png",
-        isNew: false
-    },
-    {
-        id: 3,
-        name: "Магний B6",
-        category: "Нервная система",
-        price: "115 000 сум",
-        image: "/vitamins-3.png",
-        isNew: true
-    },
-    {
-        id: 4,
-        name: "Омега-3",
-        category: "Сердце и мозг",
-        price: "245 000 сум",
-        image: "/vitamins-1.png",
-        isNew: false
-    }
-];
+const tabs = ["Все", "Ежедневное", "Иммунитет", "Красота"];
 
 export default function NewArrivals() {
+    const [activeTab, setActiveTab] = useState("Все");
+    const [products, setProducts] = useState<any[]>([]);
+
+    const API_BASE_URL = "http://localhost:8000";
+
+    const getImageUrl = (img: any) => {
+        let url = img;
+        if (typeof img === 'string' && img.startsWith('[')) {
+            try { url = JSON.parse(img)[0]; } catch (e) { url = img; }
+        } else if (Array.isArray(img)) {
+            url = img[0];
+        }
+
+        if (!url) return "/vitamins-1.png";
+        if (url.startsWith('http')) return url;
+        const cleanUrl = url.startsWith('/') ? url : `/${url}`;
+        return `${API_BASE_URL}${cleanUrl}`;
+    };
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/products`);
+                const data = await res.json();
+                setProducts(data);
+            } catch (err) {
+                console.error("Failed to fetch products:", err);
+            }
+        };
+        fetchProducts();
+    }, []);
+
+    // Simple filter logic mapping tabs to categories
+    const filteredProducts = products.filter(p => {
+        if (activeTab === "Все") return true;
+        if (activeTab === "Ежедневное") return p.category?.name?.includes("Мульти") || p.category?.name?.includes("Ежеднев");
+        if (activeTab === "Иммунитет") return p.category?.name?.includes("Иммун");
+        if (activeTab === "Красота") return p.category?.name?.includes("Красот") || p.category?.name?.includes("Кожа");
+        return p.category?.name === activeTab;
+    });
+
     return (
         <section className={styles.section}>
             <div className={styles.container}>
@@ -50,41 +60,58 @@ export default function NewArrivals() {
                     <TextReveal>
                         <h2 className={styles.title}>Новинки</h2>
                     </TextReveal>
-                    <Link href="/catalog" className={styles.linkBtn}>
-                        Посмотреть все
+                </div>
+
+                {/* Navigation Tabs */}
+                <div className={styles.tabsContainer}>
+                    <div className={styles.tabs}>
+                        {tabs.map((tab) => (
+                            <button
+                                key={tab}
+                                className={`${styles.tabBtn} ${activeTab === tab ? styles.activeTab : ""}`}
+                                onClick={() => setActiveTab(tab)}
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div>
+                    <Link href="/catalog" className={styles.viewAllBtn}>
+                        <span className={styles.desktopText}>Посмотреть все</span>
+                        <span className={styles.mobileText}>Все</span>
                     </Link>
                 </div>
 
                 <div className={styles.grid}>
-                    {products.map((product) => (
-                        <div key={product.id} className={styles.card}>
-                            <div className={styles.imageWrapper}>
-                                {product.isNew && <span className={styles.badge}>Новинка</span>}
-                                <button className={styles.likeBtn} aria-label="Добавить в избранное">
-                                    <Heart size={18} />
-                                </button>
+                    {filteredProducts.map((product, i) => (
+                        <motion.div
+                            key={product.id}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                            className={styles.card}
+                        >
+                            {/* Card Header: Name & Arrow */}
+                            <div className={styles.cardHeader}>
+                                <div className={styles.headerInfo}>
+                                    <h3 className={styles.productName}>{product.name}</h3>
+                                    <p className={styles.category}>{product.category?.name}</p>
+                                </div>
+                            </div>
+
+                            {/* Image & Price */}
+                            <div className={`${styles.imageWrapper} ${styles[`bgVariant${(i % 4) + 1}`]}`}>
                                 <Image
-                                    src={product.image}
+                                    src={getImageUrl(product.images)}
                                     alt={product.name}
                                     width={300}
                                     height={300}
                                     className={styles.productImage}
                                 />
-                            </div>
-
-                            <div className={styles.info}>
-                                <div className={styles.nameRow}>
-                                    <h3 className={styles.productName}>{product.name}</h3>
-                                    <span className={styles.price}>{product.price}</span>
+                                <div className={styles.floatingPrice}>
+                                    Coming soon
                                 </div>
-                                <p className={styles.category}>{product.category}</p>
                             </div>
-
-                            <button className={styles.addBtn}>
-                                <ShoppingBag size={18} />
-                                Добавить
-                            </button>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

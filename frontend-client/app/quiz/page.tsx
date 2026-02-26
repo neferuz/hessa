@@ -89,6 +89,8 @@ export default function QuizPage() {
                                 section: lang === 'RU' ? q.section : (lang === 'UZ' ? q.section_uz : q.section_en) || q.section,
                                 label: lang === 'RU' ? q.label : (lang === 'UZ' ? q.label_uz : q.label_en) || q.label,
                                 type: q.type as "input" | "options",
+                                gender: q.gender,
+                                multiple: q.multiple,
                                 placeholder: q.type === "input"
                                     ? (lang === 'RU' ? q.placeholder : (lang === 'UZ' ? q.placeholder_uz : q.placeholder_en) || q.placeholder)
                                     : undefined,
@@ -100,7 +102,7 @@ export default function QuizPage() {
                                     : undefined
                             }));
 
-                        // Обновляем вопросы - позиция будет восстановлена в отдельном useEffect
+                        // Обновляем вопросы
                         setQuestions(formattedQuestions);
                     }
                 }
@@ -170,12 +172,18 @@ export default function QuizPage() {
             );
         }
 
+        // Фильтруем вопросы по полу
+        const selectedGender = answers['gender'];
+        const filteredQuestions = questions.filter(q =>
+            !q.gender || q.gender === 'both' || q.gender === selectedGender
+        );
+
         switch (view) {
             case 'quiz':
                 return (
                     <QuizView
                         setView={setView}
-                        questions={questions}
+                        questions={filteredQuestions}
                         currentStepIndex={currentStepIndex}
                         setCurrentStepIndex={setCurrentStepIndex}
                         answers={answers}

@@ -81,7 +81,7 @@ export default function ProductDetailPage() {
                             </h1>
                             <p className="text-xl text-muted-foreground">SKU: {product.sku}</p>
                             <div className="text-3xl font-medium text-primary">
-                                {product.sale_price.toLocaleString()} сум
+                                Coming soon
                             </div>
                         </div>
 
@@ -90,11 +90,8 @@ export default function ProductDetailPage() {
                         </div>
 
                         <div className="flex gap-4 pt-4">
-                            <Button size="lg" className="flex-1 text-lg h-14 rounded-full bg-primary hover:bg-primary/90">
-                                Добавить в корзину
-                            </Button>
-                            <Button size="icon" variant="outline" className="size-14 rounded-full border-2">
-                                ♥
+                            <Button size="lg" disabled className="flex-1 text-lg h-14 rounded-full bg-muted text-muted-foreground border-none">
+                                Coming soon
                             </Button>
                         </div>
 

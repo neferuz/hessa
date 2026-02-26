@@ -78,8 +78,8 @@ export default function Navbar() {
         { name: "Главная", slug: "/" },
         { name: "Каталог", slug: "/catalog" },
         { name: "О нас", slug: "/about" },
-        { name: "Блог", slug: "/blog" },
         { name: "Компании", slug: "/companies" },
+        { name: "Контакты", slug: "/contacts" },
     ];
 
     const shortEmail = userEmail ? userEmail.split("@")[0] : "";
@@ -93,7 +93,16 @@ export default function Navbar() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
                 <div className={styles.container}>
-                    {/* LEFT: Navigation Menu */}
+                    {/* MOBILE LEFT: Burger */}
+                    <button
+                        className={styles.mobileBurger}
+                        onClick={() => setIsMobileMenuOpen(true)}
+                        aria-label="Menu"
+                    >
+                        <Menu size={24} strokeWidth={1.5} />
+                    </button>
+
+                    {/* LEFT: Navigation Menu (Desktop Junk) */}
                     <div className={styles.leftSection}>
                         <ul className={styles.desktopMenu}>
                             {menuItems.map((item) => (
@@ -196,14 +205,10 @@ export default function Navbar() {
                             )}
                         </div>
 
-                        {/* Mobile Burger */}
-                        <button
-                            className={styles.mobileBurger}
-                            onClick={() => setIsMobileMenuOpen(true)}
-                            aria-label="Menu"
-                        >
-                            <Menu size={24} strokeWidth={1.5} />
-                        </button>
+                        {/* Mobile User Icon (Visible only on mobile) */}
+                        <Link href={userEmail ? "/profile" : "/login"} className={styles.mobileUserIcon}>
+                            <User size={24} strokeWidth={1.5} />
+                        </Link>
                     </div>
                 </div>
             </motion.nav>

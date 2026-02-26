@@ -90,7 +90,7 @@ export default function ProductCard({ activeCategory }: { activeCategory: string
                                     {/* Overlays */}
                                     <div className="absolute top-2.5 left-2.5 z-10">
                                         <div className="bg-white px-2.5 py-1 rounded-full shadow-sm border border-gray-50 flex items-center justify-center">
-                                            <span className="text-[9px] font-black text-gray-900 uppercase tracking-tight">20% OFF</span>
+                                            <span className="text-[9px] font-black text-gray-900 uppercase tracking-tight">Coming Soon</span>
                                         </div>
                                     </div>
                                     <button className="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white shadow-sm border border-gray-50 flex items-center justify-center text-gray-400 hover:text-red-500 transition-all active:scale-90">

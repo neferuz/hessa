@@ -1,8 +1,7 @@
-/* CSS for Newsletter */
 .section {
     width: 100%;
     padding: 100px 2rem;
-    background: #eef2fa;
+    background: transparent;
 }
 
 .container {
@@ -24,6 +23,7 @@
     border-radius: 40px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 20px 50px rgba(10, 186, 181, 0.25);
 }
 
 /* Subtle accent or pattern if desired, otherwise clean */
@@ -37,7 +37,7 @@
 }
 
 .iconTag {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.25);
     color: #ffffff;
     backdrop-filter: blur(10px);
     padding: 0.6rem 1.2rem;
@@ -81,12 +81,10 @@
     display: flex;
     flex-direction: row;
     gap: 0.8rem;
-    background: #EAF4FC;
-    padding: 0.8rem;
-    border-radius: 20px;
-    /* Slightly squarer than pill for modern look, or pill 100px */
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0.6rem;
     border-radius: 100px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
 }
 
 .inputWrapper {
@@ -108,7 +106,7 @@
 
 .input {
     width: 100%;
-    padding: 1.2rem 1.2rem 1.2rem 4.5rem;
+    padding: 1.1rem 1.1rem 1.1rem 4.5rem;
     border-radius: 100px;
     border: none;
     background: transparent;
@@ -120,14 +118,14 @@
 }
 
 .input::placeholder {
-    color: #ccc;
+    color: #999;
     font-weight: 400;
 }
 
 .button {
-    padding: 0 3rem;
+    padding: 0 2.5rem;
     border-radius: 100px;
-    background: #A4C7E5;
+    background: #1a1a1a;
     color: white;
     font-size: 1rem;
     font-family: var(--font-manrope), sans-serif;
@@ -139,9 +137,9 @@
 }
 
 .button:hover {
-    background: #5a7d96;
+    background: #333;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .agreement {

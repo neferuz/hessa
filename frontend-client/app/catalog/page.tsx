@@ -6,7 +6,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Heart, ShoppingBag, Filter, X } from "lucide-react";
+import { Heart, ShoppingBag, Filter, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import TextReveal from "@/components/ui/TextReveal";
 import styles from "./Catalog.module.css";
@@ -157,39 +157,39 @@ export default function CatalogPage() {
                             key={activeCategory || 'all'}
                         >
                             <AnimatePresence mode="popLayout">
-                                {filteredProducts.map((product) => (
+                                {filteredProducts.map((product, i) => (
                                     <motion.div
                                         key={product.id}
                                         variants={itemVariants}
                                         layout
                                         className={styles.productCard}
                                     >
-                                        <Link href={`/product/${product.id}`} className={styles.imageLink}>
-                                            <div className={styles.imageWrapper}>
+                                        {/* Card Header: Name & Arrow */}
+                                        <div className={styles.cardHeader}>
+                                            <div className={styles.headerInfo}>
+                                                <h3 className={styles.productName}>{product.name}</h3>
+                                                <p className={styles.productCategory}>
+                                                    {product.category?.name || "Витамины"}
+                                                </p>
+                                            </div>
+                                            <Link href={`/product/${product.id}`} className={styles.arrowBtn}>
+                                                <ArrowUpRight size={20} />
+                                            </Link>
+                                        </div>
+
+                                        {/* Image & Status Area */}
+                                        <div className={`${styles.imageWrapper} ${styles[`bgVariant${(i % 4) + 1}`]}`}>
+                                            <Link href={`/product/${product.id}`} className={styles.imageLink}>
                                                 <Image
                                                     src={getImageUrl(product.images?.[0])}
                                                     alt={product.name}
                                                     fill
                                                     className={styles.productImg}
                                                 />
+                                            </Link>
+                                            <div className={styles.comingSoonBadge}>
+                                                Coming soon
                                             </div>
-                                        </Link>
-
-                                        <div className={styles.productInfo}>
-                                            <div className={styles.nameRow}>
-                                                <h3 className={styles.productName}>{product.name}</h3>
-                                                <span className={styles.price}>
-                                                    {product.sale_price.toLocaleString()} сум
-                                                </span>
-                                            </div>
-                                            <p className={styles.productCategory}>
-                                                {product.category?.name || "Витамины"}
-                                            </p>
-
-                                            <button className={styles.addBtn}>
-                                                <ShoppingBag size={18} />
-                                                <span>Добавить</span>
-                                            </button>
                                         </div>
                                     </motion.div>
                                 ))}

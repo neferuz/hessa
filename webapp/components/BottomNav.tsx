@@ -1,5 +1,5 @@
 "use client";
-import { Home, ShoppingCart, MessageCircle, User, Brain } from "lucide-react";
+import { Home, ShoppingCart, MessageCircle, User, Brain, Calendar, ScanLine } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/contexts/CartContext";
@@ -16,7 +16,7 @@ export default function BottomNav() {
 
     const navItems = [
         { id: "home", icon: Home, href: "/", label: "Главная" },
-        { id: "quiz", icon: Brain, href: "/quiz", label: "Викторина" },
+        { id: "calendar", icon: Calendar, href: "/calendar", label: "Трекер" },
         { id: "chat", icon: MessageCircle, href: "/chat", label: "Чат" },
         { id: "cart", icon: ShoppingCart, href: "/cart", label: "Корзина" },
         { id: "profile", icon: User, href: "/profile", label: "Профиль" },
@@ -46,10 +46,45 @@ export default function BottomNav() {
                                 } else if (isCart) {
                                     e.preventDefault();
                                     toggleCart();
+                                } else if (item.id === "scanner") {
+                                    e.preventDefault();
+                                    // Trigger Telegram Scanner
+                                    const telegram = (window as any).Telegram?.WebApp;
+                                    if (telegram) {
+                                        if (telegram.isVersionAtLeast('6.4')) {
+                                            telegram.showScanQrPopup({
+                                                text: "Отсканируйте QR-код на сайте для входа"
+                                            }, async (text: string) => {
+                                                if (text) {
+                                                    // Handle scan result - assume it's the token
+                                                    try {
+                                                        const user = telegram.initDataUnsafe?.user;
+                                                        await fetch(`https://assembly-nasa-carried-hope.trycloudflare.com/api/auth/qr/authorize`, {
+                                                            method: 'POST',
+                                                            headers: { 'Content-Type': 'application/json' },
+                                                            body: JSON.stringify({
+                                                                token: text,
+                                                                telegram_id: user?.id?.toString(),
+                                                                username: user?.username,
+                                                                full_name: `${user?.first_name || ''} ${user?.last_name || ''}`.trim()
+                                                            })
+                                                        });
+                                                        telegram.closeScanQrPopup();
+                                                        telegram.showAlert("Вход выполнен успешно!");
+                                                    } catch (err) {
+                                                        telegram.showAlert("Ошибка при авторизации");
+                                                    }
+                                                }
+                                                return true;
+                                            });
+                                        } else {
+                                            telegram.showAlert("Ваша версия Telegram (" + telegram.version + ") слишком старая для работы сканера. Пожалуйста, обновите Telegram до версии 6.4 или выше.");
+                                        }
+                                    }
                                 }
                             }}
                             className={clsx(
-                                "relative w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300",
+                                "relative w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300",
                                 isActive ? "bg-blue-600 shadow-lg shadow-blue-600/40 translate-y-[-2px]" : "hover:bg-white/5"
                             )}
                         >

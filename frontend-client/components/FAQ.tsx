@@ -1,48 +1,70 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import styles from "./FAQ.module.css";
 
 import TextReveal from "./ui/TextReveal";
 
-const faqData = [
-    {
-        question: "Как правильно принимать витамины Hessa?",
-        answer: "Мы рекомендуем принимать одну капсулу в день во время или сразу после завтрака, запивая стаканом воды. Это обеспечит оптимальное усваивание активных компонентов в течение дня."
-    },
-    {
-        question: "Через какое время я почувствую эффект?",
-        answer: "Витамины имеют накопительный эффект. Большинство наших клиентов замечают первые изменения в уровне энергии и качестве сна через 14-20 дней регулярного приема. Полный курс обычно рассчитан на 30-60 дней."
-    },
-    {
-        question: "Вся ли продукция сертифицирована?",
-        answer: "Да, абсолютно вся продукция Hessa проходит строгий лабораторный контроль и имеет государственные сертификаты соответствия. Мы используем только проверенное сырье из Европы и США на собственном производстве в Москве."
-    },
-    {
-        question: "Есть ли противопоказания?",
-        answer: "Наши комплексы безопасны для большинства людей, однако мы всегда рекомендуем проконсультироваться с врачом перед началом приема, особенно во время беременности, кормления грудью или при наличии хронических заболеваний."
-    },
-    {
-        question: "Как осуществляется доставка по Узбекистану?",
-        answer: "Мы доставляем заказы по всему Узбекистану через курьерские службы. По Ташкенту доставка занимает от 2 до 6 часов, в другие регионы — от 1 до 3 рабочих дней."
-    }
-];
-
 export default function FAQ() {
+    const [faq, setFaq] = useState<any[]>([]);
+    const [titles, setTitles] = useState<any>({});
+    const [loading, setLoading] = useState(true);
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [lang, setLang] = useState("RU");
+
+    useEffect(() => {
+        const checkLang = () => {
+            const l = (window as any).currentLang || "RU";
+            setLang(l);
+        };
+        window.addEventListener("langChange", checkLang);
+        checkLang();
+        return () => window.removeEventListener("langChange", checkLang);
+    }, []);
+
+    useEffect(() => {
+        const fetchFaq = async () => {
+            try {
+                const res = await fetch('http://localhost:8000/api/content', { cache: 'no-store' });
+                const data = await res.json();
+                if (data.faq) setFaq(data.faq);
+                setTitles({
+                    faq_title: data.faq_title || "Частые вопросы",
+                    faq_title_uz: data.faq_title_uz || "",
+                    faq_title_en: data.faq_title_en || "",
+                    faq_subtitle: data.faq_subtitle || "Всё, что вы хотели знать о нашей продукции и сервисе",
+                    faq_subtitle_uz: data.faq_subtitle_uz || "",
+                    faq_subtitle_en: data.faq_subtitle_en || "",
+                });
+            } catch (err) {
+                console.error("Failed to fetch FAQ:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFaq();
+    }, []);
 
     const toggleItem = (index: number) => {
         setActiveIndex(activeIndex === index ? null : index);
     };
+
+    const getText = (obj: any, base: string, l: string) => {
+        if (!obj) return "";
+        if (l === 'RU') return obj[base];
+        return obj[`${base}_${l.toLowerCase()}`] || obj[base];
+    };
+
+    if (loading || faq.length === 0) return null;
 
     return (
         <section className={styles.section}>
             <div className={styles.container}>
                 <div className={styles.header}>
                     <TextReveal>
-                        <h2 className={styles.title}>Частые вопросы</h2>
+                        <h2 className={styles.title}>{getText(titles, 'faq_title', lang)}</h2>
                     </TextReveal>
                     <motion.p
                         className={styles.subtitle}
@@ -51,12 +73,12 @@ export default function FAQ() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.1 }}
                     >
-                        Всё, что вы хотели знать о нашей продукции и сервисе
+                        {getText(titles, 'faq_subtitle', lang)}
                     </motion.p>
                 </div>
 
                 <div className={styles.accordion}>
-                    {faqData.map((item, index) => (
+                    {faq.map((item, index) => (
                         <motion.div
                             key={index}
                             className={styles.item}
@@ -72,7 +94,7 @@ export default function FAQ() {
                             >
                                 <div className={styles.questionHeader}>
                                     <span className={styles.number}>0{index + 1}</span>
-                                    <span className={styles.questionText}>{item.question}</span>
+                                    <span className={styles.questionText}>{getText(item, 'question', lang)}</span>
                                 </div>
                                 <div className={`${styles.iconCircle} ${activeIndex === index ? styles.active : ""}`}>
                                     <ChevronDown size={20} strokeWidth={2} />
@@ -90,7 +112,7 @@ export default function FAQ() {
                                     >
                                         <div className={styles.answerContent}>
                                             <div className={styles.answerInner}>
-                                                {item.answer}
+                                                {getText(item, 'answer', lang)}
                                             </div>
                                         </div>
                                     </motion.div>

@@ -30,6 +30,8 @@ import {
   SquareStack,
   LayoutTemplate,
   LayoutPanelTop,
+  Undo2,
+  MapPin,
 } from "lucide-react";
 import {
   Sidebar,
@@ -154,9 +156,19 @@ export function DashboardSidebar({
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton className="h-8 text-sm text-muted-foreground font-medium">
-                  <ClipboardList className="size-4" />
-                  <span>Заказы</span>
+                <SidebarMenuButton asChild isActive={pathname === "/orders"} className="h-8 text-sm text-muted-foreground font-medium">
+                  <Link href="/orders">
+                    <ClipboardList className="size-4" />
+                    <span>Заказы</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/analysis"} className="h-8 text-sm text-muted-foreground font-medium">
+                  <Link href="/analysis">
+                    <ClipboardList className="size-4" />
+                    <span>Анализы</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
@@ -219,9 +231,19 @@ export function DashboardSidebar({
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton className="h-8 text-sm text-muted-foreground font-medium">
-                  <SquareStack className="size-4" />
-                  <span>Услуги</span>
+                <SidebarMenuButton asChild isActive={pathname === "/services"} className="h-8 text-sm text-muted-foreground font-medium">
+                  <Link href="/services">
+                    <SquareStack className="size-4" />
+                    <span>Услуги</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/faq"} className="h-8 text-sm text-muted-foreground font-medium">
+                  <Link href="/faq">
+                    <HelpCircle className="size-4" />
+                    <span>FAQ</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
@@ -241,9 +263,19 @@ export function DashboardSidebar({
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton className="h-8 text-sm text-muted-foreground font-medium">
-                  <LayoutTemplate className="size-4" />
-                  <span>Контакты</span>
+                <SidebarMenuButton asChild isActive={pathname === "/contacts-info"} className="h-8 text-sm text-muted-foreground font-medium">
+                  <Link href="/contacts-info">
+                    <MapPin className="size-4" />
+                    <span>Контакты</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/return"} className="h-8 text-sm text-muted-foreground font-medium">
+                  <Link href="/return">
+                    <Undo2 className="size-4" />
+                    <span>Возврат</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -279,6 +311,6 @@ export function DashboardSidebar({
 
 
       </SidebarFooter>
-    </Sidebar>
+    </Sidebar >
   );
 }

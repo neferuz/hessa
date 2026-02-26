@@ -30,7 +30,7 @@ export default function CheckoutView({
     setPaymentMethod,
     answers
 }: CheckoutViewProps) {
-    const productsSum = recommendedProducts.reduce((sum, prod) => sum + parseInt(prod.price.replace(/\D/g, '')), 0);
+    const productsSum = recommendedProducts.reduce((sum, prod) => sum + parseInt(String(prod.price).replace(/\D/g, '')), 0);
     const discount = durations.find(d => d.id === duration)?.discount || 0;
     const totalMultiplied = productsSum * duration;
     const finalPrice = totalMultiplied - (totalMultiplied * discount);

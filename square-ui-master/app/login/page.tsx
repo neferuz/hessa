@@ -7,7 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { motion, Variants } from "framer-motion";
-import { Lock, User as UserIcon, AlertCircle } from "lucide-react";
+import { Lock, User as UserIcon, AlertCircle, QrCode } from "lucide-react";
+import QRCode from "react-qr-code";
+import { API_BASE_URL } from "@/lib/config";
+import clsx from "clsx";
 
 export default function AdminLoginPage() {
     const router = useRouter();
@@ -29,7 +32,7 @@ export default function AdminLoginPage() {
         setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:8000/api/auth/admin/login", {
+            const response = await fetch(`${API_BASE_URL}/api/auth/admin/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -66,108 +69,77 @@ export default function AdminLoginPage() {
         }
     };
 
-    const itemVariants: Variants = {
-        hidden: { opacity: 0, y: 10 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.4,
-                ease: "easeOut"
-            }
-        }
-    };
-
     return (
         <div className="min-h-screen flex items-center justify-center bg-background p-4">
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="w-full max-w-md"
+                className="w-full max-w-sm"
             >
-                <Card className="rounded-3xl border border-border bg-card p-8 shadow-sm">
-                    <motion.div variants={itemVariants} className="text-center mb-8">
-                        <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <Lock className="size-8 text-primary" />
-                        </div>
-                        <h1 className="text-2xl font-bold tracking-tight mb-2">HESSA Admin</h1>
-                        <p className="text-sm text-muted-foreground">Войдите в систему для доступа к панели управления</p>
-                    </motion.div>
+                <Card className="rounded-[40px] border border-border bg-card p-10 shadow-2xl shadow-primary/5">
+                    <div className="text-center mb-10">
+                        <h1 className="text-3xl font-black tracking-tight mb-2">HESSA</h1>
+                        <p className="text-sm text-muted-foreground font-medium">
+                            Войдите в панель управления
+                        </p>
+                    </div>
 
-                    <form onSubmit={handleLogin} className="space-y-5">
+                    <form onSubmit={handleLogin} className="space-y-6">
                         {error && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-xl text-sm flex items-center gap-2"
-                            >
+                            <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-2xl text-xs font-bold flex items-center gap-2">
                                 <AlertCircle className="size-4 shrink-0" />
                                 <span>{error}</span>
-                            </motion.div>
+                            </div>
                         )}
 
-                        <motion.div variants={itemVariants} className="space-y-2">
-                            <Label htmlFor="username" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
-                                Логин
-                            </Label>
+                        <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Логин</Label>
                             <div className="relative">
-                                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                                <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                                 <Input
-                                    id="username"
                                     type="text"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     required
-                                    placeholder="Введите логин"
-                                    className="pl-9 h-11 rounded-xl border-border bg-background"
+                                    placeholder="admin"
+                                    className="pl-11 h-14 rounded-2xl border-border bg-background focus-visible:ring-primary/20 transition-all font-medium"
                                 />
                             </div>
-                        </motion.div>
+                        </div>
 
-                        <motion.div variants={itemVariants} className="space-y-2">
-                            <Label htmlFor="password" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
-                                Пароль
-                            </Label>
+                        <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Пароль</Label>
                             <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                                 <Input
-                                    id="password"
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    placeholder="Введите пароль"
-                                    className="pl-9 h-11 rounded-xl border-border bg-background"
+                                    placeholder="••••••"
+                                    className="pl-11 h-14 rounded-2xl border-border bg-background focus-visible:ring-primary/20 transition-all"
                                 />
                             </div>
-                        </motion.div>
+                        </div>
 
-                        <motion.div variants={itemVariants}>
-                            <Button
-                                type="submit"
-                                className="w-full h-11 rounded-xl font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                                disabled={loading}
-                            >
-                                {loading ? (
-                                    <span className="flex items-center gap-2">
-                                        <span className="size-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                                        Вход...
-                                    </span>
-                                ) : (
-                                    "Войти"
-                                )}
-                            </Button>
-                        </motion.div>
+                        <Button
+                            type="submit"
+                            className="w-full h-14 rounded-2xl font-black text-sm uppercase tracking-widest bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-lg shadow-primary/20"
+                            disabled={loading}
+                        >
+                            {loading ? "Загрузка..." : "Войти"}
+                        </Button>
                     </form>
-
-                    <motion.div variants={itemVariants} className="mt-6 text-center">
-                        <p className="text-xs text-muted-foreground">
-                            По умолчанию: <span className="font-medium text-foreground">admin</span> / <span className="font-medium text-foreground">123456</span>
-                        </p>
-                    </motion.div>
                 </Card>
+
+                <div className="mt-8 text-center">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground opacity-40">
+                        Secure Access System • HESSA © 2026
+                    </p>
+                </div>
             </motion.div>
         </div>
     );
 }
+

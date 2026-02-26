@@ -11,28 +11,37 @@ export default function CustomCursor() {
         const cursor = cursorRef.current;
         const follower = followerRef.current;
 
-        if (!cursor || !follower) return;
-
         const xToCursor = gsap.quickSetter(cursor, "x", "px");
         const yToCursor = gsap.quickSetter(cursor, "y", "px");
         const xToFollower = gsap.quickSetter(follower, "x", "px");
         const yToFollower = gsap.quickSetter(follower, "y", "px");
 
-        const moveCursor = (e: MouseEvent) => {
-            xToCursor(e.clientX);
-            yToCursor(e.clientY);
+        let mouseX = 0;
+        let mouseY = 0;
+        let followerX = 0;
+        let followerY = 0;
 
-            // For the follower, we might still want the smooth tween, but let's try to optimize
-            // or we can just stick to quickSetter for raw performance if desired, 
-            // but usually follower needs lag. Let's keep the tween for follower but optimize cursor.
-            gsap.to(follower, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: 0.5,
-                ease: 'power3.out',
-                overwrite: 'auto' // preventing conflict
-            });
+        const moveCursor = (e: MouseEvent) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            xToCursor(mouseX);
+            yToCursor(mouseY);
         };
+
+        let rafId: number;
+
+        const updateFollower = () => {
+            // Smoothly interpolate follower position
+            followerX += (mouseX - followerX) * 0.15;
+            followerY += (mouseY - followerY) * 0.15;
+
+            xToFollower(followerX);
+            yToFollower(followerY);
+
+            rafId = requestAnimationFrame(updateFollower);
+        };
+
+        rafId = requestAnimationFrame(updateFollower);
 
         const handleHover = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
@@ -73,6 +82,7 @@ export default function CustomCursor() {
         return () => {
             window.removeEventListener('mousemove', moveCursor);
             window.removeEventListener('mouseover', handleHover);
+            cancelAnimationFrame(rafId);
         };
     }, []);
 
@@ -80,11 +90,11 @@ export default function CustomCursor() {
         <>
             <div
                 ref={cursorRef}
-                className="fixed top-0 left-0 w-2 h-2 bg-[#FF4851] rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
+                className="fixed top-0 left-0 w-2 h-2 bg-[#FF4851] rounded-full pointer-events-none z-[100001] -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
             />
             <div
                 ref={followerRef}
-                className="fixed top-0 left-0 w-8 h-8 border border-gray-400 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-colors duration-300"
+                className="fixed top-0 left-0 w-8 h-8 border border-gray-400 rounded-full pointer-events-none z-[100000] -translate-x-1/2 -translate-y-1/2 transition-colors duration-300"
             />
             <style jsx global>{`
         body, a, button {

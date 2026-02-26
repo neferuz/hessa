@@ -17,6 +17,9 @@ class HeroSlide(BaseModel):
     descriptionRight: str
     descriptionRight_uz: Optional[str] = ""
     descriptionRight_en: Optional[str] = ""
+    buttonText: Optional[str] = "Купить сейчас"
+    buttonText_uz: Optional[str] = "Sotib olish"
+    buttonText_en: Optional[str] = "Shop Now"
     tags: List[HeroTag]
     image: str
     color: str

@@ -15,11 +15,27 @@ export default function DifferenceCarousel() {
     const x = useMotionValue(0);
     const [lang, setLang] = useState("RU");
 
+    const API_BASE_URL = "http://localhost:8000";
+
+    const getImageUrl = (img: any) => {
+        let url = img;
+        if (typeof img === 'string' && img.startsWith('[')) {
+            try { url = JSON.parse(img)[0]; } catch (e) { url = img; }
+        } else if (Array.isArray(img)) {
+            url = img[0];
+        }
+
+        if (!url) return "/vitamins-1.png";
+        if (url.startsWith('http')) return url;
+        const cleanUrl = url.startsWith('/') ? url : `/${url}`;
+        return `${API_BASE_URL}${cleanUrl}`;
+    };
+
     useEffect(() => {
         // Fetch Content
         const fetchContent = async () => {
             try {
-                const res = await fetch('http://localhost:8000/api/content');
+                const res = await fetch(`${API_BASE_URL}/api/content`);
                 const data = await res.json();
                 if (data.difference && data.difference.length > 0) {
                     setItems(data.difference);
@@ -106,10 +122,10 @@ export default function DifferenceCarousel() {
                         style={{ x }}
                     >
                         {items.map((item) => (
-                            <Link href={`/difference/${item.id}`} key={item.id} className={styles.card}>
+                            <Link href="/login" key={item.id} className={styles.card}>
                                 <div className={styles.imageWrapper}>
                                     <Image
-                                        src={item.image}
+                                        src={getImageUrl(item.image)}
                                         alt={item.title}
                                         fill
                                         className={styles.cardImage}

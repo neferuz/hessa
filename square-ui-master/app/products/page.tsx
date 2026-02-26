@@ -173,7 +173,7 @@ export default function ProductsPage() {
         return utilsGetImageUrl(url);
     };
 
-    const containerVariants = {
+    const containerVariants: any = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
@@ -181,7 +181,7 @@ export default function ProductsPage() {
         },
     };
 
-    const itemVariants = {
+    const itemVariants: any = {
         hidden: { opacity: 0, y: 10 },
         visible: {
             opacity: 1,
@@ -214,14 +214,14 @@ export default function ProductsPage() {
                                     variant="outline"
                                     size="sm"
                                     onClick={fetchData}
-                                    className="h-9 w-9 rounded-full p-0 border-border/50 hover:bg-background shadow-sm"
+                                    className="h-9 w-9 rounded-full p-0 border-border/50 hover:bg-background"
                                 >
                                     <RefreshCw className={cn("size-3.5", loading && "animate-spin")} />
                                 </Button>
                                 <Link href="/products/new">
                                     <Button
                                         size="sm"
-                                        className="h-9 px-5 rounded-full font-semibold bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm hover:shadow-md transition-all active:scale-95"
+                                        className="h-9 px-5 rounded-full font-semibold bg-primary hover:bg-primary/90 text-primary-foreground transition-all active:scale-95"
                                     >
                                         <Plus className="size-4 mr-2 stroke-[2.5]" />
                                         Добавить
@@ -427,12 +427,12 @@ export default function ProductsPage() {
                                                                                 <Button
                                                                                     variant="ghost"
                                                                                     size="icon"
-                                                                                    className="size-9 rounded-lg transition-all hover:bg-background hover:shadow-sm"
+                                                                                    className="size-9 rounded-lg transition-all hover:bg-background"
                                                                                 >
                                                                                     <MoreHorizontal className="size-4 text-muted-foreground" />
                                                                                 </Button>
                                                                             </DropdownMenuTrigger>
-                                                                            <DropdownMenuContent align="end" className="w-48 rounded-xl shadow-lg border-border bg-popover p-1">
+                                                                            <DropdownMenuContent align="end" className="w-48 rounded-xl border-border bg-popover p-1 shadow-none">
                                                                                 <DropdownMenuLabel className="px-2 py-1.5 text-xs font-semibold text-muted-foreground/70 uppercase tracking-widest">Действия</DropdownMenuLabel>
                                                                                 <DropdownMenuSeparator className="m-0.5 bg-border/50" />
                                                                                 <DropdownMenuItem

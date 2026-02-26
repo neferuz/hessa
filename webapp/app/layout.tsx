@@ -8,11 +8,13 @@ import { CartSheetProvider } from "@/contexts/CartSheetContext";
 import { OrdersSheetProvider } from "@/contexts/OrdersSheetContext";
 import { SupportSheetProvider } from "@/contexts/SupportSheetContext";
 import { AboutSheetProvider } from "@/contexts/AboutSheetContext";
+import { AnalysisSheetProvider } from "@/contexts/AnalysisSheetContext";
 import ChatSheet from "@/components/ChatSheet";
 import CartSheet from "@/components/CartSheet";
 import OrdersSheet from "@/components/OrdersSheet";
 import SupportSheet from "@/components/SupportSheet";
 import AboutSheet from "@/components/AboutSheet";
+import AnalysisSheet from "@/components/AnalysisSheet";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -35,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <Script
           src="https://telegram.org/js/telegram-web-app.js"
@@ -90,16 +92,19 @@ export default function RootLayout({
           <OrdersSheetProvider>
             <SupportSheetProvider>
               <AboutSheetProvider>
-                <CartSheetProvider>
-                  <CartProvider>
-                    {children}
-                    <ChatSheet />
-                    <OrdersSheet />
-                    <SupportSheet />
-                    <AboutSheet />
-                    <CartSheet />
-                  </CartProvider>
-                </CartSheetProvider>
+                <AnalysisSheetProvider>
+                  <CartSheetProvider>
+                    <CartProvider>
+                      {children}
+                      <ChatSheet />
+                      <OrdersSheet />
+                      <SupportSheet />
+                      <AboutSheet />
+                      <CartSheet />
+                      <AnalysisSheet />
+                    </CartProvider>
+                  </CartSheetProvider>
+                </AnalysisSheetProvider>
               </AboutSheetProvider>
             </SupportSheetProvider>
           </OrdersSheetProvider>

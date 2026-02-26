@@ -4,18 +4,20 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
     ChevronLeft,
-    User,
-    Settings,
-    ChevronRight,
-    Package,
     HelpCircle,
     Info,
     Calendar,
-    Crown
+    Crown,
+    Stethoscope,
+    Package,
+    ChevronRight,
+    Settings,
+    User
 } from "lucide-react";
 import { useOrdersSheet } from "@/contexts/OrdersSheetContext";
 import { useSupportSheet } from "@/contexts/SupportSheetContext";
 import { useAboutSheet } from "@/contexts/AboutSheetContext";
+import { useAnalysisSheet } from "@/contexts/AnalysisSheetContext";
 import BottomNav from "@/components/BottomNav";
 
 import { Suspense } from "react";
@@ -26,6 +28,7 @@ function ProfileContent() {
     const { openOrders } = useOrdersSheet();
     const { openSupport } = useSupportSheet();
     const { openAbout } = useAboutSheet();
+    const { openAnalysis } = useAnalysisSheet();
     const [user] = useState({
         name: "Александр Иванов",
         phone: "+998 90 123 45 67",
@@ -43,6 +46,7 @@ function ProfileContent() {
 
     const menuItems = [
         { id: "orders", icon: Package, label: "Мои заказы", href: "#" },
+        { id: "analysis", icon: Stethoscope, label: "Анализы на дому", href: "#" },
         { id: "support", icon: HelpCircle, label: "Помощь и поддержка", href: "#" },
         { id: "settings", icon: Settings, label: "Настройки", href: "#" },
         { id: "about", icon: Info, label: "О Hessa", href: "#" },
@@ -126,6 +130,8 @@ function ProfileContent() {
                             onClick={() => {
                                 if (item.id === "orders") {
                                     openOrders();
+                                } else if (item.id === "analysis") {
+                                    openAnalysis();
                                 } else if (item.id === "support") {
                                     openSupport();
                                 } else if (item.id === "about") {

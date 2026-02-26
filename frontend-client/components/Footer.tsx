@@ -12,11 +12,14 @@ export default function Footer() {
     useEffect(() => {
         const fetchFooter = async () => {
             try {
-                const res = await fetch('http://localhost:8000/api/content');
+                const res = await fetch(`http://localhost:8000/api/content?t=${Date.now()}`, {
+                    cache: 'no-store'
+                });
                 const data = await res.json();
+                console.log("Footer data received:", data.footer);
                 if (data.footer) setFooter(data.footer);
             } catch (err) {
-                console.error(err);
+                console.error("Footer fetch error:", err);
             }
         };
         fetchFooter();
@@ -36,6 +39,53 @@ export default function Footer() {
         return footer[`${baseField}_${lang.toLowerCase()}`] || footer[baseField];
     };
 
+    const getTranslatedLabel = (obj: any) => {
+        if (!obj) return "";
+        if (lang === 'RU') return obj.label;
+        return obj[`label_${lang.toLowerCase()}`] || obj.label;
+    };
+
+    const translations: any = {
+        RU: {
+            entityName: "Наименование предприятия",
+            inn: "ИНН",
+            mfo: "МФО",
+            account: "Расчетный счёт",
+            address: "Юридический адрес",
+            addressValue: "ГОРОД ТАШКЕНТ МИРАБАДСКИЙ РАЙОН ИСТИКЛОЛАБАД МФЙ, ЭСКИ САРАКУЛ кучаси, 2-уй 58-ХОНА",
+            contactLabel: "Связаться с нами",
+            writeLabel: "Напишите нам",
+            socialLabel: "Мы в соцсетях",
+            locationLabel: "Локация"
+        },
+        UZ: {
+            entityName: "Korxona nomi",
+            inn: "STIR (INN)",
+            mfo: "MFO",
+            account: "Hisob raqami",
+            address: "Yuridik manzil",
+            addressValue: "TOSHKENT SHAHRI MIROBOD TUMANI ISTIQLOLOBOD MFY, ESKI SARAQUL ko'chasi, 2-uy 58-XONA",
+            contactLabel: "Biz bilan bog'laning",
+            writeLabel: "Bizga yozing",
+            socialLabel: "Ijtimoiy tarmoqlar",
+            locationLabel: "Manzil"
+        },
+        EN: {
+            entityName: "Company Name",
+            inn: "INN",
+            mfo: "MFO",
+            account: "Settlement Account",
+            address: "Legal Address",
+            addressValue: "TASHKENT CITY MIRABAD DISTRICT ISTIQLOLABAD MCC, ESKI SARAKUL street, 2-house 58-ROOM",
+            contactLabel: "Contact us",
+            writeLabel: "Write to us",
+            socialLabel: "Social media",
+            locationLabel: "Location"
+        }
+    };
+
+    const t = translations[lang] || translations.RU;
+
     return (
         <footer className={styles.footer}>
             <div className={styles.container}>
@@ -49,32 +99,35 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h4 className={styles.colTitle}>Коллекции</h4>
+                        <h4 className={styles.colTitle}>{getTranslated('col_1_title') || (lang === 'RU' ? "Коллекции" : lang === 'UZ' ? "To'plamlar" : "Collections")}</h4>
                         <div className={styles.linkList}>
-                            <Link href="/catalog" className={styles.navLink}>Энергия</Link>
-                            <Link href="/catalog" className={styles.navLink}>Иммунитет</Link>
-                            <Link href="/catalog" className={styles.navLink}>Спокойствие</Link>
-                            <Link href="/catalog" className={styles.navLink}>Красота</Link>
+                            {(footer?.col_1_links || []).map((link: any, idx: number) => (
+                                <Link key={idx} href={link.url} className={styles.navLink}>
+                                    {getTranslatedLabel(link)}
+                                </Link>
+                            ))}
                         </div>
                     </div>
 
                     <div>
-                        <h4 className={styles.colTitle}>Сервис</h4>
+                        <h4 className={styles.colTitle}>{getTranslated('col_2_title') || (lang === 'RU' ? "Сервис" : lang === 'UZ' ? "Xizmat" : "Service")}</h4>
                         <div className={styles.linkList}>
-                            <Link href="/delivery" className={styles.navLink}>Доставка</Link>
-                            <Link href="/return" className={styles.navLink}>Возврат</Link>
-                            <Link href="/faq" className={styles.navLink}>FAQ</Link>
-                            <Link href="/track" className={styles.navLink}>Отследить</Link>
+                            {(footer?.col_2_links || []).map((link: any, idx: number) => (
+                                <Link key={idx} href={link.url} className={styles.navLink}>
+                                    {getTranslatedLabel(link)}
+                                </Link>
+                            ))}
                         </div>
                     </div>
 
                     <div>
-                        <h4 className={styles.colTitle}>Бренд</h4>
+                        <h4 className={styles.colTitle}>{getTranslated('col_3_title') || (lang === 'RU' ? "Бренд" : lang === 'UZ' ? "Brend" : "Brand")}</h4>
                         <div className={styles.linkList}>
-                            <Link href="/about" className={styles.navLink}>О нас</Link>
-                            <Link href="/contacts" className={styles.navLink}>Контакты</Link>
-                            <Link href="/blog" className={styles.navLink}>Блог</Link>
-                            <Link href="/partnership" className={styles.navLink}>Партнерам</Link>
+                            {(footer?.col_3_links || []).map((link: any, idx: number) => (
+                                <Link key={idx} href={link.url} className={styles.navLink}>
+                                    {getTranslatedLabel(link)}
+                                </Link>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -82,21 +135,21 @@ export default function Footer() {
                 {/* 2. SECTION: CONTACT & SOCIALS */}
                 <div className={styles.contactRow}>
                     <div className={styles.contactGroup}>
-                        <span className={styles.contactLabel}>Связаться с нами</span>
+                        <span className={styles.contactLabel}>{t.contactLabel}</span>
                         <a href={`tel:${footer?.phone?.replace(/\D/g, '')}`} className={styles.contactValue}>
                             {footer?.phone || "+998 (90) 123-4567"}
                         </a>
                     </div>
 
                     <div className={styles.contactGroup}>
-                        <span className={styles.contactLabel}>Напишите нам</span>
+                        <span className={styles.contactLabel}>{t.writeLabel}</span>
                         <a href={`mailto:${footer?.email}`} className={styles.contactValue}>
                             {footer?.email || "hello@hessa.uz"}
                         </a>
                     </div>
 
                     <div className={styles.contactGroup}>
-                        <span className={styles.contactLabel}>Мы в соцсетях</span>
+                        <span className={styles.contactLabel}>{t.socialLabel}</span>
                         <div className={styles.socialIcons}>
                             <a href={footer?.instagram || "#"} target="_blank" rel="noopener noreferrer" className={styles.socialCircle} aria-label="Instagram">
                                 <Instagram size={20} />
@@ -108,19 +161,49 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* 3. SECTION: UTILITY BAR */}
+                {/* 3. SECTION: COMPANY DETAILS */}
+                <div className={styles.companyDetails}>
+                    <div className={styles.detailsGrid}>
+                        <div className={styles.detailItem}>
+                            <span className={styles.detailLabel}>{t.entityName}</span>
+                            <span className={styles.detailValue}>MCHJ HESSA</span>
+                        </div>
+                        <div className={styles.detailItem}>
+                            <span className={styles.detailLabel}>{t.inn}</span>
+                            <span className={styles.detailValue}>312296091</span>
+                        </div>
+                        <div className={styles.detailItem}>
+                            <span className={styles.detailLabel}>{t.mfo}</span>
+                            <span className={styles.detailValue}>01041</span>
+                        </div>
+                        <div className={styles.detailItem}>
+                            <span className={styles.detailLabel}>{t.account}</span>
+                            <span className={styles.detailValue}>20208000207277774001</span>
+                        </div>
+                        <div className={styles.detailItem} style={{ gridColumn: 'span 2' }}>
+                            <span className={styles.detailLabel}>{t.address}</span>
+                            <span className={styles.detailValue}>
+                                {t.addressValue}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 4. SECTION: UTILITY BAR */}
                 <div className={styles.bottomBar}>
                     <div className={styles.legalLinks}>
-                        <span>{footer?.copyright_text || "© 2024 HESSA Inc."}</span>
-                        <Link href="/privacy" className={styles.legalLink}>Политика конфиденциальности</Link>
-                        <Link href="/terms" className={styles.legalLink}>Условия использования</Link>
-                        <span className={styles.poweredBy}>Powered by Pro AI</span>
+                        <span>{footer?.copyright_text || `© ${new Date().getFullYear()} HESSA Inc.`}</span>
+                        {(footer?.legal_links || []).map((link: any, idx: number) => (
+                            <Link key={idx} href={link.url} className={styles.legalLink}>
+                                {getTranslatedLabel(link)}
+                            </Link>
+                        ))}
                     </div>
 
                     <div className={styles.contactGroup} style={{ alignItems: 'flex-end' }}>
-                        <span className={styles.contactLabel}>Локация</span>
+                        <span className={styles.contactLabel}>{t.locationLabel}</span>
                         <span className={styles.contactValue} style={{ fontSize: '1rem' }}>
-                            {getTranslated('location') || "Ташкент, Узбекистан"}
+                            {getTranslated('location') || (lang === 'RU' ? "Ташкент, Узбекистан" : lang === 'UZ' ? "Toshkent, O'zbekiston" : "Tashkent, Uzbekistan")}
                         </span>
                     </div>
                 </div>

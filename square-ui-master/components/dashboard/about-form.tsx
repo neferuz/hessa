@@ -146,7 +146,7 @@ export function AboutForm({ lang }: AboutFormProps) {
         }
     };
 
-    const slideVariants = {
+    const slideVariants: any = {
         hidden: { opacity: 0, x: 20 },
         visible: {
             opacity: 1,
@@ -294,12 +294,6 @@ export function AboutForm({ lang }: AboutFormProps) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="p-4 px-8 border-t border-border/50 bg-muted/10 flex justify-end">
-                                    <Button onClick={handleSave} disabled={saving} className="h-10 px-8 rounded-full font-semibold shadow-none active:scale-95 transition-all">
-                                        {saving ? <RefreshCw className="size-4 animate-spin mr-2" /> : <Save className="size-4 mr-2" />}
-                                        Сохранить
-                                    </Button>
-                                </div>
                             </CardContent>
                         </Card>
                     </motion.div>
@@ -353,12 +347,6 @@ export function AboutForm({ lang }: AboutFormProps) {
                                         </div>
                                     ))}
                                 </div>
-                            </div>
-                            <div className="p-4 px-8 border-t border-border/50 bg-muted/10 flex justify-end">
-                                <Button onClick={handleSave} disabled={saving} className="h-10 px-8 rounded-full font-semibold shadow-none active:scale-95 transition-all">
-                                    {saving ? <RefreshCw className="size-4 animate-spin mr-2" /> : <Save className="size-4 mr-2" />}
-                                    Сохранить
-                                </Button>
                             </div>
                         </Card>
                     </motion.div>
@@ -417,16 +405,30 @@ export function AboutForm({ lang }: AboutFormProps) {
                                     ))}
                                 </div>
                             </div>
-                            <div className="p-4 px-8 border-t border-border/50 bg-muted/10 flex justify-end">
-                                <Button onClick={handleSave} disabled={saving} className="h-10 px-8 rounded-full font-semibold shadow-none active:scale-95 transition-all">
-                                    {saving ? <RefreshCw className="size-4 animate-spin mr-2" /> : <Save className="size-4 mr-2" />}
-                                    Сохранить
-                                </Button>
-                            </div>
                         </Card>
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {/* Floating Save Button */}
+            <motion.div
+                className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5 }}
+            >
+                <div className="flex items-center gap-2 rounded-full border border-border/50 bg-background/80 p-2 shadow-2xl backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+                    <Button
+                        onClick={handleSave}
+                        disabled={saving}
+                        className="rounded-full px-8 font-semibold transition-all hover:scale-105 active:scale-95"
+                        size="lg"
+                    >
+                        {saving ? <RefreshCw className="mr-2 size-4 animate-spin" /> : <Save className="mr-2 size-4" />}
+                        Сохранить изменения
+                    </Button>
+                </div>
+            </motion.div>
         </motion.div>
     );
 }

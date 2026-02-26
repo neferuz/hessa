@@ -12,6 +12,7 @@ class VerifyCodePayload(BaseModel):
     email: EmailStr
     code: str
     context: str | None = "login"
+    full_name: str | None = None
 
 
 class AuthUserResponse(UserResponse):

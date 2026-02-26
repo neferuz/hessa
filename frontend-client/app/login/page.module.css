@@ -2,8 +2,8 @@
 .pageWrapper {
     min-height: 100vh;
     background: #ffffff;
-    padding-top: 60px;
-    padding-bottom: 0;
+    padding-top: 120px;
+    padding-bottom: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -439,7 +439,8 @@
     background-size: 400% 400%;
     animation: gradientMove 15s ease infinite;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     transition: background 1.5s ease;
 }
 
@@ -553,10 +554,10 @@
 
 .title {
     font-family: var(--font-unbounded), sans-serif;
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
     color: #1a1a1a;
     line-height: 1.25;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     text-align: center;
     font-weight: 500;
 }
@@ -566,6 +567,23 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+}
+
+@media (max-width: 480px) {
+    .optionsGrid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+}
+
+.optionCard:last-child:nth-child(odd) {
+    grid-column: span 2;
+}
+
+@media (max-width: 480px) {
+    .optionCard:last-child:nth-child(odd) {
+        grid-column: span 1;
+    }
 }
 
 .optionCard {
@@ -732,11 +750,9 @@
     justify-content: space-between;
     gap: 1rem;
     transition: all 0.3s ease;
-    cursor: pointer;
 }
 
 .recCard:hover {
-    transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
 }
 
@@ -1782,5 +1798,265 @@
         width: 50px;
         height: 60px;
         font-size: 1.5rem;
+    }
+}
+
+/* AI Specific Styles */
+.aiBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background: #f0f7ff;
+    color: #0070f3;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.aiReasoningBox {
+    margin-top: 1rem;
+    padding: 1.25rem;
+    background: #f9fafb;
+    border-radius: 1rem;
+    border-left: 4px solid #1a1a1a;
+    text-align: left;
+    width: 100%;
+}
+
+.aiReasoningText {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4b5563;
+    margin: 0;
+}
+
+.recCategory {
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #9ca3af;
+    margin-bottom: 0.25rem;
+}
+
+.sparkleIcon {
+    animation: shimmerSparkle 2s infinite ease-in-out;
+}
+
+@keyframes shimmerSparkle {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+.recImageBg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(0, 112, 243, 0.05) 0%, transparent 70%);
+    z-index: 0;
+}
+
+.recImage {
+    position: relative;
+    z-index: 1;
+}
+
+.analyzingCard {
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    max-width: 450px;
+    width: 100%;
+}
+
+.spinningIcon {
+    color: #1a1a1a;
+}
+
+/* QR Login Styles */
+.qrToggle {
+    display: flex;
+    background: #f5f5f5;
+    padding: 4px;
+    border-radius: 50px;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 300px;
+}
+
+.toggleBtn {
+    flex: 1;
+    padding: 0.6rem;
+    border-radius: 50px;
+    border: none;
+    background: transparent;
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.activeToggle {
+    background: #ffffff;
+    color: #1a1a1a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.qrContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem 0;
+}
+
+.qrBox {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.qrInstructions {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    max-width: 300px;
+}
+
+.qrInstructions strong {
+    color: #1a1a1a;
+}
+
+/* Split Layout for Selection View */
+.splitWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.leftPanel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 500px;
+}
+
+.leftPanel .selectionButtons {
+    width: 100%;
+    align-items: flex-start;
+}
+
+.rightPanel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 32px;
+    padding: 3rem;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.qrImageWrapper {
+    width: 220px;
+    height: 220px;
+    background: white;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #f5f5f5;
+}
+
+.botTitle {
+    font-family: var(--font-unbounded), sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+}
+
+.botDesc {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.botTag {
+    background: #E8F5E9;
+    color: #2E7D32;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+@media (max-width: 960px) {
+    .splitWrapper {
+        flex-direction: column-reverse;
+        gap: 4rem;
+        padding-top: 1rem;
+    }
+
+    .leftPanel {
+        align-items: center;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .leftPanel .selectionButtons {
+        align-items: center;
+    }
+
+    .rightPanel {
+        width: 100%;
+        max-width: 360px;
     }
 }

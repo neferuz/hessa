@@ -6,7 +6,8 @@
     font-family: var(--font-manrope), sans-serif;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
-    margin-top: 0;
+    margin-top: 60px;
+    /* Space above footer to prevent TickerBanner overlap */
     overflow: hidden;
 }
 
@@ -45,7 +46,7 @@
     font-family: var(--font-manrope), sans-serif;
     font-size: 1rem;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.85);
     max-width: 300px;
     font-weight: 400;
 }
@@ -69,7 +70,7 @@
 .navLink {
     font-family: var(--font-manrope), sans-serif;
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     transition: all 0.3s ease;
     width: fit-content;
@@ -143,7 +144,7 @@
 
 .socialCircle:hover {
     background: #ffffff;
-    color: #000000;
+    color: #497a9b;
     border-color: #ffffff;
     transform: translateY(-5px) rotate(8deg);
 }
@@ -151,12 +152,12 @@
 /* Bottom Bar */
 .bottomBar {
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 1rem;
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .legalLinks {
@@ -185,6 +186,39 @@
     opacity: 1;
 }
 
+/* Company Details */
+.companyDetails {
+    padding: 30px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.detailsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.detailItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.detailLabel {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+}
+
+.detailValue {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.4;
+    font-weight: 500;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
     .container {
@@ -199,6 +233,14 @@
         grid-column: span 3;
         margin-bottom: 2rem;
     }
+
+    .detailsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .detailItem[style*="grid-column: span 2"] {
+        grid-column: span 2;
+    }
 }
 
 @media (max-width: 768px) {
@@ -208,7 +250,6 @@
 
     .container {
         padding: 0 1.5rem;
-        /* Отступ от краев на мобилке */
     }
 
     .mainGrid {
@@ -220,9 +261,7 @@
     .brandInfo {
         grid-column: span 1;
         text-align: left;
-        /* Влево */
         align-items: flex-start;
-        /* Влево */
         gap: 1rem;
     }
 
@@ -238,12 +277,10 @@
     .colTitle {
         margin-bottom: 1rem;
         text-align: left;
-        /* Влево */
     }
 
     .linkList {
         align-items: flex-start;
-        /* Влево */
         gap: 0.9rem;
     }
 
@@ -254,9 +291,7 @@
     .contactRow {
         flex-direction: column;
         align-items: flex-start;
-        /* Влево */
         text-align: left;
-        /* Влево */
         gap: 2rem;
         padding: 30px 0;
     }
@@ -265,13 +300,20 @@
         font-size: 1.1rem;
     }
 
+    .detailsGrid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .detailItem[style*="grid-column: span 2"] {
+        grid-column: span 1 !important;
+    }
+
     .bottomBar {
         flex-direction: column;
         gap: 2rem;
         text-align: left;
-        /* Влево */
         align-items: flex-start;
-        /* Влево */
         padding-top: 25px;
     }
 
@@ -279,6 +321,5 @@
         flex-direction: column;
         gap: 0.5rem;
         align-items: flex-start;
-        /* Влево */
     }
 }

@@ -99,6 +99,54 @@ DEFAULT_DATA = {
             "category": "Сердце и мозг", "category_uz": "Yurak va miya", "category_en": "Heart & Brain",
             "price": "245 000 сум", "image": "/vitamins-1.png", "isNew": False
         }
+    ],
+    "faq_title": "Частые вопросы",
+    "faq_title_uz": "Ko'p beriladigan savollar",
+    "faq_title_en": "Frequently Asked Questions",
+    "faq_subtitle": "Всё, что вы хотели знать о нашей продукции и сервисе",
+    "faq_subtitle_uz": "Mahsulotlarimiz va xizmatimiz haqida bilishni xohlagan hamma narsangiz",
+    "faq_subtitle_en": "Everything you wanted to know about our products and service",
+    "faq": [
+        {
+            "question": "Как правильно принимать витамины Hessa?",
+            "question_uz": "Hessa vitaminlarini qanday qabul qilish kerak?",
+            "question_en": "How to take Hessa vitamins correctly?",
+            "answer": "Мы рекомендуем принимать одну капсулу в день во время или сразу после завтрака, запивая стаканом воды. Это обеспечит оптимальное усваивание активных компонентов в течение дня.",
+            "answer_uz": "Biz kuniga bir marta nonushta vaqtida yoki undan keyin bir stakan suv bilan qabul qilishni tavsiya qilamiz. Bu kun davomida faol komponentlarning optimal so'rilishini ta'minlaydi.",
+            "answer_en": "We recommend taking one capsule per day during or immediately after breakfast with a glass of water. This ensures optimal absorption of active components throughout the day."
+        },
+        {
+            "question": "Через какое время я почувствую эффект?",
+            "question_uz": "Effektni qancha vaqtdan keyin his qilaman?",
+            "question_en": "How long until I feel the effect?",
+            "answer": "Витамины имеют накопительный эффект. Большинство наших клиентов замечают первые изменения в уровне энергии и качестве сна через 14-20 дней регулярного приема. Полный курс обычно рассчитан на 30-60 дней.",
+            "answer_uz": "Vitaminlar to'planuvchi ta'sirga ega. Mijozlarimizning aksariyati muntazam qabul qilganidan keyin 14-20 kun ichida energiya darajasi va uyqu sifatidagi birinchi o'zgarishlarni sezadilar. To'liq kurs odatda 30-60 kunga mo'ljallangan.",
+            "answer_en": "Vitamins have a cumulative effect. Most of our clients notice the first changes in energy levels and sleep quality after 14-20 days of regular intake. A full course is usually designed for 30-60 days."
+        },
+        {
+            "question": "Вся ли продукция сертифицирована?",
+            "question_uz": "Barcha mahsulotlar sertifikatlanganmi?",
+            "question_en": "Are all products certified?",
+            "answer": "Да, абсолютно вся продукция Hessa проходит строгий лабораторный контроль и имеет государственные сертификаты соответствия. Мы используем только проверенное сырье из Европы и США на собственном производстве в Москве.",
+            "answer_uz": "Ha, Hessa-ning mutlaqo barcha mahsulotlari qattiq laboratoriya nazoratidan o'tadi va davlat muvofiqlik sertifikatlariga ega. Biz Moskvadagi o'z ishlab chiqarishimizda faqat Evropa va AQShdan tekshirilgan xom ashyolardan foydalanamiz.",
+            "answer_en": "Yes, absolutely all Hessa products undergo strict laboratory control and have state certificates of conformity. We use only verified raw materials from Europe and the USA at our own production in Moscow."
+        },
+        {
+            "question": "Есть ли противопоказания?",
+            "question_uz": "Qo'llash mumkin bo'lmagan holatlar bormi?",
+            "question_en": "Are there any contraindications?",
+            "answer": "Наши комплексы безопасны для большинства людей, однако мы всегда рекомендуем проконсультироваться с врачом перед началом приема, особенно во время беременности, кормления грудью или при наличии хронических заболеваний.",
+            "answer_uz": "Bizning komplekslarimiz ko'pchilik uchun xavfsizdir, ammo biz har doim qabul qilishni boshlashdan oldin shifokor bilan maslahatlashishni tavsiya qilamiz, ayniqsa homiladorlik, emizish davrida yoki surunkali kasalliklar mavjud bo'lganda.",
+            "answer_en": "Our complexes are safe for most people, but we always recommend consulting a doctor before starting intake, especially during pregnancy, breastfeeding, or in the presence of chronic diseases."
+        },
+        {
+            "question": "Как осуществляется доставка по Узбекистану?",
+            "question_uz": "O'zbekiston bo'ylab yetkazib berish qanday amalga oshiriladi?",
+            "question_en": "How is delivery carried out in Uzbekistan?",
+            "answer": "Мы доставляем заказы по всему Узбекистану через курьерские службы. По Ташкенту доставка занимает от 2 до 6 часов, в другие регионы — от 1 до 3 рабочих дней.",
+            "answer_uz": "Biz buyurtmalarni butun O'zbekiston bo'ylab kurerlik xizmatlari orqali yetkazib beramiz. Toshkent bo'ylab yetkazib berish 2 soatdan 6 soatgacha, boshqa viloyatlarga — 1 kundan 3 ish kunigacha davom etadi.",
+            "answer_en": "We deliver orders throughout Uzbekistan through courier services. In Tashkent, delivery takes from 2 to 6 hours, to other regions — from 1 to 3 business days."
+        }
     ]
 }
 
@@ -120,7 +168,38 @@ DEFAULT_DATA["footer"] = {
     "location": "Ташкент, Узбекистан",
     "location_uz": "Toshkent, O'zbekiston",
     "location_en": "Tashkent, Uzbekistan",
-    "copyright_text": "© 2024 HESSA Inc."
+    "copyright_text": "© 2024 HESSA Inc.",
+    "col_1_title": "Коллекции",
+    "col_1_title_uz": "To'plamlar",
+    "col_1_title_en": "Collections",
+    "col_1_links": [
+        {"label": "Энергия", "label_uz": "Energiya", "label_en": "Energy", "url": "/catalog"},
+        {"label": "Иммунитет", "label_uz": "Immunitet", "label_en": "Immunity", "url": "/catalog"},
+        {"label": "Спокойствие", "label_uz": "Xotirjamlik", "label_en": "Calmness", "url": "/catalog"},
+        {"label": "Красота", "label_uz": "Go'zallik", "label_en": "Beauty", "url": "/catalog"}
+    ],
+    "col_2_title": "Сервис",
+    "col_2_title_uz": "Xizmat",
+    "col_2_title_en": "Service",
+    "col_2_links": [
+        {"label": "Доставка", "label_uz": "Yetkazib berish", "label_en": "Delivery", "url": "/delivery"},
+        {"label": "Возврат", "label_uz": "Qaytarish", "label_en": "Return", "url": "/return"},
+        {"label": "FAQ", "label_uz": "FAQ", "label_en": "FAQ", "url": "/faq"},
+        {"label": "Отследить", "label_uz": "Kuzatish", "label_en": "Track", "url": "/track"}
+    ],
+    "col_3_title": "Бренд",
+    "col_3_title_uz": "Brend",
+    "col_3_title_en": "Brand",
+    "col_3_links": [
+        {"label": "О нас", "label_uz": "Biz haqimizda", "label_en": "About us", "url": "/about"},
+        {"label": "Контакты", "label_uz": "Kontaktlar", "label_en": "Contacts", "url": "/contacts"},
+        {"label": "Блог", "label_uz": "Blog", "label_en": "Blog", "url": "/blog"},
+        {"label": "Партнерам", "label_uz": "Hamkorlarga", "label_en": "Partners", "url": "/partnership"}
+    ],
+    "legal_links": [
+        {"label": "Политика конфиденциальности", "label_uz": "Maxfiylik siyosati", "label_en": "Privacy Policy", "url": "/privacy"},
+        {"label": "Условия использования", "label_uz": "Foydalanish shartlari", "label_en": "Terms of use", "url": "/terms"}
+    ]
 }
 
 DEFAULT_DATA["companies"] = {
@@ -331,6 +410,76 @@ DEFAULT_DATA["companies"] = {
     "contact_desc_en": "Leave a request, and our manager will contact you to discuss details and calculate the cost."
 }
 
+DEFAULT_DATA["return_page"] = {
+    "title": "Условия возврата",
+    "title_uz": "Qaytarish shartlari",
+    "title_en": "Return Policy",
+    "subtitle": "Мы заботимся о вашем здоровье и готовы решить любые вопросы",
+    "subtitle_uz": "Sizning salomatligingiz haqida qayg'uramiz va har qanday savollarni hal qilishga tayyormiz",
+    "subtitle_en": "We care about your health and are ready to resolve any issues",
+    "sections": [
+        {
+            "title": "Как вернуть товар?",
+            "title_uz": "Mahsulotni qanday qaytarish kerak?",
+            "title_en": "How to return a product?",
+            "content": "Согласно законодательству Республики Узбекистан, биологически активные добавки к пище надлежащего качества возврату и обмену не подлежат. Однако, если вы получили товар ненадлежащего качества или с истекшим сроком годности, мы обязательно произведем замену или вернем деньги.",
+            "content_uz": "O'zbekiston Respublikasi qonunchiligiga ko'ra, tegishli sifatdagi biologik faol qo'shimchalar qaytarilmaydi va almashtirilmaydi. Biroq, agar siz sifatsiz yoki muddati o'tgan mahsulot olgan bo'lsangiz, biz albatta almashtirib beramiz yoki pulingizni qaytaramiz.",
+            "content_en": "According to the legislation of the Republic of Uzbekistan, dietary supplements of proper quality are not subject to return and exchange. However, if you received a product of improper quality or with an expired shelf life, we will definitely make a replacement or refund.",
+            "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop"
+        }
+    ]
+}
+
+DEFAULT_DATA["services_page"] = {
+    "title": "Наши услуги",
+    "title_uz": "Bizning xizmatlarimiz",
+    "title_en": "Our Services",
+    "subtitle": "Профессиональный подход к вашему здоровью",
+    "subtitle_uz": "Sizning salomatligingizga professional yondashuv",
+    "subtitle_en": "A professional approach to your health",
+    "sections": []
+}
+
+DEFAULT_DATA["contacts_page"] = {
+    "title": "Контакты",
+    "title_uz": "Kontaktlar",
+    "title_en": "Contacts",
+    "subtitle": "Свяжитесь с нами любым удобным способом",
+    "subtitle_uz": "Biz bilan o'zingizga qulay usulda bog'laning",
+    "subtitle_en": "Contact us in any convenient way",
+    "sections": []
+}
+
+DEFAULT_DATA["faq_page"] = {
+    "title": "Часто задаваемые вопросы",
+    "title_uz": "Ko'p so'raladigan savollar",
+    "title_en": "Frequently Asked Questions",
+    "subtitle": "Здесь вы найдете ответы на самые популярные вопросы о нашей продукции и сервисе",
+    "subtitle_uz": "Bu yerda bizning mahsulotlarimiz va xizmatlarimiz haqidagi eng ommabop savollarga javob topasiz",
+    "subtitle_en": "Here you will find answers to the most popular questions about our products and services",
+    "sections": [
+        {
+            "title": "Как оформить заказ?",
+            "title_uz": "Buyurtmani qanday rasmiylashtirish kerak?",
+            "title_en": "How to place an order?",
+            "content": "Вы можете оформить заказ через наш каталог на сайте или связавшись с нами по телефону.",
+            "content_uz": "Siz buyurtmani saytdagi katalog orqali yoki biz bilan telefon orqali bog'lanib rasmiylashtirishingiz mumkin.",
+            "content_en": "You can place an order through our catalog on the website or by contacting us by phone.",
+            "image": None
+        }
+    ]
+}
+
+DEFAULT_DATA["contacts_info"] = {
+    "latitude": 41.2995,
+    "longitude": 69.2401,
+    "address": "Ташкент, Узбекистан",
+    "address_uz": "Toshkent, O'zbekiston",
+    "address_en": "Tashkent, Uzbekistan",
+    "phone": "+998 90 123 45 67",
+    "email": "info@hessa.uz"
+}
+
 class ContentRepository:
     def __init__(self):
         self.file_path = DATA_FILE
@@ -351,15 +500,80 @@ class ContentRepository:
         # Ensure 'companies' key exists for backward compatibility
         if "companies" not in data:
             data["companies"] = DEFAULT_DATA["companies"]
-            # Optionally save back to file to fix it permanently
-            # with open(self.file_path, "w") as f:
-            #     json.dump(data, f, indent=4)
+            
+        # Migrate FAQ fields
+        if "faq" not in data:
+            data["faq"] = DEFAULT_DATA["faq"]
+        if "faq_title" not in data:
+            data["faq_title"] = DEFAULT_DATA["faq_title"]
+        if "faq_title_uz" not in data:
+            data["faq_title_uz"] = DEFAULT_DATA["faq_title_uz"]
+        if "faq_title_en" not in data:
+            data["faq_title_en"] = DEFAULT_DATA["faq_title_en"]
+        if "faq_subtitle" not in data:
+            data["faq_subtitle"] = DEFAULT_DATA["faq_subtitle"]
+        if "faq_subtitle_uz" not in data:
+            data["faq_subtitle_uz"] = DEFAULT_DATA["faq_subtitle_uz"]
+        if "faq_subtitle_en" not in data:
+            data["faq_subtitle_en"] = DEFAULT_DATA["faq_subtitle_en"]
+            
+        # Optional: Save back to file if any migration happened
+        # with open(self.file_path, "w") as f:
+        #     json.dump(data, f, indent=4)
         
+        # Migrate Footer fields
+        updated = False
+        if "footer" in data:
+            footer = data["footer"]
+            for key, value in DEFAULT_DATA["footer"].items():
+                if key not in footer:
+                    footer[key] = value
+                    updated = True
+        else:
+            data["footer"] = DEFAULT_DATA["footer"]
+            updated = True
+
+        # Migrate Return Page fields
+        if "return_page" not in data:
+            data["return_page"] = DEFAULT_DATA["return_page"]
+            updated = True
+
+        if "services_page" not in data:
+            data["services_page"] = DEFAULT_DATA["services_page"]
+            updated = True
+
+        if "contacts_page" not in data:
+            data["contacts_page"] = DEFAULT_DATA["contacts_page"]
+            updated = True
+
+        if "faq_page" not in data:
+            data["faq_page"] = DEFAULT_DATA["faq_page"]
+            updated = True
+
+        if "contacts_info" not in data:
+            data["contacts_info"] = DEFAULT_DATA["contacts_info"]
+            updated = True
+        
+        if updated:
+            with open(self.file_path, "w") as f:
+                json.dump(data, f, indent=4)
+            
         return ContentData(**data)
 
     def update_content(self, data: ContentData) -> ContentData:
+        # Load existing data first
+        current_data = {}
+        if os.path.exists(self.file_path):
+            with open(self.file_path, "r") as f:
+                current_data = json.load(f)
+        
+        # Merge new data (only provided fields)
+        new_data = data.model_dump(exclude_unset=True)
+        current_data.update(new_data)
+        
         with open(self.file_path, "w") as f:
-            json.dump(data.model_dump(), f, indent=4)
-        return data
+            json.dump(current_data, f, indent=4)
+            
+        return ContentData(**current_data)
 
 content_repo = ContentRepository()

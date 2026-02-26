@@ -19,6 +19,8 @@ class OrderBase(BaseModel):
     products: Optional[List[Dict]] = None
     total_amount: float = 0.0
     duration: int = 1
+    ai_analysis: Optional[str] = None
+    referral_code: Optional[str] = None
 
 class OrderCreate(OrderBase):
     pass
@@ -29,10 +31,13 @@ class OrderUpdate(BaseModel):
     payment_method: Optional[str] = None
     completed_at: Optional[datetime] = None
 
+from .user import UserShort
+
 class OrderResponse(OrderBase):
     id: int
     created_at: datetime
     completed_at: Optional[datetime] = None
+    user: Optional[UserShort] = None
 
     class Config:
         from_attributes = True

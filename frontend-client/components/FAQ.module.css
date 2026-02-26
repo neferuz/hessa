@@ -3,9 +3,10 @@
     width: calc(100% - 4rem);
     max-width: 1400px;
     padding: 100px 2rem;
-    background: #497A9B;
+    background: #497a9b;
     border-radius: 48px;
     margin: 2rem auto;
+    box-shadow: 0 20px 40px rgba(73, 122, 155, 0.15);
 }
 
 .container {
@@ -33,7 +34,7 @@
 .subtitle {
     font-family: var(--font-manrope), sans-serif;
     font-size: 1.1rem;
-    color: white;
+    color: rgba(255, 255, 255, 0.85);
     max-width: 500px;
     margin: 0 auto;
 }
@@ -80,7 +81,6 @@
     font-family: var(--font-unbounded), sans-serif;
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.6);
-    /* Subtle number */
     font-weight: 400;
     min-width: 30px;
 }
@@ -88,15 +88,11 @@
 .questionText {
     font-family: var(--font-manrope), sans-serif;
     font-size: 1.5rem;
-    /* Larger, premium feel */
     font-weight: 500;
     color: white;
     transition: padding-left 0.3s ease;
 }
 
-
-
-/* Icon */
 .iconCircle {
     width: 40px;
     height: 40px;
@@ -112,7 +108,7 @@
 .active .iconCircle {
     transform: rotate(180deg);
     background: white;
-    color: #497A9B;
+    color: #497a9b;
     border-color: white;
 }
 
@@ -123,7 +119,6 @@
 
 .answerInner {
     padding-left: calc(30px + 2rem);
-    /* Align with text (number width + gap) */
     font-family: var(--font-manrope), sans-serif;
     font-size: 1.05rem;
     line-height: 1.7;
@@ -134,11 +129,16 @@
 /* Responsive */
 @media (max-width: 768px) {
     .section {
-        padding: 60px 1rem;
+        width: calc(100% - 1.5rem);
+        /* Даем больше ширины на мобильных */
+        padding: 50px 1.5rem;
+        margin: 1rem auto;
+        border-radius: 32px;
+        /* Меньший радиус для мобильных */
     }
 
     .title {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
 
     .questionButton {

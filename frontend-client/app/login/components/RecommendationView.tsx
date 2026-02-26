@@ -14,7 +14,7 @@ interface RecommendationViewProps {
 }
 
 export default function RecommendationView({ setView, recommendedProducts, duration, setDuration }: RecommendationViewProps) {
-    const productsSum = recommendedProducts.reduce((sum, prod) => sum + parseInt(prod.price.replace(/\D/g, '')), 0);
+    const productsSum = recommendedProducts.reduce((sum, prod) => sum + parseInt(String(prod.price).replace(/\D/g, '')), 0);
     const discount = durations.find(d => d.id === duration)?.discount || 0;
     const totalMultiplied = productsSum * duration;
     const finalPrice = totalMultiplied - (totalMultiplied * discount);
@@ -53,11 +53,11 @@ export default function RecommendationView({ setView, recommendedProducts, durat
                                 transition={{ delay: idx * 0.1 }}
                             >
                                 <div className={styles.recImageWrapper}>
-                                    <Image src={prod.image} alt={prod.name} width={80} height={80} objectFit="contain" />
+                                    <Image src={prod.image || '/assets/default-product.png'} alt={prod.name} fill style={{ objectFit: 'contain' }} />
                                 </div>
                                 <div className={styles.recImageInfo}>
                                     <h3 className={styles.recName}>{prod.name}</h3>
-                                    <p className={styles.recDesc}>{prod.desc}</p>
+                                    <p className={styles.productDesc}>{prod.desc}</p>
                                     <p className={styles.recPrice}>{prod.price} <span style={{ fontSize: '0.8em', color: '#999' }}>/ мес</span></p>
                                 </div>
                                 <div className={styles.checkCircle} style={{ background: '#1a1a1a', borderColor: '#1a1a1a' }}><Check size={14} color="white" /></div>

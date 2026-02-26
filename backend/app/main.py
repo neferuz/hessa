@@ -7,10 +7,11 @@ from .api.routers import stats # Import stats router
 from .core.config import settings
 from .core.database import engine, Base
 # Import all models to ensure they are registered with Base.metadata
-from .models import user, product, order, admin  # noqa
+from .models import user, product, order, admin, qr_login  # noqa
 from .models import login_code  # noqa: F401
 from .models import employee, salary_payment # noqa
 from .models import plan  # noqa
+from .models import analysis # noqa
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

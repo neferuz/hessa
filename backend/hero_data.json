@@ -11,6 +11,9 @@
             "descriptionRight": "Our products are carefully formulated with science-backed ingredients, free from artificial additives.",
             "descriptionRight_uz": "\u0442\u0435\u0441\u0442",
             "descriptionRight_en": "",
+            "buttonText": "\u041d\u0430\u0447\u0430\u0442\u044c",
+            "buttonText_uz": "Sotib olish",
+            "buttonText_en": "Shop Now",
             "tags": [
                 {
                     "label": "Premium Ingredients",
@@ -28,7 +31,7 @@
                     "y": 30.0
                 }
             ],
-            "image": "http://localhost:8000/static/uploads/0bfa4445-ab98-4813-96e9-285a7e8373a8.png",
+            "image": "http://localhost:8000/static/uploads/b9666724-8e2b-4ebd-a07a-2a8605ea072b.png",
             "color": "#FFFFFF"
         },
         {
@@ -42,6 +45,9 @@
             "descriptionRight": "Fast-absorbing whey isolate with essential amino acids for optimal muscle growth.",
             "descriptionRight_uz": "",
             "descriptionRight_en": "",
+            "buttonText": "\u041a\u0443\u043f\u0438\u0442\u044c \u0441\u0435\u0439\u0447\u0430\u0441",
+            "buttonText_uz": "Sotib olish",
+            "buttonText_en": "Shop Now",
             "tags": [
                 {
                     "label": "25g Protein",
@@ -59,7 +65,7 @@
                     "y": 20.0
                 }
             ],
-            "image": "/vitamins-2.png",
+            "image": "http://localhost:8000/static/uploads/46f01ee7-7a17-4c28-bbe3-8e8a7780c5ab.jpeg",
             "color": "#FFFFFF"
         },
         {
@@ -73,6 +79,9 @@
             "descriptionRight": "Clinically proven ingredients to enhance memory, focus, and mental processing speed.",
             "descriptionRight_uz": "",
             "descriptionRight_en": "",
+            "buttonText": "\u041a\u0443\u043f\u0438\u0442\u044c \u0441\u0435\u0439\u0447\u0430\u0441",
+            "buttonText_uz": "Sotib olish",
+            "buttonText_en": "Shop Now",
             "tags": [
                 {
                     "label": "No Caffeine",
@@ -90,7 +99,7 @@
                     "y": 25.0
                 }
             ],
-            "image": "/vitamins-3.png",
+            "image": "http://localhost:8000/static/uploads/3ee8bc24-74e8-4a4b-bb3b-1a4a3408e764.png",
             "color": "#FFFFFF"
         }
     ]

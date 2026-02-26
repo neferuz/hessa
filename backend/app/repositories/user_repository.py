@@ -14,6 +14,10 @@ class UserRepository:
         result = await self.db.execute(select(User).filter(User.username == username))
         return result.scalars().first()
 
+    async def get_by_referral_code(self, referral_code: str):
+        result = await self.db.execute(select(User).filter(User.referral_code == referral_code))
+        return result.scalars().first()
+
     async def create(self, user: User):
         self.db.add(user)
         await self.db.commit()

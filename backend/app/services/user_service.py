@@ -10,10 +10,24 @@ class UserService:
     async def create_user(self, user_data: UserCreate):
         # Business logic here (e.g. password hashing, validation)
         # For demo, just simple creation
+        import random
+        import string
+        
+        # Generate unique referral code
+        prefix = "HESSA-"
+        while True:
+            code = f"{prefix}{''.join(random.choices(string.ascii_uppercase + string.digits, k=6))}"
+            # Check if code already exists
+            existing = await self.repository.get_by_referral_code(code)
+            if not existing:
+                break
+
         db_user = User(
             username=user_data.username,
             email=user_data.email,
-            hashed_password=user_data.password  # In real app: hash_password(user_data.password)
+            hashed_password=user_data.password,  # In real app: hash_password(user_data.password)
+            referral_code=code,
+            tokens=1500 # Give initial tokens to new users
         )
         return await self.repository.create(db_user)
 

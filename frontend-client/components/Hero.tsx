@@ -3,6 +3,7 @@
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import styles from "./Hero.module.css";
 import TextReveal from "./ui/TextReveal";
@@ -61,6 +62,10 @@ export default function Hero() {
 
     const getText = (base: string, l: string) => {
         if (!current) return "";
+        // Fallback for button if missing from API
+        if (base === 'buttonText' && !current[base]) {
+            return l === 'EN' ? 'Shop Now' : l === 'UZ' ? 'Sotib olish' : 'Купить сейчас';
+        }
         if (l === 'RU') return current[base];
         return current[`${base}_${l.toLowerCase()}`] || current[base];
     };
@@ -83,72 +88,94 @@ export default function Hero() {
     if (!current) return null;
 
     // Animation Variants
+    // Animation Variants
     const slideVariants: Variants = {
         enter: (direction: number) => ({
-            x: direction > 0 ? 100 : -100,
             opacity: 0,
         }),
         center: {
-            x: 0,
             opacity: 1,
-            transition: { duration: 0.8, ease: "easeInOut" },
+            transition: {
+                duration: 1,
+                ease: "easeInOut"
+            },
         },
         exit: (direction: number) => ({
-            x: direction < 0 ? 100 : -100,
             opacity: 0,
-            transition: { duration: 0.5, ease: "easeInOut" },
+            transition: {
+                duration: 0.8,
+                ease: "easeInOut"
+            },
         }),
-    };
-
-    const textReveal = {
-        hidden: { y: "100%" },
-        visible: (delay: number) => ({
-            y: "0%",
-            transition: { delay, duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-        })
     };
 
     return (
         <div className={styles.heroWrapper}>
-
-            {/* 1. TOP HEADLINE (Masked Reveal) */}
-            <div className="relative w-full z-10 mb-8 px-4 flex justify-center">
-                {/* Key forces remount on slide change to re-trigger GSAP animation */}
-                <TextReveal key={current.id} delay={0.1} className="overflow-hidden">
-                    <h1 className={styles.bigHeading}>
-                        {getText('headline', lang)}
-                    </h1>
-                </TextReveal>
-            </div>
-
-            {/* 2. MAIN CONTENT GRID */}
+            {/* MAIN CONTENT GRID */}
             <div className={styles.contentGrid}>
 
-                {/* LEFT COLUMN */}
+                {/* LEFT COLUMN: TEXT CONTENT */}
                 <div className={styles.leftCol}>
-                    <div className="overflow-hidden">
-                        <TextReveal key={current.id} delay={0.2}>
-                            <p className={styles.descText}>
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={current.id}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="flex flex-col items-start gap-4"
+                        >
+                            <h1 className={styles.bigHeading}>
+                                {getText('headline', lang)}
+                            </h1>
+
+                            <p className={styles.descText} style={{ marginBottom: '2.5rem' }}>
                                 {getText('descriptionLeft', lang)}
                             </p>
-                        </TextReveal>
-                    </div>
 
-                    <motion.div
-                        className={styles.leftActions}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                    >
-                        <a href="#" className={styles.linkUnderline}>Learn more</a>
-                        <button className={styles.blackPillBtn}>
-                            Shop now <div className={styles.arrowCircle}><ArrowRight size={14} /></div>
-                        </button>
-                    </motion.div>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.4, duration: 0.8 }}
+                            >
+                                <Link href="/login">
+                                    <button className={styles.blackPillBtn}>
+                                        {getText('buttonText', lang)}
+                                        <div className={styles.arrowCircle}><ArrowRight size={18} /></div>
+                                    </button>
+                                </Link>
+                            </motion.div>
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
 
-                {/* CENTER COLUMN (PRODUCT + TAGS) */}
+                {/* RIGHT COLUMN: PRODUCT IMAGE */}
                 <div className={styles.centerCol}>
+                    {/* Navigation Progress */}
+                    <div className={styles.navProgress}>
+                        <span className={styles.progressLabel}>0{index + 1}</span>
+                        <div className={styles.progressBar}>
+                            <motion.div
+                                key={index}
+                                className={styles.progressFill}
+                                initial={{ scaleX: 0 }}
+                                animate={{ scaleX: 1 }}
+                                transition={{ duration: 6, ease: "linear" }}
+                            />
+                        </div>
+                        <span className={styles.progressLabel}>0{slides.length}</span>
+                    </div>
+
+                    {/* Navigation Arrows (Moved inside image col) */}
+                    <div className={styles.navArrows}>
+                        <button onClick={prevSlide} className={styles.navBtn} aria-label="Previous slide">
+                            <ArrowLeft size={18} />
+                        </button>
+                        <button onClick={nextSlide} className={styles.navBtn} aria-label="Next slide">
+                            <ArrowRight size={18} />
+                        </button>
+                    </div>
+
                     <AnimatePresence mode="wait" custom={direction}>
                         <motion.div
                             key={current.id}
@@ -159,84 +186,20 @@ export default function Hero() {
                             exit="exit"
                             className={styles.productContainer}
                         >
-                            {/* Floating Animation Wrapper */}
-                            <motion.div
-                                animate={{ y: [0, -20, 0] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                className="relative w-full h-full flex justify-center items-end"
-                            >
+                            <div className="relative w-full h-full">
                                 <Image
                                     src={current.image}
                                     alt="Product"
-                                    width={600}
+                                    width={700}
                                     height={800}
                                     className={styles.productImg}
                                     priority
                                 />
-                            </motion.div>
-
-                            {/* Tags Pop In */}
-                            <div className={styles.tagsWrapper}>
-                                {current.tags.map((tag: any, i: number) => (
-                                    <motion.div
-                                        key={`${current.id}-tag-${i}`}
-                                        className={styles.floatingTag}
-                                        style={{
-                                            top: `${tag.y}%`,
-                                            left: tag.x < 0 ? 'auto' : `${50 + tag.x / 2}%`,
-                                            right: tag.x < 0 ? `${50 + Math.abs(tag.x) / 2}%` : 'auto',
-                                        }}
-                                        initial={{ scale: 0, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        transition={{
-                                            type: "spring",
-                                            stiffness: 300,
-                                            damping: 20,
-                                            delay: 0.5 + i * 0.15
-                                        }}
-                                        whileHover={{ scale: 1.1, cursor: "pointer" }}
-                                    >
-                                        <div className={styles.tagDot}>{tag.x > 0 ? '+' : '-'}</div>
-                                        <span className={styles.tagLabel}>{tag.label}</span>
-                                    </motion.div>
-                                ))}
                             </div>
                         </motion.div>
                     </AnimatePresence>
                 </div>
 
-                {/* RIGHT COLUMN */}
-                <div className={styles.rightCol}>
-                    <div className="overflow-hidden">
-                        <TextReveal key={current.id} delay={0.3}>
-                            <p className={styles.descText}>
-                                {getText('descriptionRight', lang)}
-                            </p>
-                        </TextReveal>
-                    </div>
-                </div>
-
-            </div>
-
-            {/* Navigation Controls & Progress */}
-            <div className={styles.controls}>
-                <button onClick={prevSlide} className={styles.navBtn}><ArrowLeft /></button>
-                {/* Progress Indicators */}
-                <div className="flex gap-2 items-center px-4">
-                    {slides.map((_, i) => (
-                        <div key={i} className="h-1 bg-black/10 w-12 rounded-full overflow-hidden">
-                            {i === index && (
-                                <motion.div
-                                    className="h-full bg-black/80"
-                                    initial={{ width: "0%" }}
-                                    animate={{ width: "100%" }}
-                                    transition={{ duration: 6, ease: "linear" }}
-                                />
-                            )}
-                        </div>
-                    ))}
-                </div>
-                <button onClick={nextSlide} className={styles.navBtn}><ArrowRight /></button>
             </div>
         </div>
     );

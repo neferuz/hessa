@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DashboardSidebar } from "@/components/dashboard/sidebar";
 import { DashboardHeader } from "@/components/dashboard/dashboard-header";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -108,13 +107,8 @@ export default function PlansPage() {
         }
     };
 
-    const handleDelete = (id: number) => {
-        setPlanToDelete(id);
-        setShowDeleteDialog(true);
-    };
-
-    const confirmDelete = async () => {
-        if (planToDelete === null) return;
+    const handleDelete = async () => {
+        if (!planToDelete) return;
 
         try {
             const res = await fetch(`http://localhost:8000/api/plans/${planToDelete}`, {
@@ -126,6 +120,8 @@ export default function PlansPage() {
                 fetchPlans();
                 setShowDeleteDialog(false);
                 setPlanToDelete(null);
+            } else {
+                toast.error("Ошибка удаления плана");
             }
         } catch (err) {
             console.error(err);
@@ -133,7 +129,7 @@ export default function PlansPage() {
         }
     };
 
-    const handleToggleActive = async (plan: Plan) => {
+    const toggleActive = async (plan: Plan) => {
         try {
             const res = await fetch(`http://localhost:8000/api/plans/${plan.id}`, {
                 method: 'PUT',
@@ -142,8 +138,10 @@ export default function PlansPage() {
             });
 
             if (res.ok) {
-                toast.success(plan.is_active ? "План деактивирован" : "План активирован");
+                toast.success("Статус обновлен");
                 fetchPlans();
+            } else {
+                toast.error("Ошибка обновления плана");
             }
         } catch (err) {
             console.error(err);
@@ -194,7 +192,7 @@ export default function PlansPage() {
                             <Button
                                 onClick={openCreateDialog}
                                 size="sm"
-                                className="h-9 px-5 rounded-full font-semibold bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm hover:shadow-md transition-all active:scale-95"
+                                className="h-9 px-5 rounded-full font-semibold bg-primary hover:bg-primary/90 text-primary-foreground transition-all active:scale-95"
                             >
                                 <Plus className="size-4 mr-2 stroke-[2.5]" />
                                 Добавить план
@@ -224,7 +222,7 @@ export default function PlansPage() {
                                         <div
                                             key={plan.id}
                                             className={cn(
-                                                "relative group rounded-[1.5rem] border-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
+                                                "relative group rounded-[1.5rem] border-2 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1",
                                                 plan.is_recommended
                                                     ? "border-primary bg-primary/5"
                                                     : "border-border bg-card",
@@ -235,7 +233,7 @@ export default function PlansPage() {
                                                 {/* Recommended Badge - Simple Style */}
                                                 {plan.is_recommended && (
                                                     <div className="absolute -top-3 left-6">
-                                                        <div className="bg-primary px-3 py-1 rounded-full shadow-md">
+                                                        <div className="bg-primary px-3 py-1 rounded-full">
                                                             <div className="flex items-center gap-1.5">
                                                                 <Star className="size-2.5 text-white fill-white" />
                                                                 <span className="text-[9px] font-black text-white uppercase tracking-wider">Рекомендуем</span>
@@ -248,66 +246,79 @@ export default function PlansPage() {
                                                     <div className="min-w-0">
                                                         <h3 className="text-lg font-bold truncate text-foreground/90">{plan.title}</h3>
                                                         <div className="mt-1 flex items-center gap-2">
-                                                            <span className="text-[10px] font-bold text-muted-foreground uppercase bg-muted px-2 py-0.5 rounded-full">{plan.duration}</span>
+                                                            <div className="h-1.5 w-1.5 rounded-full bg-primary/50" />
+                                                            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{plan.duration}</span>
                                                         </div>
                                                     </div>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        className="size-8 rounded-lg bg-muted/50 hover:bg-muted transition-colors shrink-0"
-                                                        onClick={() => handleToggleActive(plan)}
-                                                    >
-                                                        {plan.is_active ? (
-                                                            <ToggleRight className="size-5 text-green-500" />
-                                                        ) : (
-                                                            <ToggleLeft className="size-5 text-muted-foreground/40" />
-                                                        )}
-                                                    </Button>
-                                                </div>
-
-                                                <div className="space-y-1">
-                                                    <div className="flex items-baseline gap-1.5">
-                                                        <span className="text-3xl font-black tracking-tight text-foreground">
-                                                            {plan.price.toLocaleString()}
-                                                        </span>
-                                                        <span className="text-[10px] font-extrabold text-muted-foreground uppercase">сум</span>
-                                                    </div>
-                                                    {plan.old_price > 0 && (
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="text-sm text-muted-foreground/50 line-through">
-                                                                {plan.old_price.toLocaleString()}
-                                                            </span>
-                                                            <span className="text-[9px] font-black text-green-600 bg-green-500/10 px-1.5 py-0.5 rounded-md">
-                                                                -{Math.round((1 - plan.price / plan.old_price) * 100)}%
-                                                            </span>
+                                                    {plan.is_active ? (
+                                                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/10">
+                                                            <div className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+                                                        </div>
+                                                    ) : (
+                                                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-muted">
+                                                            <div className="h-2 w-2 rounded-full bg-muted-foreground/30" />
                                                         </div>
                                                     )}
                                                 </div>
 
-                                                <div className="pt-4 border-t border-border/50">
-                                                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2 min-h-[2rem]">
-                                                        {plan.items}
-                                                    </p>
+                                                <div className="flex items-baseline gap-1.5">
+                                                    <span className="text-3xl font-black tracking-tight text-foreground">{formatPrice(plan.price)}</span>
+                                                    <span className="text-sm font-bold text-muted-foreground">сум</span>
+                                                    {plan.old_price > 0 && (
+                                                        <span className="ml-2 text-sm font-medium text-muted-foreground/60 line-through decoration-2 decoration-muted-foreground/30">
+                                                            {formatPrice(plan.old_price)}
+                                                        </span>
+                                                    )}
                                                 </div>
 
-                                                <div className="flex gap-2 pt-2">
+                                                <div className="rounded-xl bg-background/50 p-3 h-20 overflow-hidden relative">
+                                                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                                                        {plan.items}
+                                                    </p>
+                                                    <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-background/50 to-transparent" />
+                                                </div>
+
+                                                <div className="grid grid-cols-2 gap-2 pt-2">
                                                     <Button
                                                         variant="outline"
-                                                        size="sm"
-                                                        className="flex-1 h-9 rounded-xl border transition-all gap-2 font-bold text-xs"
-                                                        onClick={() => startEdit(plan)}
+                                                        onClick={() => toggleActive(plan)}
+                                                        className={cn(
+                                                            "w-full h-9 rounded-xl border-dashed hover:border-solid transition-all",
+                                                            plan.is_active
+                                                                ? "border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"
+                                                                : "border-slate-200 text-slate-500 hover:bg-slate-50"
+                                                        )}
                                                     >
-                                                        <Edit2 className="size-3.5" />
-                                                        Изменить
+                                                        {plan.is_active ? (
+                                                            <>
+                                                                <ToggleRight className="size-4 mr-2" />
+                                                                Активен
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <ToggleLeft className="size-4 mr-2" />
+                                                                Скрыт
+                                                            </>
+                                                        )}
                                                     </Button>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        className="size-9 rounded-xl text-destructive/60 hover:text-destructive hover:bg-destructive/10 transition-all shrink-0"
-                                                        onClick={() => plan.id && handleDelete(plan.id)}
-                                                    >
-                                                        <Trash2 className="size-4" />
-                                                    </Button>
+                                                    <div className="flex gap-2">
+                                                        <Button
+                                                            variant="outline"
+                                                            size="icon"
+                                                            onClick={() => startEdit(plan)}
+                                                            className="h-9 w-full rounded-xl hover:border-primary/30 hover:bg-primary/5 hover:text-primary transition-colors"
+                                                        >
+                                                            <Edit2 className="size-4" />
+                                                        </Button>
+                                                        <Button
+                                                            variant="outline"
+                                                            size="icon"
+                                                            onClick={() => { setPlanToDelete(plan.id!); setShowDeleteDialog(true); }}
+                                                            className="h-9 w-full rounded-xl hover:border-destructive/30 hover:bg-destructive/5 hover:text-destructive transition-colors text-muted-foreground/50"
+                                                        >
+                                                            <Trash2 className="size-4" />
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -316,185 +327,146 @@ export default function PlansPage() {
                             )}
                         </div>
                     </div>
+
+                    {/* Create/Edit Dialog */}
+                    <Dialog open={showDialog} onOpenChange={setShowDialog}>
+                        <DialogContent className="sm:max-w-[425px] gap-6">
+                            <DialogHeader>
+                                <DialogTitle>{isEditing ? "Редактировать план" : "Новый тарифный план"}</DialogTitle>
+                                <DialogDescription>
+                                    Заполните информацию о тарифе. Нажмите сохранить, когда закончите.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="title" className="text-right">
+                                        Название
+                                    </Label>
+                                    <Input
+                                        id="title"
+                                        placeholder="Например: Старт"
+                                        className="col-span-3"
+                                        value={formData.title}
+                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="duration" className="text-right">
+                                        Длительность
+                                    </Label>
+                                    <Input
+                                        id="duration"
+                                        placeholder="1 месяц"
+                                        className="col-span-3"
+                                        value={formData.duration}
+                                        onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="price" className="text-right">
+                                        Цена
+                                    </Label>
+                                    <Input
+                                        id="price"
+                                        placeholder="0"
+                                        className="col-span-3"
+                                        value={formatPrice(formData.price)}
+                                        onChange={(e) => setFormData({ ...formData, price: parsePrice(e.target.value) })}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="old_price" className="text-right">
+                                        Старая цена
+                                    </Label>
+                                    <Input
+                                        id="old_price"
+                                        placeholder="0"
+                                        className="col-span-3"
+                                        value={formatPrice(formData.old_price)}
+                                        onChange={(e) => setFormData({ ...formData, old_price: parsePrice(e.target.value) })}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="items" className="text-right">
+                                        Состав
+                                    </Label>
+                                    <Textarea
+                                        id="items"
+                                        placeholder="Опишите, что входит в план..."
+                                        className="col-span-3"
+                                        value={formData.items}
+                                        onChange={(e) => setFormData({ ...formData, items: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="flex items-center justify-between col-span-4 px-4 py-3 bg-muted/30 rounded-lg">
+                                    <div className="space-y-0.5">
+                                        <Label className="text-base">Рекомендуемый</Label>
+                                        <p className="text-xs text-muted-foreground">Пометить как "Выбор редакции"</p>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <Button
+                                            type="button"
+                                            variant={formData.is_recommended ? "default" : "outline"}
+                                            size="sm"
+                                            onClick={() => setFormData({ ...formData, is_recommended: !formData.is_recommended })}
+                                            className="w-20"
+                                        >
+                                            {formData.is_recommended ? "Да" : "Нет"}
+                                        </Button>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center justify-between col-span-4 px-4 py-3 bg-muted/30 rounded-lg">
+                                    <div className="space-y-0.5">
+                                        <Label className="text-base">Активный</Label>
+                                        <p className="text-xs text-muted-foreground">Показывать пользователям</p>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <Button
+                                            type="button"
+                                            variant={formData.is_active ? "default" : "outline"}
+                                            size="sm"
+                                            onClick={() => setFormData({ ...formData, is_active: !formData.is_active })}
+                                            className="w-20"
+                                        >
+                                            {formData.is_active ? "Да" : "Нет"}
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex justify-end gap-3">
+                                <Button variant="outline" onClick={() => setShowDialog(false)}>
+                                    Отмена
+                                </Button>
+                                <Button onClick={handleSubmit} disabled={!formData.title}>
+                                    {isEditing ? "Сохранить" : "Создать"}
+                                </Button>
+                            </div>
+                        </DialogContent>
+                    </Dialog>
+
+                    {/* Delete Confirmation Dialog */}
+                    <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle>Удалить план?</DialogTitle>
+                                <DialogDescription>
+                                    Вы уверены, что хотите удалить этот план? Это действие нельзя отменить.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="flex justify-end gap-3 mt-4">
+                                <Button variant="outline" onClick={() => setShowDeleteDialog(false)}>
+                                    Отмена
+                                </Button>
+                                <Button variant="destructive" onClick={handleDelete}>
+                                    Удалить
+                                </Button>
+                            </div>
+                        </DialogContent>
+                    </Dialog>
                 </div>
             </div>
-
-            {/* Modal Dialog */}
-            <Dialog open={showDialog} onOpenChange={setShowDialog}>
-                <DialogContent className="sm:max-w-[600px] rounded-[2.5rem] border-none shadow-2xl p-0 overflow-hidden bg-background/80 backdrop-blur-2xl">
-                    <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary/50 via-primary to-primary/50" />
-                    <DialogHeader className="p-8 pb-0">
-                        <div className="flex items-center gap-3 mb-2">
-                            <div className="p-2 rounded-xl bg-primary/10">
-                                <Sparkles className="size-5 text-primary" />
-                            </div>
-                            <DialogTitle className="text-2xl font-bold">
-                                {isEditing ? "Редактировать план" : "Новый план"}
-                            </DialogTitle>
-                        </div>
-                        <DialogDescription className="text-muted-foreground">
-                            {isEditing
-                                ? "Обновите информацию о тарифном плане"
-                                : "Создайте новый тарифный план для ваших клиентов"}
-                        </DialogDescription>
-                    </DialogHeader>
-
-                    <div className="space-y-6 p-8">
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                                    Название *
-                                </Label>
-                                <Input
-                                    value={formData.title}
-                                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                    placeholder="Например: 1 месяц"
-                                    className="h-12 rounded-2xl bg-muted/30 border-none focus-visible:ring-primary/20"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                                    Длительность *
-                                </Label>
-                                <Input
-                                    value={formData.duration}
-                                    onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                                    placeholder="30 дней"
-                                    className="h-12 rounded-2xl bg-muted/30 border-none focus-visible:ring-primary/20"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                                    Цена *
-                                </Label>
-                                <Input
-                                    value={formatPrice(formData.price)}
-                                    onChange={(e) => setFormData({ ...formData, price: parsePrice(e.target.value) })}
-                                    placeholder="150 000"
-                                    className="h-12 rounded-2xl bg-muted/30 border-none focus-visible:ring-primary/20"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                                    Старая цена
-                                </Label>
-                                <Input
-                                    value={formatPrice(formData.old_price)}
-                                    onChange={(e) => setFormData({ ...formData, old_price: parsePrice(e.target.value) })}
-                                    placeholder="200 000"
-                                    className="h-12 rounded-2xl bg-muted/30 border-none focus-visible:ring-primary/20"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                                Что входит в план
-                            </Label>
-                            <Textarea
-                                value={formData.items}
-                                onChange={(e) => setFormData({ ...formData, items: e.target.value })}
-                                rows={3}
-                                placeholder="Например: 3 баночки витаминов, бесплатная доставка, персональная консультация"
-                                className="resize-none rounded-2xl bg-muted/30 border-none focus-visible:ring-primary/20 p-4"
-                            />
-                        </div>
-
-                        <div className="flex items-center gap-6 p-6 bg-primary/5 rounded-[2rem] border border-primary/10">
-                            <label className="flex items-center gap-3 cursor-pointer group">
-                                <div className="relative">
-                                    <input
-                                        type="checkbox"
-                                        checked={formData.is_recommended}
-                                        onChange={(e) => setFormData({ ...formData, is_recommended: e.target.checked })}
-                                        className="peer sr-only"
-                                    />
-                                    <div className="w-6 h-6 border-2 border-primary/20 rounded-lg peer-checked:border-primary peer-checked:bg-primary transition-all duration-300"></div>
-                                    <div className="absolute inset-0 flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-opacity">
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <span className="text-sm font-bold text-foreground/70 group-hover:text-primary transition-colors">
-                                    Рекомендуем
-                                </span>
-                            </label>
-
-                            <label className="flex items-center gap-3 cursor-pointer group">
-                                <div className="relative">
-                                    <input
-                                        type="checkbox"
-                                        checked={formData.is_active}
-                                        onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
-                                        className="peer sr-only"
-                                    />
-                                    <div className="w-6 h-6 border-2 border-green-500/20 rounded-lg peer-checked:border-green-500 peer-checked:bg-green-500 transition-all duration-300"></div>
-                                    <div className="absolute inset-0 flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-opacity">
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <span className="text-sm font-bold text-foreground/70 group-hover:text-green-600 transition-colors">
-                                    Активен
-                                </span>
-                            </label>
-                        </div>
-
-                        <div className="flex gap-4 pt-4">
-                            <Button
-                                onClick={handleSubmit}
-                                className="flex-1 h-11 rounded-xl bg-primary hover:bg-primary/90 font-medium shadow-none transition-all active:scale-[0.98]"
-                            >
-                                {isEditing ? "Сохранить" : "Создать план"}
-                            </Button>
-                            <Button
-                                onClick={resetForm}
-                                variant="ghost"
-                                className="h-11 px-8 rounded-xl font-medium text-muted-foreground hover:bg-muted/50"
-                            >
-                                Отмена
-                            </Button>
-                        </div>
-                    </div>
-                </DialogContent>
-            </Dialog>
-
-            {/* Custom Delete Confirmation Dialog */}
-            <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-                <DialogContent className="sm:max-w-[400px] rounded-[2rem] border-none shadow-2xl p-0 overflow-hidden bg-background/80 backdrop-blur-2xl">
-                    <div className="absolute top-0 inset-x-0 h-1 bg-destructive/50" />
-                    <div className="p-8 text-center">
-                        <div className="mx-auto w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center mb-6">
-                            <AlertTriangle className="size-8 text-destructive" />
-                        </div>
-                        <h3 className="text-xl font-black mb-2">Удалить план?</h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                            Это действие нельзя будет отменить. Вы уверены, что хотите навсегда удалить этот тарифный план?
-                        </p>
-                    </div>
-                    <div className="flex gap-3 p-6 pt-0">
-                        <Button
-                            onClick={confirmDelete}
-                            variant="destructive"
-                            className="flex-1 h-12 rounded-xl font-bold uppercase tracking-wider text-[11px] shadow-lg shadow-destructive/20 active:scale-95 transition-all"
-                        >
-                            Удалить навсегда
-                        </Button>
-                        <Button
-                            onClick={() => setShowDeleteDialog(false)}
-                            variant="ghost"
-                            className="flex-1 h-12 rounded-xl font-bold text-muted-foreground hover:bg-muted/50"
-                        >
-                            Отмена
-                        </Button>
-                    </div>
-                </DialogContent>
-            </Dialog>
-        </SidebarProvider >
+        </SidebarProvider>
     );
 }

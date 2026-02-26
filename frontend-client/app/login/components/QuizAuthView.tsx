@@ -60,7 +60,12 @@ export default function QuizAuthView({
             const res = await fetch("http://localhost:8000/api/auth/verify-code", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, code, context: "quiz" }),
+                body: JSON.stringify({
+                    email,
+                    code,
+                    context: "quiz",
+                    full_name: participantName
+                }),
             });
             const data = await res.json();
             if (!res.ok) {
@@ -97,7 +102,7 @@ export default function QuizAuthView({
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.loginWrapper}>
             <div style={{ width: '100%', maxWidth: '600px', marginBottom: '1.5rem', display: 'flex', justifyContent: 'flex-start' }}>
-                <button 
+                <button
                     className={styles.backButton}
                     onClick={() => {
                         if (authStep === 'otp') setAuthStep('email');

@@ -28,7 +28,7 @@ export default function MainPage() {
                         }
                         description="Настройка баннеров и разделов главной страницы"
                         actions={
-                            <div className="bg-muted/30 p-1 rounded-xl flex items-center border border-border shadow-sm">
+                            <div className="bg-muted/30 p-1 rounded-xl flex items-center border border-border">
                                 {(['RU', 'UZ', 'EN'] as Language[]).map((l) => (
                                     <motion.button
                                         key={l}

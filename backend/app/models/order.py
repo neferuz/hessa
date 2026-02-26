@@ -23,10 +23,12 @@ class Order(Base):
     
     # Products (stored as JSON)
     products: Mapped[Optional[List[dict]]] = mapped_column(JSON, nullable=True)
+    referral_code: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
     
     # Pricing
     total_amount: Mapped[float] = mapped_column(Float, default=0.0)
     duration: Mapped[int] = mapped_column(Integer, default=1)  # months
+    ai_analysis: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     
     # Timestamps
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())

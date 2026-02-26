@@ -26,10 +26,13 @@ interface Product {
 const getApiImageUrl = (url: string) => {
     if (!url || url === "/product_bottle.png") return "/product_bottle.png";
     if (url.startsWith('http')) return url;
-    if (url.startsWith('/static/') || url.startsWith('static/')) {
-        return `${API_BASE_URL}${url.startsWith('/') ? url : '/' + url}`;
+    // Handle local paths missing the prefix
+    const cleanUrl = url.startsWith('/') ? url.slice(1) : url;
+    if (cleanUrl.startsWith('static/') || cleanUrl.startsWith('uploads/')) {
+        return `${API_BASE_URL}/${cleanUrl.startsWith('static/') ? cleanUrl : 'static/' + cleanUrl}`;
     }
-    return url;
+    // Default to static mount
+    return `${API_BASE_URL}/static/${cleanUrl}`;
 };
 
 export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -39,11 +42,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [quantity, setQuantity] = useState(1);
     const [activeTab, setActiveTab] = useState<"description" | "composition" | "usage">("description");
-    const [showCartSummary, setShowCartSummary] = useState(false);
-
-    const cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -63,19 +62,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
 
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat('ru-RU').format(price);
-    };
-
-    const handleAddToCart = () => {
-        if (product) {
-            addItem({
-                id: product.id,
-                name: product.name,
-                price: product.sale_price,
-                image: product.images?.[0],
-                quantity: quantity
-            });
-            setShowCartSummary(true);
-        }
     };
 
     if (loading) {
@@ -98,29 +84,19 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
     const compositionData = Array.isArray(product.composition) ? product.composition : [];
 
     return (
-        <main className="min-h-screen bg-white pb-32 max-w-md mx-auto relative overflow-x-hidden font-sans text-[#1C1C1E]">
-            {/* Header Overlaid on Image */}
-            <header className="absolute top-0 left-0 right-0 z-50 p-6 flex items-center justify-between pointer-events-none">
+        <main className="min-h-screen bg-white pb-20 max-w-md mx-auto relative overflow-x-hidden font-sans text-[#1C1C1E]">
+            {/* Header */}
+            <header className="absolute top-0 left-0 right-0 z-50 p-6 flex items-center justify-between">
                 <button
                     onClick={() => router.push('/')}
-                    className="w-10 h-10 rounded-full bg-white/80 backdrop-blur-md shadow-sm border border-white/20 flex items-center justify-center text-[#1C1C1E] pointer-events-auto active:scale-95 transition-all"
+                    className="w-10 h-10 rounded-full bg-white/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-[#1C1C1E] active:scale-95 transition-all"
                 >
                     <ChevronLeft size={20} />
                 </button>
-                <div className="flex gap-2 pointer-events-auto">
-                    <button className="w-10 h-10 rounded-full bg-white/80 backdrop-blur-md shadow-sm border border-white/20 flex items-center justify-center text-[#1C1C1E] active:scale-95 transition-all">
-                        <Heart size={20} className="text-[#1C1C1E]" />
-                    </button>
-                    <button className="w-10 h-10 rounded-full bg-white/80 backdrop-blur-md shadow-sm border border-white/20 flex items-center justify-center text-[#1C1C1E] active:scale-95 transition-all">
-                        <Share2 size={20} className="text-[#1C1C1E]" />
-                    </button>
-                </div>
             </header>
 
-            {/* Full Top Image Section */}
-            {/* Full Top Image Section */}
-            {/* Full Top Image Section */}
-            <section className="relative w-full h-[55vh] bg-[#F0F1F5] flex items-center justify-center overflow-hidden">
+            {/* Image Section */}
+            <section className="relative w-full h-[50vh] bg-[#F8F9FB] flex items-center justify-center overflow-hidden">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={currentImageIndex}
@@ -128,49 +104,32 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="relative w-full h-full"
-                        drag="x"
-                        dragConstraints={{ left: 0, right: 0 }}
-                        dragElastic={0.2}
-                        onDragEnd={(e, { offset, velocity }) => {
-                            const swipe = offset.x; // offset distance
-                            const images = product.images || ["/product_bottle.png"];
-                            if (images.length <= 1) return;
-
-                            if (swipe < -50) {
-                                // Swipe left -> Next
-                                setCurrentImageIndex((prev) => (prev + 1) % images.length);
-                            } else if (swipe > 50) {
-                                // Swipe right -> Prev
-                                setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-                            }
-                        }}
+                        className="relative w-full h-full p-12"
                     >
                         <Image
                             src={product.images && product.images.length > 0 ? getApiImageUrl(product.images[currentImageIndex]) : "/product_bottle.png"}
                             alt={product.name}
                             fill
                             unoptimized
-                            className="object-cover"
+                            className="object-contain"
                             priority
                         />
                     </motion.div>
                 </AnimatePresence>
 
-                {/* Image Counter Badge */}
                 {product.images && product.images.length > 1 && (
-                    <div className="absolute top-24 right-5 z-20 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
-                        <span className="text-[12px] font-medium text-white tracking-wider">
-                            {currentImageIndex + 1} / {product.images.length}
-                        </span>
+                    <div className="absolute bottom-10 z-20 flex gap-2">
+                        {product.images.map((_, i) => (
+                            <div key={i} className={clsx("w-1.5 h-1.5 rounded-full transition-all", i === currentImageIndex ? "bg-[#1C1C1E] w-4" : "bg-gray-300")} />
+                        ))}
                     </div>
                 )}
             </section>
 
             {/* Content Section */}
-            <div className="relative z-10 bg-white -mt-12 rounded-t-[40px] px-6 pt-10 pb-32 shadow-[0_-10px_40px_rgba(0,0,0,0.03)]">
+            <div className="relative z-10 bg-white -mt-10 rounded-t-[40px] px-6 pt-10">
                 <div className="flex items-center gap-2 mb-4">
-                    <span className="text-[11px] font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full tracking-wide">
+                    <span className="text-[11px] font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full tracking-wide uppercase">
                         {product.category?.name || "Premium Health"}
                     </span>
                     <div className="flex items-center gap-1 text-[12px] font-medium text-gray-400">
@@ -179,7 +138,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                     </div>
                 </div>
 
-                <h1 className="text-[24px] font-bold tracking-tight text-[#1C1C1E] leading-snug mb-3">
+                <h1 className="text-[26px] font-bold tracking-tight text-[#1C1C1E] leading-tight mb-3">
                     {product.name}
                 </h1>
 
@@ -190,25 +149,27 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                 <div className="flex items-center gap-16 mb-10">
                     <div className="flex flex-col">
                         <span className="text-[11px] font-medium text-gray-400 mb-1">Объем</span>
-                        <span className="text-[16px] font-semibold text-[#1C1C1E]">
+                        <span className="text-[16px] font-bold text-[#1C1C1E]">
                             {product.size_volume || "60 шт"}
                         </span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-[11px] font-medium text-gray-400 mb-1">Срок годности</span>
-                        <span className="text-[16px] font-semibold text-[#1C1C1E]">24 мес.</span>
+                        <span className="text-[11px] font-medium text-gray-400 mb-1">Цена</span>
+                        <span className="text-[16px] font-bold text-[#1C1C1E]">
+                            {formatPrice(product.sale_price)} сум
+                        </span>
                     </div>
                 </div>
 
-                {/* Deluxe Tabs */}
-                <div className="space-y-6">
-                    <div className="flex gap-8 border-b border-gray-100/80">
+                {/* Tabs */}
+                <div className="space-y-6 mb-12">
+                    <div className="flex gap-8 border-b border-gray-100">
                         {(["description", "composition", "usage"] as const).map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={clsx(
-                                    "text-[15px] font-medium tracking-tight transition-all pb-3 relative",
+                                    "text-[15px] font-bold tracking-tight transition-all pb-3 relative",
                                     activeTab === tab ? "text-[#1C1C1E]" : "text-gray-400 hover:text-gray-600"
                                 )}
                             >
@@ -220,7 +181,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                         ))}
                     </div>
 
-                    <div className="text-[15px] text-gray-600 leading-relaxed min-h-[120px]">
+                    <div className="text-[15px] text-gray-600 leading-relaxed min-h-[100px]">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeTab}
@@ -230,7 +191,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                                 transition={{ duration: 0.2 }}
                             >
                                 {activeTab === "description" && (
-                                    <p>{product.description_full || product.details || "Полная информация о продукте временно отсутствует. Обратитесь к специалисту за дополнительными данными."}</p>
+                                    <p>{product.description_full || product.details || "Полная информация о продукте временно отсутствует."}</p>
                                 )}
                                 {activeTab === "composition" && (
                                     <div className="space-y-3">
@@ -239,104 +200,107 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                                             { component: "Цинк", dosage: "10 мг" }
                                         ]).map((item: any, idx: number) => (
                                             <div key={idx} className="flex justify-between py-3 border-b border-gray-50 last:border-0">
-                                                <span className="text-gray-900">{item.component}</span>
+                                                <span className="text-gray-900 font-medium">{item.component}</span>
                                                 <span className="text-gray-500">{item.dosage}</span>
                                             </div>
                                         ))}
                                     </div>
                                 )}
                                 {activeTab === "usage" && (
-                                    <div className="p-5 bg-gray-50 rounded-2xl text-gray-700">
-                                        {product.usage || "Принимать по 1 капсуле в день во время еды, запивая водой. Не является лекарственным средством."}
+                                    <div className="p-5 bg-[#F8F9FB] rounded-2xl text-gray-700 border border-gray-100">
+                                        {product.usage || "Принимать по 1 капсуле в день во время еды."}
                                     </div>
                                 )}
                             </motion.div>
                         </AnimatePresence>
                     </div>
                 </div>
+
+                {/* Recommendations Section */}
+                <div className="pb-10">
+                    <div className="flex items-center justify-between mb-5">
+                        <h3 className="text-[18px] font-bold text-[#1C1C1E] tracking-tight">Рекомендуем</h3>
+                    </div>
+                    <div className="overflow-x-auto scrollbar-hide -mx-6 px-6">
+                        <RecommendationsList currentProductId={id} />
+                    </div>
+                </div>
             </div>
 
-            {/* Compact Action Bar */}
+            {/* Quiz Action Bar */}
             <div className="fixed bottom-0 left-0 right-0 p-5 z-50 flex justify-center pointer-events-none">
-                <AnimatePresence mode="wait">
-                    {!showCartSummary ? (
-                        <motion.div
-                            key="add-bar"
-                            initial={{ y: 50, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: 50, opacity: 0 }}
-                            className="pointer-events-auto w-full max-w-[380px] bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 rounded-[24px] p-2 flex items-center justify-between"
-                        >
-                            <div className="flex items-center gap-2 px-2">
-                                <button
-                                    onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                                    className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-[#1C1C1E] active:scale-90 transition-transform hover:bg-gray-100"
-                                >
-                                    <Minus size={18} />
-                                </button>
-                                <span className="text-[16px] font-bold w-6 text-center text-[#1C1C1E]">{quantity}</span>
-                                <button
-                                    onClick={() => setQuantity(q => q + 1)}
-                                    className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-[#1C1C1E] active:scale-90 transition-transform hover:bg-gray-100"
-                                >
-                                    <Plus size={18} />
-                                </button>
-                            </div>
-
-                            <button
-                                onClick={handleAddToCart}
-                                className="h-12 bg-[#1C1C1E] text-white rounded-[20px] px-6 flex items-center gap-3 active:scale-95 transition-all shadow-md shadow-gray-200"
-                            >
-                                <span className="text-[15px] font-medium whitespace-nowrap">{formatPrice(product.sale_price * quantity)} сум</span>
-                                <ShoppingBag size={18} />
-                            </button>
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key="cart-summary"
-                            initial={{ y: 50, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: 50, opacity: 0 }}
-                            onClick={() => router.push('/cart')}
-                            className="pointer-events-auto w-full max-w-[380px] bg-white/90 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.12)] border border-gray-200/50 rounded-[28px] p-2 pr-4 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-all"
-                        >
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-[20px] bg-[#1C1C1E] flex items-center justify-center text-white relative">
-                                    <CreditCard size={20} />
-                                    <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-white rounded-full" />
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Итого</span>
-                                    <span className="text-[17px] font-bold text-[#1C1C1E]">{formatPrice(cartTotal)} сум</span>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center pl-2">
-                                {cartItems.slice(-3).reverse().map((item, idx) => (
-                                    <div
-                                        key={item.id}
-                                        className="w-10 h-10 rounded-full bg-gray-50 border-2 border-white overflow-hidden relative -ml-4 first:ml-0 shadow-sm"
-                                        style={{ zIndex: 3 - idx }}
-                                    >
-                                        <Image
-                                            src={getApiImageUrl(item.image || "")}
-                                            alt={item.name}
-                                            fill
-                                            className="object-cover"
-                                            unoptimized
-                                        />
-                                    </div>
-                                ))}
-                                {cartItems.length > 3 && (
-                                    <div className="w-10 h-10 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-[10px] font-bold text-gray-500 relative -ml-4 shadow-sm" style={{ zIndex: 0 }}>
-                                        +{cartItems.length - 3}
-                                    </div>
-                                )}
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                <motion.div
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    className="pointer-events-auto w-full max-w-[380px]"
+                >
+                    <button
+                        onClick={() => router.push('/quiz')}
+                        className="w-full h-14 bg-[#1C1C1E] text-white rounded-[24px] px-6 flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl shadow-gray-200"
+                    >
+                        <Activity size={20} className="text-[#FFD700]" />
+                        <span className="text-[16px] font-bold">Подобрать витамины</span>
+                    </button>
+                </motion.div>
             </div>
         </main>
+    );
+}
+
+function RecommendationsList({ currentProductId }: { currentProductId: string }) {
+    const [products, setProducts] = useState<Product[]>([]);
+    const router = useRouter();
+
+    useEffect(() => {
+        fetch(`${API_BASE_URL}/api/products`)
+            .then(res => res.json())
+            .then((data: Product[]) => {
+                const others = data.filter(p => p.id.toString() !== currentProductId).slice(0, 5);
+                setProducts(others);
+            })
+            .catch(err => console.error(err));
+    }, [currentProductId]);
+
+    if (!products.length) return null;
+
+    return (
+        <div className="flex gap-3 pb-4">
+            {products.map(product => (
+                <div
+                    key={product.id}
+                    className="min-w-[160px] max-w-[160px] bg-white rounded-[28px] overflow-hidden flex flex-col relative shadow-sm border border-gray-100/50 cursor-pointer active:scale-95 transition-all group"
+                    onClick={() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        router.push(`/product/${product.id}`);
+                    }}
+                >
+                    <div className="w-full aspect-square bg-[#F8F9FB] relative flex items-center justify-center">
+                        <div className="absolute top-2 left-2 z-10">
+                            <div className="bg-white px-2 py-0.5 rounded-full shadow-sm border border-gray-50 flex items-center justify-center">
+                                <span className="text-[8px] font-black text-gray-900 uppercase tracking-tight">Coming Soon</span>
+                            </div>
+                        </div>
+                        <Image
+                            src={product.images?.[0] ? getApiImageUrl(product.images[0]) : "/product_bottle.png"}
+                            alt={product.name}
+                            fill
+                            unoptimized
+                            className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"
+                        />
+                    </div>
+                    <div className="p-3 flex flex-col pt-2.5">
+                        <div className="mb-1.5">
+                            <h4 className="text-[12px] font-bold text-[#1C1C1E] leading-tight line-clamp-1">
+                                {product.name}
+                            </h4>
+                            <p className="text-[9px] text-gray-400 font-extrabold uppercase tracking-widest mt-0.5">Medicine</p>
+                        </div>
+                        <span className="text-[14px] font-black text-[#1C1C1E]">
+                            {new Intl.NumberFormat('ru-RU').format(product.sale_price)} <span className="text-[10px] text-gray-400 font-bold uppercase">сум</span>
+                        </span>
+                    </div>
+                </div>
+            ))}
+        </div>
     );
 }

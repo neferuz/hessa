@@ -9,16 +9,16 @@ from app.models.product import Product
 from app.services.ai_service import ai_service
 from pydantic import BaseModel
 
-router = APIRouter()
+router = APIRouter(prefix="/chat")
 
 class ChatRequest(BaseModel):
     messages: List[Dict[str, str]]
 
 class ChatResponse(BaseModel):
-    response: str
+    content: str
 
-@router.post("/chat/message", response_model=ChatResponse)
-async def chat_message(
+@router.post("/messages", response_model=ChatResponse)
+async def chat_messages(
     request: ChatRequest = Body(...),
     db: AsyncSession = Depends(get_db)
 ):
@@ -39,4 +39,4 @@ async def chat_message(
         
     ai_response = await ai_service.chat(request.messages, products_list)
     
-    return ChatResponse(response=ai_response)
+    return ChatResponse(content=ai_response)
